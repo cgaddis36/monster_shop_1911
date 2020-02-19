@@ -11,7 +11,6 @@ RSpec.describe "As a visitor", type: :feature do
                                 password: "hamburger01",
                                 role: 0
                               )
-
     @merchant_user = User.create!(name: "Alejandro",
                                 street_address: "321 Jones Dr",
                                 city: "Jonesville",
@@ -21,7 +20,6 @@ RSpec.describe "As a visitor", type: :feature do
                                 password: "hamburger3",
                                 role: 1
                               )
-
     @admin_user = User.create!(name: "Kyle",
                                 street_address: "1243 Kyle Way",
                                 city: "Kylesville",
@@ -32,28 +30,41 @@ RSpec.describe "As a visitor", type: :feature do
                                 role: 2
                               )
   end
-
   describe "when I visit the login page" do
     it "I am able to submit valid credentials and login as a default user" do
 
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@default_user)
+      visit '/login'
 
-      expect(current_path).to eq('/profile')
+      fill_in 'email', with: 'roman@example.com'
+      fill_in 'password', with: 'hamburger01'
 
+      click_on 'Log In'
+
+      have_current_path '/profile'
       expect(page).to have_content("You are now logged in!")
     end
     it "I am able to submit valid credentials and login as a merchant user" do
 
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_user)
+      visit '/login'
 
-      expect(current_path).to eq('/merchant/dashboard')
+      fill_in 'email', with: 'alejandro@example.com'
+      fill_in 'password', with: 'hamburger3'
+
+      click_on 'Log In'
+
+      have_current_path '/merchant/dashboard'
       expect(page).to have_content("You are now logged in!")
     end
     it "I am able to submit valid credentials and login as an admin user" do
 
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin_user)
+      visit '/login'
 
-      expect(current_path).to eq('/admin/dashboard')
+      fill_in 'email', with: 'kyle@example.com'
+      fill_in 'password', with: 'hamburger04'
+
+      click_on 'Log In'
+
+      have_current_path '/admin/dashboard'
       expect(page).to have_content("You are now logged in!")
     end
     it "I am not able to login with bad credentials" do
@@ -62,9 +73,7 @@ RSpec.describe "As a visitor", type: :feature do
       fill_in 'email', with: 'roman37@example.com'
       fill_in 'password', with: 'hamburger01'
 
-      click_on("Login")
-
-      expect(current_path).to eq('/login')
+      have_current_path '/login'
       expect(page).to have_content("Incorrect email/password")
     end
   end
