@@ -2,6 +2,18 @@ require 'rails_helper'
 
 RSpec.describe "User registration" do
 
+  before(:each) do
+    @default_user = User.create!(name: "Johnny",
+                                street_address: "123 Jonny Way",
+                                city: "Johnsonville",
+                                state: 'TN',
+                                zip_code: 12345,
+                                email: "roman@example.com",
+                                password: "hamburger01",
+                                role: 0
+                              )
+  end
+
   it "can create a new user" do
     
     visit "/items" # to access a page with the nav bar
@@ -71,6 +83,42 @@ RSpec.describe "User registration" do
     expect(page).to have_content("Street address can't be blank and City can't be blank")
     # need to add a test for which the address entered is already in the user table.
   end
+
+  it "returns a flash message if the email entered at registration already exists in the database" do
+    
+    visit "/items" # to access a page with the nav bar
+
+    click_on "Register"
+
+    expect(current_path).to eq("/register")
+
+    name = "George Costanza"
+    street_address = "46 Market Street"
+    city = "Denver"
+    state = "CO"
+    zip_code = "80203"
+    email = "roman@example.com"
+    password = "test14"
+
+    fill_in :name, with: username
+    fill_in :street_address, with: street_address
+    fill_in :city, with: city
+    fill_in :state, with: state
+    fill_in :zip_code, with: zip_code
+    fill_in :email, with: email
+    fill_in :password, with: password
+    fill_in :password_confirmation, with: password
+
+    click_on "Create User"
+
+    expect(current_path).to eq("/register")
+
+    expect(page).to have_content("The email address is already in use")
+    # need to add a test for which the address entered is already in the user table.
+  end
+
+
+
 end
 
 # User Story 10, User Registration
