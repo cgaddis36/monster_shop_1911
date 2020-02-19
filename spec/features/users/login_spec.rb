@@ -40,7 +40,7 @@ RSpec.describe "As a visitor", type: :feature do
 
       click_on 'Log In'
 
-      have_current_path '/profile'
+      expect(current_path).to eq('/profile')
       expect(page).to have_content("You are now logged in!")
     end
     it "I am able to submit valid credentials and login as a merchant user" do
@@ -52,7 +52,7 @@ RSpec.describe "As a visitor", type: :feature do
 
       click_on 'Log In'
 
-      have_current_path '/merchant/dashboard'
+      expect(current_path).to eq('/merchant/dashboard')
       expect(page).to have_content("You are now logged in!")
     end
     it "I am able to submit valid credentials and login as an admin user" do
@@ -64,7 +64,7 @@ RSpec.describe "As a visitor", type: :feature do
 
       click_on 'Log In'
 
-      have_current_path '/admin/dashboard'
+      expect(current_path).to eq('/admin/dashboard')
       expect(page).to have_content("You are now logged in!")
     end
     it "I am not able to login with bad credentials" do
@@ -73,7 +73,7 @@ RSpec.describe "As a visitor", type: :feature do
       fill_in 'email', with: 'roman37@example.com'
       fill_in 'password', with: 'hamburger01'
 
-      have_current_path '/login'
+      expect(current_path).to eq('/login')
       expect(page).to have_content("Incorrect email/password")
     end
   end
