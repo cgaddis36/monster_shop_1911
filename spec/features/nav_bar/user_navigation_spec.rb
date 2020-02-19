@@ -8,9 +8,8 @@ RSpec.describe 'Site Navigation' do
 
       within 'nav' do
         click_link 'All Items'
-        expect(page).to not_have("/admin/dashboard")
-        expect(page).to not_have("/merchant/dashboard")
-        expect(page).to not_have("All Users")
+        expect(page).to_not have_content("Dashboard")
+        expect(page).to_not have_content("All Users")
       end
 
       expect(current_path).to eq('/items')
@@ -50,8 +49,8 @@ RSpec.describe 'Site Navigation' do
 
     it "I don't have links to login and register" do
       within 'nav' do
-        expect(page).to not_have("/register")
-        expect(page).to not_have("/login")
+        expect(page).to_not have_content("Register")
+        expect(page).to_not have_content("Login")
       end
     end
 

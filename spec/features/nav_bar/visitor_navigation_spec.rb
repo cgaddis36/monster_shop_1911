@@ -7,10 +7,8 @@ RSpec.describe 'Site Navigation' do
       visit '/merchants'
 
       within 'nav' do
-        click_link 'All Items'
-        expect(page).to not_have("/admin/dashboard")
-        expect(page).to not_have("/merchant/dashboard")
-        expect(page).to not_have("All Users")
+        expect(page).to_not have_content("Dashboard")
+        expect(page).to_not have_content("All Users")
       end
 
       expect(current_path).to eq('/items')
@@ -65,15 +63,3 @@ RSpec.describe 'Site Navigation' do
     end
   end
 end
-
-# As a visitor
-# I see a navigation bar
-# This navigation bar includes links for the following:
-# - a link to return to the welcome / home page of the application ("/")
-# - a link to browse all items for sale ("/items")
-# - a link to see all merchants ("/merchants")
-# - a link to my shopping cart ("/cart")
-# - a link to log in ("/login")
-# - a link to the user registration page ("/register")
-#
-# Next to the shopping cart link I see a count of the items in my cart
