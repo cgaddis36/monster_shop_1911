@@ -99,8 +99,8 @@ RSpec.describe 'Site Navigation' do
       visit "/"
 
       within 'nav' do
-        expect(page).to have_content("Logout")
-        click_link "Logout"
+        expect(page).to have_content("Log Out")
+        click_link "Log Out"
       end
 
       expect(current_path).to eq("/")
