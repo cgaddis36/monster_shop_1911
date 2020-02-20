@@ -95,6 +95,10 @@ section[id*='review'] {
    color: black;
  }
 
+ .top-nav-right{
+float: right;
+ }
+
  .address{
    text-align: center;
  }

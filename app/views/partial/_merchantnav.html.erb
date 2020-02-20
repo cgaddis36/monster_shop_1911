@@ -2,8 +2,11 @@
 <%= link_to "Merchant Dashboard", "/merchant/dashboard" %>
 <%= link_to "All Merchants", "/merchants"%>
 <%= link_to "All Items", "/items"%>
+
+<section class ="top-nav-right">
 <%= link_to "Cart: #{cart.total_items}", "/cart" %>
 <%= link_to "Profile", "/profile" %>
-<%= link_to "Logout", '/logout', method: :delete %>
+<%= link_to "Log Out", '/logout', method: :delete %>
+</section>
 
 <p>Logged in as <%= "#{current_user.name}" %></p>
