@@ -73,6 +73,8 @@ RSpec.describe "As a visitor", type: :feature do
       fill_in 'email', with: 'roman37@example.com'
       fill_in 'password', with: 'hamburger01'
 
+      click_on 'Log In'
+
       expect(current_path).to eq('/login')
       expect(page).to have_content("Incorrect email/password")
     end
