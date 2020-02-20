@@ -5,7 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-
+User.destroy_all
 Merchant.destroy_all
 Item.destroy_all
 
@@ -19,3 +19,31 @@ tire = bike_shop.items.create(name: "Gatorskins", description: "They'll never po
 #dog_shop items
 pull_toy = dog_shop.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
 dog_bone = dog_shop.items.create(name: "Dog Bone", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:false, inventory: 21)
+
+merchant_user = User.create!(name: "Johnny",
+                            street_address: "123 Jonny Way",
+                            city: "Johnsonville",
+                            state: 'TN',
+                            zip_code: 12345,
+                            email: "roman4@example.com",
+                            password: "hamburger042",
+                            role: 1
+                          )
+admin_user = User.create!(name: "Johnny",
+                            street_address: "123 Jonny Way",
+                            city: "Johnsonville",
+                            state: 'TN',
+                            zip_code: 12345,
+                            email: "roman3@example.com",
+                            password: "hamburger043",
+                            role: 2
+                          )
+default_user = User.create!(name: "Johnny",
+                            street_address: "123 Jonny Way",
+                            city: "Johnsonville",
+                            state: 'TN',
+                            zip_code: 12345,
+                            email: "roman5@example.com",
+                            password: "hamburger03",
+                            role: 0
+                          )

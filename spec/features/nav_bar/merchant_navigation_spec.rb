@@ -14,18 +14,7 @@ RSpec.describe 'Site Navigation' do
                                 )
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_user)
     end
-
-    it "I can see a link to my profile pages" do
-      visit '/merchants'
-
-      within 'nav' do
-        expect(page).to have_content("Profile")
-        click_link 'Profile'
-      end
-
-      expect(current_path).to eq("/profile")
-    end
-
+ 
     it "sees the regular user links and the merchant dashboard link" do
       visit "/"
 
@@ -35,7 +24,7 @@ RSpec.describe 'Site Navigation' do
         expect(page).to have_link("Cart")
         expect(page).to have_link("Home")
         expect(page).to have_link("Profile")
-        expect(page).to have_link("Logout")
+        expect(page).to have_link("Log Out")
         expect(page).to have_link("Merchant Dashboard")
         expect(page).to_not have_link("Login")
         expect(page).to_not have_link("Register")
