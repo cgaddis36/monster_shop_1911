@@ -7,9 +7,9 @@ class UsersController < ApplicationController
   def create
     @user = User.create(user_params)
     if @user.valid?
-      session[:user] = @user.id
       flash[:welcome] = "Welcome, #{@user.name}!"
       flash[:registered] = "You have registered successfully"
+      session[:user] = @user.id
       redirect_to "/profile"
     else
       flash[:error] = "#{@user.errors.full_messages.to_sentence}"
@@ -18,7 +18,11 @@ class UsersController < ApplicationController
   end
 
   def show
-
+    if (session[:user])
+      @user = User.find(session[:user])
+    else
+      render file: '/public/404'
+    end
   end
 
   private
