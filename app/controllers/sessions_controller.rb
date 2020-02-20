@@ -1,7 +1,10 @@
 class SessionsController < ApplicationController
 
   def new
-
+    if current_user
+      login(current_user)
+      flash[:success] = "You are already logged in!"
+    end
   end
 
   def create
