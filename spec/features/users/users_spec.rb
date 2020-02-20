@@ -30,7 +30,6 @@ RSpec.describe "User registration" do
     email = "my_email@example.com"
     password = "test14"
 
-
     fill_in :name, with: username
     fill_in :street_address, with: street_address
     fill_in :city, with: city
@@ -44,7 +43,7 @@ RSpec.describe "User registration" do
 
     expect(current_path).to eq("/profile")
 
-    expect(page).to have_content("Welcome, #{name}!")
+    expect(page).to have_content("Welcome, #{username}!")
     expect(page).to have_content("You have registered successfully")
     # should we check that the current_user now exists? 
   end
@@ -57,7 +56,7 @@ RSpec.describe "User registration" do
 
     expect(current_path).to eq("/register")
 
-    name = "George Costanza"
+    username = "George Costanza"
     street_address = ""
     city = ""
     state = "CO"
@@ -89,7 +88,7 @@ RSpec.describe "User registration" do
 
     expect(current_path).to eq("/register")
 
-    name = "George Costanza"
+    username = "George Costanza"
     street_address = "46 Market Street"
     city = "Denver"
     state = "CO"
@@ -110,9 +109,8 @@ RSpec.describe "User registration" do
 
     expect(current_path).to eq("/register")
 
-    expect(page).to have_content("The email address is already in use")
-
-    expect(find_field(:name).value).to eq(name)
+    expect(page).to have_content("Email has already been taken")
+    expect(find_field(:name).value).to eq(username)
     expect(find_field(:street_address).value).to eq(street_address)
     expect(find_field(:city).value).to eq(city)
     expect(find_field(:state).value).to eq(state)
