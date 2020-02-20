@@ -73,9 +73,9 @@ RSpec.describe 'User can log out' do
         @tire = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
 
         visit "/items/#{@tire.id}"
-        click_on "Log Out"
+        click_on "Logout"
         expect(current_path).to eq("/")
         expect(page).to have_content("You have been logged out")
       end
-    end 
+    end
   end
