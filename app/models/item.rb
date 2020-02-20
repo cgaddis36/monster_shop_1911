@@ -25,4 +25,12 @@ class Item <ApplicationRecord
     item_orders.empty?
   end
 
+  def self.most_popular_items
+    Item.joins(:item_orders).group("items.id").order("sum(item_orders.quantity) desc").limit(5).pluck(:name)
+  end
+
+  def self.least_popular_items
+    Item.joins(:item_orders).group("items.id").order("sum(item_orders.quantity)").limit(5).pluck(:name)
+  end
+
 end
