@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Site Navigation' do
-  describe 'As a User' do
+  describe 'As an Admin User' do
     before(:each) do
       @admin_user = User.create!(name: "Johnny",
                                   street_address: "123 Jonny Way",
@@ -31,6 +31,7 @@ RSpec.describe 'Site Navigation' do
         expect(page).to_not have_link("Merchant Dashboard")
         expect(page).to_not have_link("Login")
         expect(page).to_not have_link("Register")
+        expect(page).to_not have_link("Cart")
       end
 
     end
