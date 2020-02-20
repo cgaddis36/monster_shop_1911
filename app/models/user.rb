@@ -6,6 +6,8 @@ class User < ApplicationRecord
 
   validates_confirmation_of :password, :message => "Passwords should match"
 
+  belongs_to :merchant, optional: true
+
   has_secure_password
 
   enum role: %w(default merchant_employee admin)
