@@ -15,8 +15,8 @@ RSpec.describe "User registration" do
   end
 
   it "can create a new user" do
-    
-    visit "/items" 
+
+    visit "/items"
 
     click_on "Register"
 
@@ -45,12 +45,11 @@ RSpec.describe "User registration" do
 
     expect(page).to have_content("Welcome, #{username}!")
     expect(page).to have_content("You have registered successfully")
-    # should we check that the current_user now exists? 
   end
 
   it "returns a flash message if some fields are missing in the registration form" do
-    
-    visit "/items" 
+
+    visit "/items"
 
     click_on "Register"
 
@@ -75,14 +74,14 @@ RSpec.describe "User registration" do
 
     click_on "Create User"
 
-    expect(current_path).to eq("/register")
+    expect(current_path).to eq("/users")
 
     expect(page).to have_content("Street address can't be blank and City can't be blank")
   end
 
   it "returns a flash message if the email entered at registration already exists in the database" do
-    
-    visit "/items" 
+
+    visit "/items"
 
     click_on "Register"
 
@@ -106,8 +105,7 @@ RSpec.describe "User registration" do
     fill_in :password_confirmation, with: password
 
     click_on "Create User"
-
-    expect(current_path).to eq("/register")
+    expect(current_path).to eq("/users")
 
     expect(page).to have_content("Email has already been taken")
     expect(find_field(:name).value).to eq(username)
