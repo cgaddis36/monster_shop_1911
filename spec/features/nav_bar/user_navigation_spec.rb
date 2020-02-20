@@ -2,6 +2,29 @@
 require 'rails_helper'
 
 RSpec.describe 'Site Navigation' do
+  describe 'As a merchant' do
+    it "I can see a link to my profile pages" do
+      merchant_user = User.create!(name: "Johnny",
+                                  street_address: "123 Jonny Way",
+                                  city: "Johnsonville",
+                                  state: 'TN',
+                                  zip_code: 12345,
+                                  email: "roman2@example.com",
+                                  password: "hamburger02",
+                                  role: 1
+                                )
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_user)
+
+      visit '/merchants'
+
+      within 'nav' do
+        expect(page).to have_content("Profile")
+        click_link 'Profile'
+      end
+
+      expect(current_path).to eq("/profile")
+    end
+  end
   describe 'As a User' do
     before(:each) do
       @default_user = User.create!(name: "Johnny",
@@ -61,19 +84,10 @@ RSpec.describe 'Site Navigation' do
       end
     end
 
-    it "I can see a link to my profile pages" do
-      visit '/merchants'
-
-      within 'nav' do
-        expect(page).to have_content("Profile")
-        click_link 'Profile'
-      end
-
-      expect(current_path).to eq("/profile")
-    end
-
     it "I don't have links to login and register" do
-      
+
+      visit "/"
+
       within 'nav' do
         expect(page).to_not have_content("Register")
         expect(page).to_not have_content("Login")
@@ -81,6 +95,8 @@ RSpec.describe 'Site Navigation' do
     end
 
     it "I have a logout link" do
+
+      visit "/"
 
       within 'nav' do
         expect(page).to have_content("Logout")
