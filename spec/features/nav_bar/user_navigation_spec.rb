@@ -73,6 +73,8 @@ RSpec.describe 'Site Navigation' do
     end
 
     it "I don't have links to login and register" do
+
+      visit "/"
       
       within 'nav' do
         expect(page).to_not have_content("Register")
@@ -81,6 +83,8 @@ RSpec.describe 'Site Navigation' do
     end
 
     it "I have a logout link" do
+
+      visit "/"
 
       within 'nav' do
         expect(page).to have_content("Logout")

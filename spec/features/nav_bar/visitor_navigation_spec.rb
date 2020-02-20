@@ -4,11 +4,12 @@ require 'rails_helper'
 RSpec.describe 'Site Navigation' do
   describe 'As a Visitor' do
     it "I see a nav bar with links to all pages I have access to" do
-      visit '/merchants'
+      visit '/items'
 
       within 'nav' do
-        expect(page).to_not have_content("Dashboard")
-        expect(page).to_not have_content("All Users")
+        expect(page).to_not have_link("Merchant Dashboard")
+        expect(page).to_not have_link("Admin Dashboard")
+        expect(page).to_not have_link("All Users")
       end
 
       expect(current_path).to eq('/items')
@@ -26,7 +27,7 @@ RSpec.describe 'Site Navigation' do
       expect(current_path).to eq('/cart')
 
       within 'nav' do
-        click_link 'Home Page'
+        click_link 'Home'
       end
 
       expect(current_path).to eq('/')
@@ -47,8 +48,11 @@ RSpec.describe 'Site Navigation' do
     end
 
     it "I have links to login and register in the nav bar" do
+    
+      visit '/'
+
       within 'nav' do
-        click_link("/register")
+        click_link 'Register'
       end
 
       expect(current_path).to eq("/register")
@@ -56,7 +60,7 @@ RSpec.describe 'Site Navigation' do
       visit '/items'
 
       within 'nav' do
-        click_link("/login")
+        click_link 'Login'
       end
 
       expect(current_path).to eq("/login")

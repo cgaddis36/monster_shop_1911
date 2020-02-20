@@ -6,14 +6,14 @@ class UsersController < ApplicationController
   def create 
     user = User.create(user_params)
     if user.valid?
-        session[:user] = user.id
-        flash[:welcome] = "Welcome, #{user.name}!"
-        flash[:registered] = "You have registered successfully"
-        redirect_to "/profile"
+      session[:user] = user.id
+      flash[:welcome] = "Welcome, #{user.name}!"
+      flash[:registered] = "You have registered successfully"
+      redirect_to "/profile"
     else
-        session[:failed_registration] = user_params 
-        flash[:error] = "#{user.errors.full_messages.to_sentence}"
-        redirect_to "/register"
+      session[:failed_registration] = user_params 
+      flash[:error] = "#{user.errors.full_messages.to_sentence}"
+      redirect_to "/register"
     end
   end
 
