@@ -12,6 +12,16 @@ RSpec.describe "Profile show page", type: :feature do
                                  role: 0
                                   )
 
+    @default_user2 = User.create!(name: "Walter White",
+                                 street_address: "6230 Bluerock Ln",
+                                 city: "Albuquerque",
+                                 state: 'NM',
+                                 zip_code: 44565,
+                                 email: "heisenberg@example.com",
+                                 password: "method3",
+                                 role: 0
+                                  )
+
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@default_user)
   end
   it "shows all user data in profile show page" do
@@ -43,4 +53,38 @@ RSpec.describe "Profile show page", type: :feature do
     expect(page).to have_content("Hawaii")
     expect(page).to have_content("12222")
   end
+  it "can only be edit the user email address to a unique email in the database" do
+
+    visit '/profile'
+
+    click_link("Edit Profile")
+
+    expect(find_field(:name).value).to eq(@default_user.name)
+    expect(find_field(:street_address).value).to eq(@default_user.street_address)
+    expect(find_field(:city).value).to eq(@default_user.city)
+    expect(find_field(:state).value).to eq(@default_user.state)
+    expect(find_field(:zip_code).value).to eq(@default_user.zip_code)
+    expect(find_field(:email).value).to eq(@default_user.email)
+
+    fill_in :name, with: "Honey"
+    fill_in :street_address, with: "Honey Nut St"
+    fill_in :city, with: "Honeyville"
+    fill_in :state, with: "Hawaii"
+    fill_in :zip_code, with: "12222"
+    fill_in :email, with: @default_user2.email
+
+    click_on("Update Profile")
+
+    expect(current_path).to eq("/profile/edit")
+    expect(page).to have_content("Email address already taken. Try again!")
+  end
 end
+
+# User Story 22, User Editing Profile Data must have unique Email address
+#
+# As a registered user
+# When I attempt to edit my profile data
+# If I try to change my email address to one that belongs to another user
+# When I submit the form
+# Then I am returned to the profile edit page
+# And I see a flash message telling me that email address is already in use

@@ -30,14 +30,21 @@ class UsersController < ApplicationController
   end
 
   def update
-    current_user.update(name: params[:name],
+    if current_user.update(name: params[:name],
                         street_address: params[:street_address],
                         city: params[:city],
                         state: params[:state],
                         zip_code: params[:zip_code],
                         email: params[:email])
-    flash[:notice] = "Your profile has been updated"
-    redirect_to '/profile'
+
+      flash[:notice] = "Your profile has been updated"
+      redirect_to '/profile'
+    elsif
+      User.find_by email: params[:email]
+      flash[:alert] = "Email address already taken. Try again!"
+      redirect_to '/profile/edit'
+    end
+
   end
 
   private
