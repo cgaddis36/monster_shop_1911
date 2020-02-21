@@ -17,7 +17,6 @@ RSpec.describe "Profile show page", type: :feature do
   it "shows all user data in profile show page" do
 
     visit '/profile'
-    save_and_open_page
 
     click_link("Edit Profile")
 

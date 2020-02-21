@@ -25,6 +25,21 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    @user = current_user
+  end
+
+  def update
+    current_user.update(name: params[:name],
+                        street_address: params[:street_address],
+                        city: params[:city],
+                        state: params[:state],
+                        zip_code: params[:zip_code],
+                        email: params[:email])
+    flash[:notice] = "Your profile has been updated"
+    redirect_to '/profile'
+  end
+
   private
 
   def user_params
