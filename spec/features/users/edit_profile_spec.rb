@@ -76,15 +76,30 @@ RSpec.describe "Profile show page", type: :feature do
     click_on("Update Profile")
 
     expect(current_path).to eq("/profile/edit")
-    expect(page).to have_content("Email address already taken. Try again!")
+    expect(page).to have_content("Email has already been taken")
+  end
+  it "has flash messages when you erase the required user attributes" do
+
+    visit '/profile'
+
+    click_link("Edit Profile")
+
+    expect(find_field(:name).value).to eq(@default_user.name)
+    expect(find_field(:street_address).value).to eq(@default_user.street_address)
+    expect(find_field(:city).value).to eq(@default_user.city)
+    expect(find_field(:state).value).to eq(@default_user.state)
+    expect(find_field(:zip_code).value).to eq(@default_user.zip_code)
+    expect(find_field(:email).value).to eq(@default_user.email)
+
+    fill_in :name, with: "Honey"
+    fill_in :street_address, with: "Honey Nut St"
+    fill_in :city, with: ""
+    fill_in :state, with: "Hawaii"
+    fill_in :zip_code, with: "12222"
+
+    click_on("Update Profile")
+
+    expect(current_path).to eq("/profile/edit")
+    expect(page).to have_content("City can't be blank")
   end
 end
-
-# User Story 22, User Editing Profile Data must have unique Email address
-#
-# As a registered user
-# When I attempt to edit my profile data
-# If I try to change my email address to one that belongs to another user
-# When I submit the form
-# Then I am returned to the profile edit page
-# And I see a flash message telling me that email address is already in use
