@@ -1,6 +1,6 @@
  Edit Profile
 
-   <%= form_tag "/profile/edit", method: :patch do |f| %>
+   <%= form_tag "/profile", method: :patch do |f| %>
 
    <%= text_field_tag :name, "#{@user.name}"%>
 

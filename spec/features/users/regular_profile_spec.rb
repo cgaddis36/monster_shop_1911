@@ -17,7 +17,7 @@ RSpec.describe "Profile show page", type: :feature do
   it "shows all user data in profile show page" do
 
     visit '/'
-    
+
     visit '/profile'
 
     expect(page).to have_content(@default_user.name)
@@ -29,7 +29,3 @@ RSpec.describe "Profile show page", type: :feature do
     expect(page).to have_link("Edit Profile")
   end
 end
-# As a registered user
-# When I visit my profile page
-# Then I see all of my profile data on the page except my password
-# And I see a link to edit my profile data
