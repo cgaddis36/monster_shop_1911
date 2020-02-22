@@ -127,6 +127,20 @@ RSpec.describe "As a registered user", type: :feature do
         click_link(order1.id)
       end
        expect(current_path).to eq("/orders/#{order1.id}")
+
+       visit "/profile/orders"
+
+      within("div#order_#{order2.id}") do
+        expect(page).to have_content("Order id# = #{order2.id}")
+        expect(page).to have_content("Order made on: #{order2.created_at}")
+        expect(page).to have_content("Order updated on: #{order2.updated_at}")
+        
+        expect(page).to have_content("Total Quantity: #{order2.total_quantity}")
+        expect(page).to have_content("Grand Total: #{order2.grandtotal}")
+        expect(page).to have_content("Current status: #{order2.status}")
+        click_link(order2.id)
+      end
+       expect(current_path).to eq("/orders/#{order2.id}")
       
     end
 
