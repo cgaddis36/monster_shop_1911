@@ -41,8 +41,13 @@
   <% end %>
 </table>
   <p>Total: <%= number_to_currency(cart.total) %></p>
-  <p><%= link_to "Empty Cart", "/cart", method: :delete %></p>
+  <p><%= link_to "Empty Cart", "/cart", method: :delete %></p>  
   <p><%= link_to "Checkout", "/orders/new", method: :get %></p>
+
+  <% if current_admin.nil? %>
+      <p> "You must <%= link_to 'register', "/register" %> or <%= link_to "log in", "/login" %> to finish the checkout process" </p>
+  <% end %>
+    
 <% else %>
   <h3 align= "center">Cart is currently empty</h3>
 <% end %>

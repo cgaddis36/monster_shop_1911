@@ -1,7 +1,7 @@
 class OrdersController <ApplicationController
 
-  def new
-
+  def new 
+    
   end
 
   def show
@@ -32,4 +32,7 @@ class OrdersController <ApplicationController
   def order_params
     params.permit(:name, :address, :city, :state, :zip)
   end
+
+  
+
 end
