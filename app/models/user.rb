@@ -8,6 +8,8 @@ class User < ApplicationRecord
 
   belongs_to :merchant, optional: true
 
+  has_many :orders
+
   has_secure_password
 
   enum role: %w(default merchant_employee admin)
