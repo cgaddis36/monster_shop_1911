@@ -4,7 +4,7 @@ class Order <ApplicationRecord
   has_many :item_orders
   has_many :items, through: :item_orders
 
-  belongs_to :user, optional: true
+  belongs_to :user
 
   enum status: %w(pending packaged shipped cancelled)
 
