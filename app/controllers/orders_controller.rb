@@ -1,15 +1,20 @@
 class OrdersController <ApplicationController
 
-  def new
-
+  def new 
+    
   end
 
   def show
     @order = Order.find(params[:id])
   end
 
+  def index 
+    @user = current_user
+  end
+
   def create
-    order = Order.create(order_params)
+    order = current_user.orders.create(order_params)
+    # order = Order.create(order_params)
     if order.save
       cart.items.each do |item,quantity|
         order.item_orders.create({
@@ -19,17 +24,21 @@ class OrdersController <ApplicationController
           })
       end
       session.delete(:cart)
-      redirect_to "/orders/#{order.id}"
+      flash[:notice] = "You order was created"
+      redirect_to "/profile/orders"
+      # redirect_to "/orders/#{order.id}"
     else
       flash[:notice] = "Please complete address form to create an order."
       render :new
     end
   end
 
-
   private
 
   def order_params
     params.permit(:name, :address, :city, :state, :zip)
   end
+
+  
+
 end

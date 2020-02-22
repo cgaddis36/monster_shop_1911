@@ -1,0 +1,5 @@
+<% @user.orders.each do |order| %>
+  <div id= <%= "order_#{order.id}" %> >
+    <p> Order id# = <%= order.id %> </p> 
+  </div>
+<% end %>
