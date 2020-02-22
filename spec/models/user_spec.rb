@@ -11,6 +11,11 @@ describe User, type: :model do
     it {should validate_presence_of :state}
     it {should validate_presence_of :zip_code}
   end
+
+  describe "relationships" do 
+    it {should have_many :orders}
+  end
+  
   describe 'roles' do
     it "can be created as a default user" do
       default_user = User.create!(name: "Johnny",
