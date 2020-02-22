@@ -1,7 +1,8 @@
+
 <h1>Cart</h1>
 
 <% if !@items.empty? %>
-<center>
+
 <table class = "cart-items">
   <tr>
     <th>Item</th>
@@ -10,12 +11,14 @@
     <th>Quantity</th>
     <th>Subtotal</th>
   </tr>
+
   <% @items.each do |item,quantity| %>
     <tr id= "cart-item-<%=item.id%>">
       <td>
         <p align = "center">
           <span>
-            <img align = "center" id="cart-image" src= <%= item.image %>>
+            <img align = "center" id="cart-image" <%= image_tag(item.image, size: "275x200") %>>
+
             <%=link_to item.name, "/items/#{item.id}" %>
           </span>
         </p>
@@ -29,13 +32,13 @@
         <p><%=number_to_currency(item.price)%></p>
       </td>
       <td>
-        <center>
-          <p><%=quantity%></p>
-          <p><%= link_to "Remove", "/cart/#{item.id}",method: :delete %></p>
-        </center>
+        <p><%= quantity %> of <%=item.name%></p>
+        <p> <%= button_to "Add One More", "/cart/#{item.id}", params: {increment_decrement: "increment"}, method: :patch %> </p>
+        <p> <%= button_to "Remove One From Cart", "/cart/#{item.id}", params: {increment_decrement: "decrement"}, method: :patch %> </p>
+        <p><%= link_to "Remove", "/cart/#{item.id}",method: :delete %></p>
+        <p><%=number_to_currency(cart.subtotal(item))%></p>
         </td>
       <td>
-        <p><%=number_to_currency(cart.subtotal(item))%></p>
     </td>
     </tr>
   <% end %>
@@ -47,4 +50,3 @@
   <h3 align= "center">Cart is currently empty</h3>
 <% end %>
 <table>
-</center>

@@ -26,13 +26,13 @@ class CartController < ApplicationController
     render file: "/public/404", status: 404 if current_admin
   end
 
-  # def increment_decrement
-  #   if params[:increment_decrement] == "increment"
-  #     cart.add_quantity(params[:item_id]) unless cart.limit_reached?(params[:item_id])
-  #   elsif params[:increment_decrement] == "decrement"
-  #     cart.subtract_quantity(params[:item_id])
-  #     return remove_item if cart.quantity_zero?(params[:item_id])
-  #   end
-  #   redirect_to "/cart"
-  # end
+  def increment_decrement
+    if params[:increment_decrement] == "increment"
+      cart.add_quantity(params[:item_id]) unless cart.limit_reached?(params[:item_id])
+    elsif params[:increment_decrement] == "decrement"
+      cart.subtract_quantity(params[:item_id])
+      return remove_item if cart.quantity_zero?(params[:item_id])
+    end
+    redirect_to "/cart"
+  end
 end
