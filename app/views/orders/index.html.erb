@@ -1,5 +1,10 @@
 <% @user.orders.each do |order| %>
   <div id= <%= "order_#{order.id}" %> >
-    <p> Order id# = <%= order.id %> </p> 
+    <p> Order id# = <%= link_to order.id, "/orders/#{order.id}" %> </p> 
+    <p> Order made on: <%= order.created_at  %> </p> 
+    <p> Order updated on: <%= order.updated_at  %> </p> 
+    <p> Total Quantity: <%= order.total_quantity  %> </p> 
+    <p> Grand Total: <%= order.grandtotal  %> </p> 
+    <p> Current status: <%= order.status %> </p>
   </div>
 <% end %>
