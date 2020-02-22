@@ -37,7 +37,7 @@ class UsersController < ApplicationController
       redirect_to '/profile'
     else
       flash[:error] = @user.errors.full_messages.to_sentence
-      render :edit
+      redirect_to '/profile/edit'
     end
   end
 
@@ -46,6 +46,4 @@ class UsersController < ApplicationController
   def user_params
     params.permit(:name, :street_address, :city, :state, :zip_code, :email, :password, :password_confirmation)
   end
-
-
 end
