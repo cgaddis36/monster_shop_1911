@@ -43,7 +43,7 @@ RSpec.describe "Visitor's cart" do
         expect(page).to have_content("1 of #{@pen.name}")
         click_button "Remove One From Cart"
       end
-      
+
       expect(page).not_to have_content("#{@pen.name}")
       end
     end
