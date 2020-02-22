@@ -30,11 +30,13 @@ class UsersController < ApplicationController
   end
 
   def update
-    if current_user.update(update_params)
-      flash[:notice] = "Your profile has been updated"
+    @user = User.find(current_user.id)
+    @user.update(user_params)
+    if @user.save
+      flash[:success] = "Your profile has been updated"
       redirect_to '/profile'
     else
-      flash[:alert] = current_user.errors.full_messages.to_sentence
+      flash[:error] = @user.errors.full_messages.to_sentence
       redirect_to '/profile/edit'
     end
   end
@@ -44,9 +46,4 @@ class UsersController < ApplicationController
   def user_params
     params.permit(:name, :street_address, :city, :state, :zip_code, :email, :password, :password_confirmation)
   end
-
-  def update_params
-    params.permit(:name, :street_address, :city, :state, :zip_code, :email)
-  end
-
 end

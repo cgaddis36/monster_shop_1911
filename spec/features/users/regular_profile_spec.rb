@@ -28,4 +28,14 @@ RSpec.describe "Profile show page", type: :feature do
     expect(page).to have_content(@default_user.email)
     expect(page).to have_link("Edit Profile")
   end
+  it "shows error messages if missing information on field" do
+
+    visit '/profile'
+
+    click_link("Edit Profile")
+    fill_in :name, with: ""
+    fill_in :email, with: ""
+    click_on("Update Profile")
+    expect(page).to have_content("Name can't be blank and Email can't be blank")
+  end
 end
