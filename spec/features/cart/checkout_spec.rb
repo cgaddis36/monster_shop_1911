@@ -49,46 +49,67 @@ RSpec.describe 'Cart show' do
 
     it "allows a user to place an order and the order is associated with this user" do
 
-      default_user = User.create!(name: "Johnny",
-                                  street_address: "123 Jonny Way",
-                                  city: "Johnsonville",
-                                  state: 'TN',
-                                  zip_code: 12345,
-                                  email: "roman@example.com",
-                                  password: "hamburger01",
-                                  role: 0
-                                )
+      visit "/items"
 
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@default_user)
-      
+      click_on "Register"
+
+      expect(current_path).to eq("/register")
+
+      username = "Johnny"
+      street_address = "123 Jonny Way"
+      city = "Johnsonville"
+      state = "TN"
+      zip_code = "12345"
+      email = "roman@example.com"
+      password = "hamburger01"
+
+      fill_in :name, with: username
+      fill_in :street_address, with: street_address
+      fill_in :city, with: city
+      fill_in :state, with: state
+      fill_in :zip_code, with: zip_code
+      fill_in :email, with: email
+      fill_in :password, with: password
+      fill_in :password_confirmation, with: password
+
+      click_on "Create User"
+
       visit "/cart"
 
       click_on "Checkout"
 
       expect(current_path).to eq("/orders/new")
 
-      name = "Bert"
-      address = "123 Sesame St."
-      city = "NYC"
-      state = "New York"
-      zip = 10001
-
-      fill_in :name, with: name
-      fill_in :address, with: address
+      fill_in :name, with: username
+      fill_in :address, with: street_address
       fill_in :city, with: city
       fill_in :state, with: state
-      fill_in :zip, with: zip
+      fill_in :zip, with: zip_code.to_i
 
       click_button "Create Order"
 
-      expect(Order.last.name).to eq("Bert")
-      expect(Order.last.address).to eq("123 Sesame St.")
-      expect(Order.last.city).to eq("NYC")
-      expect(Order.last.state).to eq("New York")
-      expect(Order.last.zip).to eq(10001)
+      expect(Order.last.name).to eq(username)
+      expect(Order.last.address).to eq(street_address)
+      expect(Order.last.city).to eq(city)
+      expect(Order.last.state).to eq(state)
+      expect(Order.last.zip).to eq(zip_code.to_i)
+      expect(Order.last.pending?).to eq(true)
+      expect(Order.last.user).to eq(User.last)
+
+      expect(current_path).to eq("/profile/orders")
+      expect(page).to have_content("You order was created")
+      
+      within("div#order_#{Order.last.id}") do 
+       expect(page).to have_content("Order id# = #{Order.last.id}")
+      end
+
+      within("nav") do
+        expect(page).to have_content("Cart: 0")
+      end
 
     end
   end
+  
 # User Story 26, Registered users can check out
 
 # As a registered user
