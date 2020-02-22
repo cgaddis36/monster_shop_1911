@@ -57,11 +57,8 @@ RSpec.describe("Order Creation") do
       new_order = Order.last
 
       expect(current_path).to eq("/profile/orders")
-      save_and_open_page
-      binding.pry
-
       click_on "#{new_order.id}"
-      expect(current_path).to eq("/profile/orders/#{new_order.id}")
+      expect(current_path).to eq("/orders/#{new_order.id}")
 
 
       within '.shipping-address' do
@@ -105,7 +102,7 @@ RSpec.describe("Order Creation") do
       end
     end
 
-    xit 'i cant create order if info not filled out' do
+    it 'i cant create order if info not filled out' do
       name = ""
       address = "123 Sesame St."
       city = "NYC"

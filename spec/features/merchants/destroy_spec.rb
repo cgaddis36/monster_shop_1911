@@ -25,7 +25,18 @@ RSpec.describe "As a visitor" do
       expect(page).to_not have_content("Brian's Bike Shop")
     end
 
-    xit "I can't delete a merchant that has orders" do
+    it "I can't delete a merchant that has orders" do
+      default_user = User.create!(name: "Bert",
+                                  street_address: "123 Sesame St.",
+                                  city: "NYC",
+                                  state: "New York",
+                                  zip_code: 10001,
+                                  email: "erniesroomie@example.com",
+                                  password: "paperclips800",
+                                  role: 0)
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(default_user)
+
       mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
       meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
       brian = Merchant.create(name: "Brian's Dog Shop", address: '123 Dog Rd.', city: 'Denver', state: 'CO', zip: 80204)
@@ -34,7 +45,6 @@ RSpec.describe "As a visitor" do
       paper = mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 3)
       pencil = mike.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
       pulltoy = brian.items.create(name: "Pulltoy", description: "It'll never fall apart!", price: 14, image: "https://www.valupets.com/media/catalog/product/cache/1/image/650x/040ec09b1e35df139433887a97daa66f/l/a/large_rubber_dog_pull_toy.jpg", inventory: 7)
-
 
       visit "/items/#{paper.id}"
       click_on "Add To Cart"
@@ -64,9 +74,6 @@ RSpec.describe "As a visitor" do
 
       visit "/merchants/#{meg.id}"
       expect(page).to_not have_link("Delete Merchant")
-
-      # visit "/merchants/#{brian.id}"
-      # expect(page).to have_link("Delete Merchant")
     end
   end
 end
