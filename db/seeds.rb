@@ -20,7 +20,7 @@ tire = bike_shop.items.create(name: "Gatorskins", description: "They'll never po
 pull_toy = dog_shop.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
 dog_bone = dog_shop.items.create(name: "Dog Bone", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:false, inventory: 21)
 
-merchant_user = User.create!(name: "Johnny",
+merchant_user1 = bike_shop.users.create!(name: "Johnny",
                             street_address: "123 Jonny Way",
                             city: "Johnsonville",
                             state: 'TN',
@@ -29,6 +29,17 @@ merchant_user = User.create!(name: "Johnny",
                             password: "hamburger042",
                             role: 1
                           )
+
+merchant_user2 = bike_shop.users.create!(name: "Jeremiah",
+                            street_address: "7777 Rastafari Way",
+                            city: "Jamaica",
+                            state: 'FL',
+                            zip_code: 46766,
+                            email: "bobbymarley@example.com",
+                            password: "irie333",
+                            role: 1
+                          )
+
 admin_user = User.create!(name: "Johnny",
                             street_address: "123 Jonny Way",
                             city: "Johnsonville",
@@ -38,6 +49,7 @@ admin_user = User.create!(name: "Johnny",
                             password: "hamburger043",
                             role: 2
                           )
+
 default_user = User.create!(name: "Johnny",
                             street_address: "123 Jonny Way",
                             city: "Johnsonville",

@@ -34,9 +34,12 @@ Rails.application.routes.draw do
   get "/orders/new", to: "orders#new"
   post "/orders", to: "orders#create"
   get "/profile/orders/:id", to: "orders#show"
+  patch "/item_orders/:order_id", to: "item_orders#update"
+
 
   namespace :merchant do
     get '/', to: 'dashboard#index'
+    get '/items', to: 'items#index'
   end
 
   namespace :admin do
@@ -56,6 +59,6 @@ Rails.application.routes.draw do
 
   get '/user/password/edit', to: 'users_password#edit'
   patch '/user/password/update', to: 'users_password#update'
-  get '/profile/orders', to: 'orders#index'
 
+  get '/profile/orders', to: 'orders#index'
 end
