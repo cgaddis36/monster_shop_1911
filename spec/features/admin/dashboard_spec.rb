@@ -6,6 +6,7 @@ require 'rails_helper'
         @user1 = create(:random_user)
         @user2 = create(:random_user)
         @user3 = create(:random_user)
+        @user4 = create(:random_user)
 
         @m1 = create(:random_merchant)
         @m2 = create(:random_merchant)
@@ -19,7 +20,7 @@ require 'rails_helper'
         @order1 = @user1.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
         @order2 = @user2.orders.create!(name: 'Brian', address: '123 Zanti St', city: 'Denver', state: 'CO', zip: 80204)
         @order3 = @user3.orders.create!(name: 'Mike', address: '123 Dao St', city: 'Denver', state: 'CO', zip: 80210)
-        @order4 = @user3.orders.create!(name: 'Mike', address: '123 Dao St', city: 'Denver', state: 'CO', zip: 80210)
+        @order4 = @user4.orders.create!(name: 'Mike', address: '123 Dao St', city: 'Denver', state: 'CO', zip: 80210)
 
         @order1.item_orders.create!(item: @tire, price: @tire.price, quantity: 22)
         @order1.item_orders.create!(item: @pull_toy, price: @pull_toy.price, quantity: 33)
@@ -52,9 +53,6 @@ require 'rails_helper'
       it "sees all orders in the system and the order's user name links to the admin view of the user" do
         visit "/admin"
 
-        binding.pry
-save_and_open_page
-
          within ".orders" do
           within "#order-#{@order1.id}" do
             expect(page).to have_content("Order ID: #{@order1.id}")
@@ -84,12 +82,13 @@ save_and_open_page
         expect(current_path).to eq("/admin/users/#{@order4.user.id}")
     end
 
-    xit "sorts the orders by order status (packaged, pending, shipped, cancelled)" do
+    it "sorts the orders by order status (packaged, pending, shipped, cancelled)" do
       @order1.status = "packaged"
       @order2.status = "pending"
       @order3.status = "shipped"
       @order4.status = "cancelled"
 
+      binding.pry
 
 
     end

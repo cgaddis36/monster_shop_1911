@@ -4,7 +4,7 @@
 
   <section class= "orders">
     <% @orders.each do |order| %>
-      <section id= "order-<% order.id %>">
+      <section id= "order-<%= order.id %>">
         <p>Order ID: <%= order.id %></p>
         <p>User Name: <%=link_to order.user.name, "admin/users/#{order.user.id}" %></p>
         <p>Order Creation Date: <%= order.created_at %></p>
