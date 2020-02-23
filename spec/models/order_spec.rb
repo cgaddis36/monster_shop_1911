@@ -42,5 +42,15 @@ describe Order, type: :model do
     it '#total_quantity' do
       expect(@order_1.total_quantity).to eq(5)
     end
+    
+    it 'status_changer' do
+    expect(@order_1.status).to eq("pending")
+
+    @order_1.item_orders.update_all(status: "fulfilled")
+
+    @order_1.status_changer
+
+    expect(@order_1.status).to eq("packaged")
+    end
   end
 end
