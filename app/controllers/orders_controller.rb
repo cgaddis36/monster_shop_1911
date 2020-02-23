@@ -1,14 +1,14 @@
 class OrdersController <ApplicationController
 
-  def new 
-    
+  def new
+
   end
 
   def show
     @order = Order.find(params[:id])
   end
 
-  def index 
+  def index
     @user = current_user
   end
 
@@ -38,7 +38,4 @@ class OrdersController <ApplicationController
   def order_params
     params.permit(:name, :address, :city, :state, :zip)
   end
-
-  
-
 end

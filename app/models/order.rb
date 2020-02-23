@@ -15,4 +15,8 @@ class Order <ApplicationRecord
   def total_quantity
     items.sum(:quantity)
   end
+
+  def cancel
+    status = 3
+  end
 end

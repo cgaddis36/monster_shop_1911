@@ -71,20 +71,31 @@ RSpec.describe "Merchant order fulfillment page", type: :feature do
 
     click_button("Create Order")
 
-    click_on("Log Out")
+    order = Order.last
 
-    click_on("Login")
+    visit '/profile/orders'
 
-    fill_in 'email', with: @merchant_user1.email
-    fill_in 'password', with: @merchant_user1.password
+    click_on(order.id)
+    click_on("Cancel Order")
 
-    click_button("Log In")
+    save_and_open_page
+    expect(current_path).to eq("/profile")
 
-    visit "/profile"
+    expect(page).to have_content("Your order has been cancelled.")
+
+    click_on("My Orders")
+
+    expect(page).to have_content("Current status: cancelled")
+
   end
 end
-
-
-# User Story 31, All Merchants fulfill items on an order
-# When all items in an order have been "fulfilled" by their merchants
-# The order status changes from "pending" to "packaged"
+# When I visit an order's show page
+# I see a button or link to cancel the order
+# When I click the cancel button for an order, the following happens:
+# - Each row in the "order items" table is given a status of "unfulfilled"
+# - The order itself is given a status of "cancelled"
+# - Any item quantities in the order that were previously fulfilled have their quantities
+# returned to their respective merchant's inventory for that item.
+# - I am returned to my profile page
+# - I see a flash message telling me the order is now cancelled
+# - And I see that this order now has an updated status of "cancelled"
