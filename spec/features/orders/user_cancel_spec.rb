@@ -89,6 +89,7 @@ RSpec.describe "Merchant order fulfillment page", type: :feature do
 
     expect(page).to have_content("Current status: cancelled")
   end
+
   it "when an order has items that have been fulfilled and that order is cancelled, those items inventories are returned" do
 
 
@@ -136,15 +137,8 @@ RSpec.describe "Merchant order fulfillment page", type: :feature do
     click_on("Cancel Order")
 
     expect(order.item_orders.last.status).to eq("unfulfilled")
+    expect(order.item_orders.first.status).to eq("unfulfilled")
+    expect(order.item_orders[1].status).to eq("unfulfilled")
+    expect(order.item_orders[2].status).to eq("unfulfilled")
   end
 end
-# When I visit an order's show page
-# I see a button or link to cancel the order
-# When I click the cancel button for an order, the following happens:
-# - Each row in the "order items" table is given a status of "unfulfilled"
-# - The order itself is given a status of "cancelled"
-# - Any item quantities in the order that were previously fulfilled have their quantities
-# returned to their respective merchant's inventory for that item.
-# - I am returned to my profile page
-# - I see a flash message telling me the order is now cancelled
-# - And I see that this order now has an updated status of "cancelled"
