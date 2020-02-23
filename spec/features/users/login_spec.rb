@@ -64,7 +64,7 @@ RSpec.describe "As a visitor", type: :feature do
 
       click_on 'Log In'
 
-      expect(current_path).to eq('/admin/dashboard')
+      expect(current_path).to eq('/admin')
       expect(page).to have_content("You are now logged in!")
     end
     it "I am not able to login with bad credentials" do
@@ -99,7 +99,7 @@ RSpec.describe "As a visitor", type: :feature do
 
       visit '/login'
 
-      expect(current_path).to eq('/admin/dashboard')
+      expect(current_path).to eq('/admin')
       expect(page).to have_content("You are already logged in!")
     end
 
