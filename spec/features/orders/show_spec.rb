@@ -77,13 +77,12 @@ RSpec.describe "As a registered user", type: :feature do
 
       click_on "Checkout"
 
-      ill_in :name, with: @username
+      fill_in :name, with: @username
       fill_in :address, with: @street_address
       fill_in :city, with: @city
       fill_in :state, with: @state
       fill_in :zip, with: @zip_code.to_i
 
-      
       click_button "Create Order"
       
       order2 = Order.last
@@ -92,61 +91,43 @@ RSpec.describe "As a registered user", type: :feature do
 
       click_on order1.id 
 
-      expect(page).to have_content()
-
       expect(page).to have_content("Order id# = #{order1.id}")
       expect(page).to have_content("Order made on: #{order1.created_at}")
       expect(page).to have_content("Order updated on: #{order1.updated_at}")
       expect(page).to have_content("Current status: #{order1.status}")
 
-      expect(page).to have_content("Name: #{order1.name}")
-      expect(page).to have_content("Address: #{order1.street_address}")
-      expect(page).to have_content("City: #{order1.city}")
-      expect(page).to have_content("State: #{order1.state}")
-      expect(page).to have_content("Zip: #{order1.zip}")
+      expect(page).to have_content(order1.name)
+      expect(page).to have_content(order1.address)
+      expect(page).to have_content(order1.city)
+      expect(page).to have_content(order1.state)
+      expect(page).to have_content(order1.zip)
 
-      within("div#item_#{@item1.id}") do 
-        expect(page).to have_content("Name: #{@item1.name}")
-        expect(page).to have_content("Description: #{@item1.description}")
-        expect(page).to have_content("Quantity: 2")
-        expect(page).to have_content("Price: #{@item1.price}")
-        expect(page).to have_content("Subtotal: #{@item1.price * 2}")
+      within("section#item-#{@item1.id}") do 
+        expect(page).to have_content(@item1.name)
+        expect(page).to have_content(@item1.description)
+        expect(page).to have_content(2)
+        expect(page).to have_content("#{ActiveSupport::NumberHelper.number_to_currency(@item1.price)}")
+        expect(page).to have_content("#{ActiveSupport::NumberHelper.number_to_currency(@item1.price * 2)}")
       end
 
-      within("div#item_#{@item2.id}") do 
-        expect(page).to have_content("Name: #{@item2.name}")
-        expect(page).to have_content("Description: #{@item2.description}")
-        expect(page).to have_content("Quantity: 1")
-        expect(page).to have_content("Price: #{@item2.price}")
-        expect(page).to have_content("Subtotal: #{@item2.price}")
+      within("section#item-#{@item2.id}") do 
+        expect(page).to have_content(@item2.name)
+        expect(page).to have_content(@item2.description)
+        expect(page).to have_content(1)
+        expect(page).to have_content("#{ActiveSupport::NumberHelper.number_to_currency(@item2.price)}")
+        expect(page).to have_content("#{ActiveSupport::NumberHelper.number_to_currency(@item2.price)}")
       end
 
-      expect(page).to have_content("Total Quantity: #{order2.total_quantity}")
-      expect(page).to have_content("Grand Total: #{order2.grandtotal}")
-      
+      expect(page).to have_content("Total Quantity: #{order1.total_quantity}")
+      expect(page).to have_content("Total: #{ActiveSupport::NumberHelper.number_to_currency(order1.grandtotal)}")
+
       expect(page).to_not have_content("Order id# = #{order2.id}")
-      expect(page).to_not have_content("Order made on: #{order2.created_at}")
-      expect(page).to_not have_content("Order updated on: #{order2.updated_at}")
-      
+
+      expect(page).to_not have_content(@item4.name)
+      expect(page).to_not have_content(@item4.description)
 
     end
-
 
   end
 
 end
-
-# User Story 29, User views an Order Show Page
-
-# As a registered user
-# When I visit my Profile Orders page
-# And I click on a link for order's show page
-# My URL route is now something like "/profile/orders/15"
-# I see all information about the order, including the following information:
-# - the ID of the order
-# - the date the order was made
-# - the date the order was last updated
-# - the current status of the order
-# - each item I ordered, including name, description, thumbnail, quantity, price and subtotal
-# - the total quantity of items in the whole order
-# - the grand total of all items for that order
