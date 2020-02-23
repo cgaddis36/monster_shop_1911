@@ -9,12 +9,4 @@ class ItemOrder <ApplicationRecord
   def subtotal
     price * quantity
   end
-
-  def unfulfill
-    status = 0
-  end
-
-  def fulfill
-    status = 1
-  end
 end
