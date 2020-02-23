@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 RSpec.describe("New Order Page") do
   describe "When I check out from my cart" do
     before(:each) do
@@ -17,6 +19,18 @@ RSpec.describe("New Order Page") do
       click_on "Add To Cart"
     end
     it "I see all the information about my current cart" do
+
+      @default_user = User.create!(name: "Bert",
+                                  street_address: "123 Sesame St.",
+                                  city: "NYC",
+                                  state: "New York",
+                                  zip_code: 10001,
+                                  email: "erniesroomie@example.com",
+                                  password: "paperclips800",
+                                  role: 0)
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@default_user)
+
       visit "/cart"
 
       click_on "Checkout"
@@ -49,6 +63,18 @@ RSpec.describe("New Order Page") do
     end
 
     it "I see a form where I can enter my shipping info" do
+
+      @default_user = User.create!(name: "Bert",
+                                  street_address: "123 Sesame St.",
+                                  city: "NYC",
+                                  state: "New York",
+                                  zip_code: 10001,
+                                  email: "erniesroomie@example.com",
+                                  password: "paperclips800",
+                                  role: 0)
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@default_user)
+
       visit "/cart"
       click_on "Checkout"
 
