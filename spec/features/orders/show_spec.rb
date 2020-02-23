@@ -91,6 +91,8 @@ RSpec.describe "As a registered user", type: :feature do
 
       click_on order1.id 
 
+      expect(current_path).to eq("/profile/orders/#{order1.id }")
+
       expect(page).to have_content("Order id# = #{order1.id}")
       expect(page).to have_content("Order made on: #{order1.created_at}")
       expect(page).to have_content("Order updated on: #{order1.updated_at}")
