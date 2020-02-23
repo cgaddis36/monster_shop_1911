@@ -16,6 +16,14 @@ describe Order, type: :model do
 
   describe 'instance methods' do
     before :each do
+      @default_user = User.create!(name: 'Johnny',
+                                   street_address: '123 Jonny Way',
+                                   city: 'Johnsonville',
+                                   state: 'TN',
+                                   zip_code: 12_345,
+                                   email: 'roman@example.com',
+                                   password: 'hamburger01',
+                                   role: 0)
       @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
       @brian = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
 
@@ -31,7 +39,7 @@ describe Order, type: :model do
       expect(@order_1.grandtotal).to eq(230)
     end
 
-    it '#total_quantity' do 
+    it '#total_quantity' do
       expect(@order_1.total_quantity).to eq(5)
     end
   end

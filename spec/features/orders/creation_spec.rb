@@ -9,6 +9,17 @@
 RSpec.describe("Order Creation") do
   describe "When I check out from my cart" do
     before(:each) do
+      @default_user = User.create!(name: "Bert",
+                                  street_address: "123 Sesame St.",
+                                  city: "NYC",
+                                  state: "New York",
+                                  zip_code: 10001,
+                                  email: "erniesroomie@example.com",
+                                  password: "paperclips800",
+                                  role: 0)
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@default_user)
+
       @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
       @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
       @tire = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
@@ -45,7 +56,10 @@ RSpec.describe("Order Creation") do
 
       new_order = Order.last
 
+      expect(current_path).to eq("/profile/orders")
+      click_on "#{new_order.id}"
       expect(current_path).to eq("/orders/#{new_order.id}")
+
 
       within '.shipping-address' do
         expect(page).to have_content(name)
