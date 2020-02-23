@@ -15,7 +15,7 @@ RSpec.describe 'As a merchant' do
 
     expect(merchant_user.role).to eq('merchant_employee')
 
-    visit '/admin/dashboard'
+    visit '/admin'
     expect(page).to have_content("The page you were looking for doesn't exist (404)")
   end
 end
