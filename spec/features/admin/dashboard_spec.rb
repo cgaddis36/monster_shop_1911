@@ -82,13 +82,13 @@ require 'rails_helper'
         expect(current_path).to eq("/admin/users/#{@order4.user.id}")
     end
 
-    it "sorts the orders by order status (packaged, pending, shipped, cancelled)" do
+    xit "sorts the orders by order status (packaged, pending, shipped, cancelled)" do
       @order1.status = "packaged"
       @order2.status = "pending"
       @order3.status = "shipped"
       @order4.status = "cancelled"
 
-      binding.pry
+      # binding.pry
 
 
     end

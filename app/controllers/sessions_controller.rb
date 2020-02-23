@@ -31,7 +31,7 @@ class SessionsController < ApplicationController
       if user.default?
         redirect_to '/profile'
       elsif user.merchant_employee?
-        redirect_to '/merchant/dashboard'
+        redirect_to '/merchant'
       elsif user.admin?
         redirect_to '/admin'
       end
