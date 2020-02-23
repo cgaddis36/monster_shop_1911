@@ -5,9 +5,8 @@ RSpec.describe "Merchant order fulfillment page", type: :feature do
     @bike_shop = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
     @dog_shop = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
 
-    @tire = @bike_shop.items.create(name: "GatorSkins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
-
     @pull_toy = @dog_shop.items.create(name: "Pully Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
+    @tire = @bike_shop.items.create(name: "GatorSkins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
     @dog_bone = @dog_shop.items.create(name: "Doggy Bone", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:false, inventory: 21)
 
     @merchant_user1 = @bike_shop.users.create!(name: "Johnny",
@@ -134,11 +133,15 @@ RSpec.describe "Merchant order fulfillment page", type: :feature do
 
     click_on(order.id)
 
+    expect(Item.first.inventory).to eq(32)
+
     click_on("Cancel Order")
 
-    expect(order.item_orders.last.status).to eq("unfulfilled")
+    expect(Item.first.inventory).to eq(34)
+
     expect(order.item_orders.first.status).to eq("unfulfilled")
     expect(order.item_orders[1].status).to eq("unfulfilled")
     expect(order.item_orders[2].status).to eq("unfulfilled")
+    expect(order.item_orders.last.status).to eq("unfulfilled")
   end
 end
