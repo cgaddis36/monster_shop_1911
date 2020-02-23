@@ -126,7 +126,8 @@ RSpec.describe "As a registered user", type: :feature do
         expect(page).to have_content("Current status: #{order1.status}")
         click_link(order1.id)
       end
-       expect(current_path).to eq("/orders/#{order1.id}")
+      
+      expect(current_path).to eq("/profile/orders/#{order1.id}")
 
        visit "/profile/orders"
 
@@ -140,7 +141,8 @@ RSpec.describe "As a registered user", type: :feature do
         expect(page).to have_content("Current status: #{order2.status}")
         click_link(order2.id)
       end
-       expect(current_path).to eq("/orders/#{order2.id}")
+
+      expect(current_path).to eq("/profile/orders/#{order2.id}")
       
     end
 
