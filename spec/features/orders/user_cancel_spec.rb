@@ -85,7 +85,7 @@ RSpec.describe "Merchant order fulfillment page", type: :feature do
     expect(page).to have_content("Your order has been cancelled.")
 
     click_on("My Orders")
-    
+
     within "#order_#{order.id}"do
       expect(page).to have_content("Current status: cancelled")
     end
@@ -135,6 +135,7 @@ RSpec.describe "Merchant order fulfillment page", type: :feature do
 
     click_on(order.id)
 
+    expect(ItemOrder.last.quantity).to eq(2)
     expect(Item.first.inventory).to eq(32)
 
     click_on("Cancel Order")
