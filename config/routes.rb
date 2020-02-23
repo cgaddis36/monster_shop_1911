@@ -33,8 +33,8 @@ Rails.application.routes.draw do
 
   get "/orders/new", to: "orders#new"
   post "/orders", to: "orders#create"
-  get "/orders/:id", to: "orders#show"
   patch "/orders/:order_id", to: "item_orders#update"
+  get "/profile/orders/:id", to: "orders#show"
 
   namespace :merchant do
     get '/dashboard', to: 'dashboard#index'
