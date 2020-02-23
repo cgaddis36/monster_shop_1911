@@ -36,11 +36,11 @@ Rails.application.routes.draw do
   get "/profile/orders/:id", to: "orders#show"
 
   namespace :merchant do
-    get '/dashboard', to: 'dashboard#index'
+    get '/', to: 'dashboard#index'
   end
 
   namespace :admin do
-    get '/dashboard', to: 'dashboard#index'
+    get '/', to: 'dashboard#index'
   end
 
   get "/register", to: "users#new"
