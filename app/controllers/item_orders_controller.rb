@@ -4,11 +4,12 @@ class ItemOrdersController < ApplicationController
     order = Order.find(params[:order_id])
     item_orders = order.item_orders.all
     item_orders.each do |itemorder|
-      itemorder.update_attribute(:status = 1)
+      itemorder.update(status: 0)
+      Item.find(itemorder.id).increment(:inventory, itemorder.quantity).save
     end
-    require "pry"; binding.pry
-    order.cancel
-
+    order.update(status: 3)
+    flash[:alert] = "Your order has been cancelled."
+    redirect_to '/profile'
   end
 
 

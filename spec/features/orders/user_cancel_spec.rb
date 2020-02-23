@@ -59,6 +59,9 @@ RSpec.describe "Merchant order fulfillment page", type: :feature do
     click_on("Pull Toy")
     click_on("Add To Cart")
 
+    click_on("Pull Toy")
+    click_on("Add To Cart")
+
     visit "/cart"
 
     click_on("Checkout")
@@ -86,7 +89,6 @@ RSpec.describe "Merchant order fulfillment page", type: :feature do
     click_on("My Orders")
 
     expect(page).to have_content("Current status: cancelled")
-
   end
 end
 # When I visit an order's show page
