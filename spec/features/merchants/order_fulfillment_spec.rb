@@ -71,20 +71,16 @@ RSpec.describe "Merchant order fulfillment page", type: :feature do
 
     click_button("Create Order")
 
-    click_on("Log Out")
+    order = Order.last
 
-    click_on("Login")
+    expect(order.status).to eq("pending")
 
-    fill_in 'email', with: @merchant_user1.email
-    fill_in 'password', with: @merchant_user1.password
+    order.item_orders.update_all(status: "fulfilled")
 
-    click_button("Log In")
+    expect(order.status).to eq("pending")
 
-    visit "/profile"
+    order.status_changer
+
+    expect(order.status).to eq("packaged")
   end
 end
-
-
-# User Story 31, All Merchants fulfill items on an order
-# When all items in an order have been "fulfilled" by their merchants
-# The order status changes from "pending" to "packaged"
