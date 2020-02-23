@@ -58,7 +58,7 @@ RSpec.describe("Order Creation") do
 
       expect(current_path).to eq("/profile/orders")
       click_on "#{new_order.id}"
-      expect(current_path).to eq("/orders/#{new_order.id}")
+      expect(current_path).to eq("/profile/orders/#{new_order.id}")
 
 
       within '.shipping-address' do
