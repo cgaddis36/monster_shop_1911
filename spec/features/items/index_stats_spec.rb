@@ -65,27 +65,27 @@ RSpec.describe 'As any user', type: :feature do
     # item6 = 23
     # item2 = 20
 
-    @order1 = Order.create!(order_info1)
-    @order2 = Order.create!(order_info2)
+    @order1 = @default_user.orders.create!(order_info1)
+    @order2 = @default_user.orders.create!(order_info2)
 
     item_order1_info = { order_id: @order1.id, item_id: @item_1.id, price: @item_1.price, quantity: 34 }
     item_order1 = ItemOrder.create!(item_order1_info)
-    
+
     item_order2_info = { order_id: @order2.id, item_id: @item_2.id, price: @item_2.price, quantity: 20 }
     item_order2 = ItemOrder.create!(item_order2_info)
-    
+
     item_order3_info = { order_id: @order1.id, item_id: @item_3.id, price: @item_3.price, quantity: 100 }
     item_order3 = ItemOrder.create!(item_order3_info)
-    
+
     item_order4_info = { order_id: @order2.id, item_id: @item_4.id, price: @item_4.price, quantity: 27 }
     item_order4 = ItemOrder.create!(item_order4_info)
-    
+
     item_order5_info = { order_id: @order1.id, item_id: @item_5.id, price: @item_5.price, quantity: 56 }
     item_order5 = ItemOrder.create!(item_order5_info)
-    
+
     item_order6_info = { order_id: @order2.id, item_id: @item_6.id, price: @item_6.price, quantity: 23 }
     item_order6 = ItemOrder.create!(item_order6_info)
-    
+
     item_order7_info = {order_id: @order1.id, item_id: @item_7.id, price: @item_7.price, quantity: 54 }
     item_order7 = ItemOrder.create!(item_order7_info)
 
@@ -94,7 +94,7 @@ RSpec.describe 'As any user', type: :feature do
 
     # most_popular = Item.joins(:item_orders).group("items.id").order("sum(item_orders.quantity) desc").limit(5).pluck(:name)
     # least_popular = Item.joins(:item_orders).group("items.id").order("sum(item_orders.quantity)").limit(5).pluck(:name)
-    
+
   end
 
   it 'the items index page shows all the statistics for a default user' do

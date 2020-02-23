@@ -19,6 +19,15 @@ describe Item, type: :model do
 
   describe "instance methods" do
     before(:each) do
+      @default_user_1 = User.create!(name: 'Bert',
+                                   street_address: '123 Sesame St.',
+                                   city: 'NYC',
+                                   state: 'New York',
+                                   zip_code: "10001",
+                                   email: 'roman@examples.com',
+                                   password: 'cheeseburger02',
+                                   role: 0)
+
       @bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
       @chain = @bike_shop.items.create(name: "Chain", description: "It'll never break!", price: 50, image: "https://www.rei.com/media/b61d1379-ec0e-4760-9247-57ef971af0ad?size=784x588", inventory: 5)
 
@@ -43,81 +52,60 @@ describe Item, type: :model do
 
     it 'no orders' do
       expect(@chain.no_orders?).to eq(true)
-      order = Order.create(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
+      order = @default_user_1.orders.create(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
       order.item_orders.create(item: @chain, price: @chain.price, quantity: 2)
       expect(@chain.no_orders?).to eq(false)
     end
 
-    it "most and least popular items" do 
+    it "most and least popular items" do
+      merchant = Merchant.create!(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80_203)
+      item_1 = merchant.items.create!(name: 'Gatorskins', description: "They'll never pop!", price: 100, image: 'https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588', inventory: 12)
+      item_2 = merchant.items.create!(name: 'Chain', description: "It'll never break!", price: 50, image: 'https://www.rei.com/media/b61d1379-ec0e-4760-9247-57ef971af0ad?size=784x588', inventory: 5)
+      item_3 = merchant.items.create!(name: 'Shimano Shifters', description: "It'll always shift!", price: 180, image: 'https://images-na.ssl-images-amazon.com/images/I/4142WWbN64L._SX466_.jpg', inventory: 2)
+      item_4 = merchant.items.create!(name: 'Boots', description: "Dont fear the rain!", price: 129, image: 'https://images-na.ssl-images-amazon.com/images/I/4142WWbN64L._SX466_.jpg', inventory: 6)
+      item_5 = merchant.items.create!(name: 'Bike Lights', description: "Dont fear the dark!", price: 62, image: 'https://images-na.ssl-images-amazon.com/images/I/4142WWbN64L._SX466_.jpg', inventory: 10)
+      item_6 = merchant.items.create!(name: 'Camelback water bottle', description: "Dont fear the thirst!", price: 42, image: 'https://images-na.ssl-images-amazon.com/images/I/4142WWbN64L._SX466_.jpg', inventory: 10)
+      item_7 = merchant.items.create!(name: 'Helmet', description: "Dont fear the risk!", price: 20, image: 'https://images-na.ssl-images-amazon.com/images/I/4142WWbN64L._SX466_.jpg', inventory: 15)
 
-      @merchant = Merchant.create!(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80_203)
-      @item_1 = @merchant.items.create!(name: 'Gatorskins', description: "They'll never pop!", price: 100, image: 'https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588', inventory: 12)
-      @item_2 = @merchant.items.create!(name: 'Chain', description: "It'll never break!", price: 50, image: 'https://www.rei.com/media/b61d1379-ec0e-4760-9247-57ef971af0ad?size=784x588', inventory: 5)
-      @item_3 = @merchant.items.create!(name: 'Shimano Shifters', description: "It'll always shift!", price: 180, image: 'https://images-na.ssl-images-amazon.com/images/I/4142WWbN64L._SX466_.jpg', inventory: 2)
-      @item_4 = @merchant.items.create!(name: 'Boots', description: "Dont fear the rain!", price: 129, image: 'https://images-na.ssl-images-amazon.com/images/I/4142WWbN64L._SX466_.jpg', inventory: 6)
-      @item_5 = @merchant.items.create!(name: 'Bike Lights', description: "Dont fear the dark!", price: 62, image: 'https://images-na.ssl-images-amazon.com/images/I/4142WWbN64L._SX466_.jpg', inventory: 10)
-      @item_6 = @merchant.items.create!(name: 'Camelback water bottle', description: "Dont fear the thirst!", price: 42, image: 'https://images-na.ssl-images-amazon.com/images/I/4142WWbN64L._SX466_.jpg', inventory: 10)
-      @item_7 = @merchant.items.create!(name: 'Helmet', description: "Dont fear the risk!", price: 20, image: 'https://images-na.ssl-images-amazon.com/images/I/4142WWbN64L._SX466_.jpg', inventory: 15)
+      merchant_user_1 = User.create!(name: 'Mark',
+                                   street_address: '112 Elm St.',
+                                   city: 'Cambridge',
+                                   state: 'MA',
+                                   zip_code: "92139",
+                                   email: 'greek@examples.com',
+                                   password: 'hamburger03',
+                                   role: 1)
 
+      order_1 = @default_user_1.orders.create!(name: 'Bert', address: '123 Sesame St.', city: 'NYC', state: 'New York', zip: 10001)
+      order_2 = merchant_user_1.orders.create!(name: 'Mark', address: '112 Elm St.', city: 'Cambridge', state: 'MA', zip: 92139)
 
-      order_info1 = {
-        name: 'Bert',
-        address: '123 Sesame St.',
-        city: 'NYC',
-        state: 'New York',
-        zip: '10001'
-      }
+      item_order1_info = { order_id: order_1.id, item_id: item_1.id, price: item_1.price, quantity: 34 }
+      ItemOrder.create!(item_order1_info)
 
-      order_info2 = {
-        name: 'Mark',
-        address: '112 Elm St.',
-        city: 'Cambridge',
-        state: 'MA',
-        zip: '02139'
-      }
-    
-      @order1 = Order.create!(order_info1)
-      @order2 = Order.create!(order_info2)
-      
-      item_order1_info = { order_id: @order1.id, item_id: @item_1.id, price: @item_1.price, quantity: 34 }
-      item_order1 = ItemOrder.create!(item_order1_info)
-      
-      item_order2_info = { order_id: @order2.id, item_id: @item_2.id, price: @item_2.price, quantity: 20 }
-      item_order2 = ItemOrder.create!(item_order2_info)
-      
-      item_order3_info = { order_id: @order1.id, item_id: @item_3.id, price: @item_3.price, quantity: 100 }
-      item_order3 = ItemOrder.create!(item_order3_info)
-      
-      item_order4_info = { order_id: @order2.id, item_id: @item_4.id, price: @item_4.price, quantity: 27 }
-      item_order4 = ItemOrder.create!(item_order4_info)
-      
-      item_order5_info = { order_id: @order1.id, item_id: @item_5.id, price: @item_5.price, quantity: 56 }
-      item_order5 = ItemOrder.create!(item_order5_info)
-      
-      item_order6_info = { order_id: @order2.id, item_id: @item_6.id, price: @item_6.price, quantity: 23 }
-      item_order6 = ItemOrder.create!(item_order6_info)
-      
-      item_order7_info = {order_id: @order1.id, item_id: @item_7.id, price: @item_7.price, quantity: 54 }
-      item_order7 = ItemOrder.create!(item_order7_info)
-      
-      item_order8_info = {order_id: @order2.id, item_id: @item_1.id, price: @item_1.price, quantity: 35 }
-      item_order8 = ItemOrder.create!(item_order8_info)
+      item_order2_info = { order_id: order_2.id, item_id: item_2.id, price: item_2.price, quantity: 20 }
+      ItemOrder.create!(item_order2_info)
 
-      expect(Item.most_popular_items).to eq([@item_3.name, @item_1.name, @item_5.name, @item_7.name, @item_4.name])
-      
-      expect(Item.least_popular_items).to eq([@item_2.name, @item_6.name, @item_4.name, @item_7.name, @item_5.name])
-      
-      # order1 has items : item1, item3, item5, item7
-      # order2 has items : item2, item4, item6, item1
-      # total quantities ordered :
-      # item3 = 100
-      # item1 = 69
-      # item5 = 56
-      # item7 = 54
-      # item4 = 27
-      # item6 = 23
-      # item2 = 20
+      item_order3_info = { order_id: order_1.id, item_id: item_3.id, price: item_3.price, quantity: 100 }
+      ItemOrder.create!(item_order3_info)
+
+      item_order4_info = { order_id: order_2.id, item_id: item_4.id, price: item_4.price, quantity: 27 }
+      ItemOrder.create!(item_order4_info)
+
+      item_order5_info = { order_id: order_1.id, item_id: item_5.id, price: item_5.price, quantity: 56 }
+      ItemOrder.create!(item_order5_info)
+
+      item_order6_info = { order_id: order_2.id, item_id: item_6.id, price: item_6.price, quantity: 23 }
+      ItemOrder.create!(item_order6_info)
+
+      item_order7_info = {order_id: order_1.id, item_id: item_7.id, price: item_7.price, quantity: 54 }
+      ItemOrder.create!(item_order7_info)
+
+      item_order8_info = {order_id: order_2.id, item_id: item_1.id, price: item_1.price, quantity: 35 }
+      ItemOrder.create!(item_order8_info)
+
+      expect(Item.most_popular_items).to eq([item_3.name, item_1.name, item_5.name, item_7.name, item_4.name])
+
+      expect(Item.least_popular_items).to eq([item_2.name, item_6.name, item_4.name, item_7.name, item_5.name])
+    end
   end
-  
-end
 end
