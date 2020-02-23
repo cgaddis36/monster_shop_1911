@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "As a registered user", type: :feature do 
 
-  describe 'when I visit my profile page' do 
+  describe 'When I visit my Profile Orders page' do 
 
     before(:each) do
       @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
@@ -42,42 +42,15 @@ RSpec.describe "As a registered user", type: :feature do
 
       visit "/items/#{@item1.id}"
       click_on "Add To Cart"
+      visit "/items/#{@item1.id}"
+      click_on "Add To Cart"
       visit "/items/#{@item2.id}"
       click_on "Add To Cart"
       visit "/items/#{@item3.id}"
       click_on "Add To Cart"
-      @items_in_cart = [@item1,@item2,@item3]
-
     end
 
-    it 'shows a link to my orders if I have any' do 
-
-      visit "/profile"
-
-      expect(page).to_not have_link("My Orders")
-
-      visit "/cart"
-
-      click_on "Checkout"
-
-      expect(current_path).to eq("/orders/new")
-
-      fill_in :name, with: @username
-      fill_in :address, with: @street_address
-      fill_in :city, with: @city
-      fill_in :state, with: @state
-      fill_in :zip, with: @zip_code.to_i
-
-      click_button "Create Order"
-
-      visit "/profile"
-
-      click_link('My Orders')
-      expect(current_path).to eq("/profile/orders")
-      
-    end
-
-    it "the orders index page shows every order I've made and its information" do 
+    it "the order's show page show all the order's information" do 
 
       visit "/cart"
 
@@ -111,39 +84,50 @@ RSpec.describe "As a registered user", type: :feature do
       fill_in :zip, with: @zip_code.to_i
 
       click_button "Create Order"
-
+      
       order2 = Order.last
-
+      
       visit "/profile/orders"
 
-      within("div#order_#{order1.id}") do
-        expect(page).to have_content("Order id# = #{order1.id}")
-        expect(page).to have_content("Order made on: #{order1.created_at}")
-        expect(page).to have_content("Order updated on: #{order1.updated_at}")
-        
-        expect(page).to have_content("Total Quantity: #{order1.total_quantity}")
-        expect(page).to have_content("Grand Total: #{order1.grandtotal}")
-        expect(page).to have_content("Current status: #{order1.status}")
-        click_link(order1.id)
-      end
-      
-      expect(current_path).to eq("/profile/orders/#{order1.id}")
+      click_on order1.id 
 
-       visit "/profile/orders"
+      expect(current_path).to eq("/profile/orders/#{order1.id }")
 
-      within("div#order_#{order2.id}") do
-        expect(page).to have_content("Order id# = #{order2.id}")
-        expect(page).to have_content("Order made on: #{order2.created_at}")
-        expect(page).to have_content("Order updated on: #{order2.updated_at}")
-        
-        expect(page).to have_content("Total Quantity: #{order2.total_quantity}")
-        expect(page).to have_content("Grand Total: #{order2.grandtotal}")
-        expect(page).to have_content("Current status: #{order2.status}")
-        click_link(order2.id)
+      expect(page).to have_content("Order id# = #{order1.id}")
+      expect(page).to have_content("Order made on: #{order1.created_at}")
+      expect(page).to have_content("Order updated on: #{order1.updated_at}")
+      expect(page).to have_content("Current status: #{order1.status}")
+
+      expect(page).to have_content(order1.name)
+      expect(page).to have_content(order1.address)
+      expect(page).to have_content(order1.city)
+      expect(page).to have_content(order1.state)
+      expect(page).to have_content(order1.zip)
+
+      within("section#item-#{@item1.id}") do 
+        expect(page).to have_content(@item1.name)
+        expect(page).to have_content(@item1.description)
+        expect(page).to have_content(2)
+        expect(page).to have_content("#{ActiveSupport::NumberHelper.number_to_currency(@item1.price)}")
+        expect(page).to have_content("#{ActiveSupport::NumberHelper.number_to_currency(@item1.price * 2)}")
       end
 
-      expect(current_path).to eq("/profile/orders/#{order2.id}")
-      
+      within("section#item-#{@item2.id}") do 
+        expect(page).to have_content(@item2.name)
+        expect(page).to have_content(@item2.description)
+        expect(page).to have_content(1)
+        expect(page).to have_content("#{ActiveSupport::NumberHelper.number_to_currency(@item2.price)}")
+        expect(page).to have_content("#{ActiveSupport::NumberHelper.number_to_currency(@item2.price)}")
+      end
+
+      expect(page).to have_content("Total Quantity: #{order1.total_quantity}")
+      expect(page).to have_content("Total: #{ActiveSupport::NumberHelper.number_to_currency(order1.grandtotal)}")
+
+      expect(page).to_not have_content("Order id# = #{order2.id}")
+
+      expect(page).to_not have_content(@item4.name)
+      expect(page).to_not have_content(@item4.description)
+
     end
 
   end
