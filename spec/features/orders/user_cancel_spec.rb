@@ -81,7 +81,6 @@ RSpec.describe "Merchant order fulfillment page", type: :feature do
     click_on(order.id)
     click_on("Cancel Order")
 
-    save_and_open_page
     expect(current_path).to eq("/profile")
 
     expect(page).to have_content("Your order has been cancelled.")
@@ -89,6 +88,54 @@ RSpec.describe "Merchant order fulfillment page", type: :feature do
     click_on("My Orders")
 
     expect(page).to have_content("Current status: cancelled")
+  end
+  it "when an order has items that have been fulfilled and that order is cancelled, those items inventories are returned" do
+
+
+    visit '/login'
+
+    fill_in 'email', with: @walter.email
+    fill_in 'password', with: @walter.password
+
+    click_on 'Log In'
+
+    click_on("All Items")
+
+    click_on("GatorSkins")
+    click_on("Add To Cart")
+
+    click_on("Doggy Bone")
+    click_on("Add To Cart")
+
+    click_on("Pully Toy")
+    click_on("Add To Cart")
+
+    click_on("Pully Toy")
+    click_on("Add To Cart")
+
+    visit "/cart"
+
+    click_on("Checkout")
+
+    fill_in :name, with: @walter.name
+    fill_in :address, with: @walter.street_address
+    fill_in :city, with: @walter.city
+    fill_in :state, with: @walter.state
+    fill_in :zip, with: @walter.zip_code
+
+    click_button("Create Order")
+
+    order = Order.last
+
+    order.item_orders.last.update(status: "fulfilled")
+
+    visit '/profile/orders'
+
+    click_on(order.id)
+
+    click_on("Cancel Order")
+
+    expect(order.item_orders.last.status).to eq("unfulfilled")
   end
 end
 # When I visit an order's show page

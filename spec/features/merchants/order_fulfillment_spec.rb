@@ -82,7 +82,6 @@ RSpec.describe "Merchant order fulfillment page", type: :feature do
 
     visit "/profile"
   end
-  # it "when an order has items that have been fulfilled and that order is cancelled, those items inventories are returned"
 end
 
 

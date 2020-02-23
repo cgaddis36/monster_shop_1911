@@ -5,8 +5,8 @@ class ItemOrdersController < ApplicationController
     item_orders = order.item_orders.all
     item_orders.each do |itemorder|
       if itemorder.status == "fulfilled"
-        Item.find(itemorder.id).increment(:inventory, itemorder.quantity).save
-        itemorder.update(status: 0)
+        Item.find(itemorder.item_id).increment(:inventory, itemorder.quantity).save
+        itemorder.update(status: "unfulfilled")
       end
     end
     order.update(status: 3)
