@@ -22,11 +22,28 @@ class Order <ApplicationRecord
 
   def item_total_merchant(merchant)
     items.where(merchant: merchant).sum("item_orders.quantity * item_orders.price")
+  end
 
   def status_changer
     if item_orders.all? { |itemorder| itemorder.status == "fulfilled" }
       update(status: "packaged" )
     end
-
   end
+
+  def self.pending_status
+    all.where(status: "pending")
+  end
+
+  def self.packaged_status
+    all.where(status: "packaged")
+  end
+
+  def self.shipped_status
+    all.where(status: "shipped")
+  end
+
+  def self.cancelled_status
+    self.all.where(status: "cancelled")
+  end
+
 end

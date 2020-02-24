@@ -2,8 +2,38 @@
 <h1>Admin Dashboard</h1>
 </center>
 
-  <section class= "orders">
-    <% @orders.each do |order| %>
+  <section class= "packaged-orders">
+    <% Order.packaged_status.each do |order| %>
+      <section id= "order-<%= order.id %>">
+        <p>Order ID: <%= order.id %></p>
+        <p>User Name: <%=link_to order.user.name, "admin/users/#{order.user.id}" %></p>
+        <p>Order Creation Date: <%= order.created_at %></p>
+      </section>
+    <% end %>
+  </section>
+
+  <section class= "pending-orders">
+    <% Order.pending_status.each do |order| %>
+      <section id= "order-<%= order.id %>">
+        <p>Order ID: <%= order.id %></p>
+        <p>User Name: <%=link_to order.user.name, "admin/users/#{order.user.id}" %></p>
+        <p>Order Creation Date: <%= order.created_at %></p>
+      </section>
+    <% end %>
+  </section>
+
+  <section class= "shipped-orders">
+    <% Order.shipped_status.each do |order| %>
+      <section id= "order-<%= order.id %>">
+        <p>Order ID: <%= order.id %></p>
+        <p>User Name: <%=link_to order.user.name, "admin/users/#{order.user.id}" %></p>
+        <p>Order Creation Date: <%= order.created_at %></p>
+      </section>
+    <% end %>
+  </section>
+
+  <section class= "cancelled-orders">
+    <% Order.cancelled_status.each do |order| %>
       <section id= "order-<%= order.id %>">
         <p>Order ID: <%= order.id %></p>
         <p>User Name: <%=link_to order.user.name, "admin/users/#{order.user.id}" %></p>
