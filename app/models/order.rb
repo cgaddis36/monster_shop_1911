@@ -1,4 +1,6 @@
-class Order <ApplicationRecord
+# frozen_string_literal: true
+
+class Order < ApplicationRecord
   validates_presence_of :name, :address, :city, :state, :zip
 
   has_many :item_orders
@@ -6,7 +8,7 @@ class Order <ApplicationRecord
 
   belongs_to :user
 
-  enum status: %w(pending packaged shipped cancelled)
+  enum status: %w[pending packaged shipped cancelled]
 
   def grandtotal
     item_orders.sum('price * quantity')
@@ -17,7 +19,7 @@ class Order <ApplicationRecord
   end
 
   def item_quantity_merchant(merchant)
-    items.where(merchant: merchant).sum("item_orders.quantity")
+    items.where(merchant: merchant).sum('item_orders.quantity')
   end
 
   def item_total_merchant(merchant)
@@ -25,8 +27,8 @@ class Order <ApplicationRecord
   end
 
   def status_changer
-    if item_orders.all? { |itemorder| itemorder.status == "fulfilled" }
-      update(status: "packaged" )
+    if item_orders.all? { |itemorder| itemorder.status == 'fulfilled' }
+      update(status: 'packaged')
     end
   end
 

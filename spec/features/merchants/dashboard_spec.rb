@@ -1,9 +1,9 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "As a merchant employee", type: :feature do
-
+RSpec.describe 'As a merchant employee', type: :feature do
   describe 'when I visit my merchant dashboard' do
-
     before(:each) do
       @merchant_user = User.create!(name: "Johnny",
                                   street_address: "123 Jonny Way",
@@ -19,16 +19,14 @@ RSpec.describe "As a merchant employee", type: :feature do
     end
 
     it 'has a link to view the merchant items' do
-
-      visit "/login"
+      visit '/login'
 
       fill_in :email, with: @merchant_user.email
       fill_in :password, with: @merchant_user.password
-      click_on "Log In"
+      click_on 'Log In'
       visit '/merchant'
-      click_on("My Items")
-      expect(current_path).to eq("/merchant/items")
+      click_on('My Items')
+      expect(current_path).to eq('/merchant/items')
     end
-
   end
 end
