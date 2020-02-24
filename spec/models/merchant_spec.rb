@@ -73,6 +73,7 @@ describe Merchant, type: :model do
 
       expect(@meg.distinct_cities).to eq(["Denver","Hershey"])
     end
+
     it 'change_status' do
       merchant = create(:random_merchant)
       merchant_2 = create(:random_merchant, status: 1)
@@ -115,5 +116,15 @@ describe Merchant, type: :model do
       expect(item.active?).to eq(true)
       expect(item2.active?).to eq(true)
     end
+
+    it '#item_ordered?' do
+      user = create(:random_user, role: 0)
+      order = create(:random_order, user: user)
+
+      ItemOrder.create!(item: @chain, order: order, price: @chain.price, quantity: 5)
+      expect(@meg.item_ordered?(@chain)).to eq(true)
+      expect(@meg.item_ordered?(@tire)).to eq(false)
+    end
+
   end
 end
