@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "As a visitor", type: :feature do
   before(:each) do
+    @merchant_company = Merchant.create!(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Richmond', state: 'VA', zip: 80203)
+
     @default_user = User.create!(name: "Johnny",
                                 street_address: "123 Jonny Way",
                                 city: "Johnsonville",
@@ -29,6 +31,7 @@ RSpec.describe "As a visitor", type: :feature do
                                 password: "hamburger04",
                                 role: 2
                               )
+    @merchant_company.users << @merchant_user                              
   end
   describe "when I visit the login page" do
     it "I am able to submit valid credentials and login as a default user" do
@@ -52,7 +55,7 @@ RSpec.describe "As a visitor", type: :feature do
 
       click_on 'Log In'
 
-      expect(current_path).to eq('/merchant/dashboard')
+      expect(current_path).to eq('/merchant')
       expect(page).to have_content("You are now logged in!")
     end
     it "I am able to submit valid credentials and login as an admin user" do
@@ -64,7 +67,7 @@ RSpec.describe "As a visitor", type: :feature do
 
       click_on 'Log In'
 
-      expect(current_path).to eq('/admin/dashboard')
+      expect(current_path).to eq('/admin')
       expect(page).to have_content("You are now logged in!")
     end
     it "I am not able to login with bad credentials" do
@@ -99,7 +102,7 @@ RSpec.describe "As a visitor", type: :feature do
 
       visit '/login'
 
-      expect(current_path).to eq('/admin/dashboard')
+      expect(current_path).to eq('/admin')
       expect(page).to have_content("You are already logged in!")
     end
 
@@ -124,7 +127,7 @@ RSpec.describe "As a visitor", type: :feature do
       click_button "Log In"
 
       visit '/login'
-      expect(current_path).to eq('/merchant/dashboard')
+      expect(current_path).to eq('/merchant')
       expect(page).to have_content("You are already logged in!")
     end
 

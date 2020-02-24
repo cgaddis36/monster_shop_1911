@@ -1,1 +1,23 @@
+<h1 align = "center">Merchant</h1>
+
+<%= current_user.merchant.name %></br></br>
+<%= current_user.merchant.address %>
+<p><%= current_user.merchant.city %>
+<%= current_user.merchant.state %>
+<%= current_user.merchant.zip %></p>
+
+<section class="grid-container">
+
+<% @orders.each do |order| %>
+<% if order.status == "pending" %>
+<section class="grid-item" id = "pending-<%= order.id %>">
+  <p>ID: <%= link_to "#{order.id}", "/merchant/orders/#{order.id}" %></p>
+  <p>Order Created: <%= order.created_at %></p>
+  <p>Quantity of my items in this order: <%= order.item_quantity_merchant(current_user.merchant) %></p>
+  <p>Value of my items in this order: <%= number_to_currency(order.item_total_merchant(current_user.merchant)) %></p>
+</section>
+<% end %>
+<% end %>
+</section>
+
 <%= link_to 'My Items', "/merchant/items" %>
