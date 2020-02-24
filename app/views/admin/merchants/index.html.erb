@@ -1,5 +1,20 @@
-<% @merchants.each do |merchant| %>
-  <div id= "merchant-<%= {merchant.id} %>" >
-    <%= link_to merchant.name, "/admin/merchants/#{merchant.id}" %>
-  <div>
-<% end %>
+<h1 align = "center">Merchants</h1>
+<section class = "grid-container">
+  <% @merchants.each do |merchant|%>
+    <section class = "grid-item">
+      <section id="merchant-<%= merchant.id %>">
+        <h2><%=link_to merchant.name, "/admin/merchants/#{merchant.id}"%></h2>
+      <% if merchant.enabled? %>
+        <%= button_to 'Disable Merchant', "/admin/merchants/#{merchant.id}", method: :patch %>
+      <% else%>
+        <%= button_to 'Enable Merchant', "/admin/merchants/#{merchant.id}", method: :patch %>
+      <% end %><br><br>
+      <%= merchant.city %>,
+      <%= merchant.state %>
+      <%= merchant.zip %>
+      </section>
+      <% else %>
+      <h2><%=link_to merchant.name, "/merchants/#{merchant.id}"%></h2>
+    </section>
+  <% end %>
+</section>
