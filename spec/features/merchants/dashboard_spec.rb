@@ -5,17 +5,17 @@ require 'rails_helper'
 RSpec.describe 'As a merchant employee', type: :feature do
   describe 'when I visit my merchant dashboard' do
     before(:each) do
-      @merchant_user = User.create!(name: 'Johnny',
-                                    street_address: '123 Jonny Way',
-                                    city: 'Johnsonville',
-                                    state: 'TN',
-                                    zip_code: 12_345,
-                                    email: 'roman@example.com',
-                                    password: 'hamburger01',
-                                    role: 1)
-      @bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Richmond', state: 'VA', zip: 80_203)
+      @merchant_user = User.create!(name: "Johnny",
+                                  street_address: "123 Jonny Way",
+                                  city: "Johnsonville",
+                                  state: 'TN',
+                                  zip_code: 12345,
+                                  email: "roman@example.com",
+                                  password: "hamburger01",
+                                  role: 1)
+      @merchant = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Richmond', state: 'VA', zip: 80203)
+      @merchant.users << @merchant_user
 
-      @bike_shop.users << @merchant_user
     end
 
     it 'has a link to view the merchant items' do
