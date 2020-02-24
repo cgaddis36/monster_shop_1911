@@ -22,11 +22,11 @@ class Order <ApplicationRecord
 
   def item_total_merchant(merchant)
     items.where(merchant: merchant).sum("item_orders.quantity * item_orders.price")
+  end 
 
   def status_changer
     if item_orders.all? { |itemorder| itemorder.status == "fulfilled" }
       update(status: "packaged" )
     end
-
   end
 end
