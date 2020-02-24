@@ -27,4 +27,8 @@ class Merchant <ApplicationRecord
     (item_orders.distinct.joins(:order).pluck(:city)).sort
   end
 
+  def item_ordered?(item)
+    !item_orders.where("item_id = #{item.id}").empty?
+  end
+
 end
