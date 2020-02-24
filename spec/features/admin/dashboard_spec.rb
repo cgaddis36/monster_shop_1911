@@ -53,14 +53,6 @@ require 'rails_helper'
       it "sees all orders sorted by status and the order's user name links to the admin view of the user" do
         visit "/admin"
 
-         within ".pending-orders" do
-          within "#order-#{@order1.id}" do
-            expect(page).to have_content("Order ID: #{@order1.id}")
-            expect(page).to have_content(@order1.created_at)
-            expect(page).to have_link(@order1.user.name)
-          end
-        end
-
         within ".packaged-orders" do
            within "#order-#{@order2.id}" do
             expect(page).to have_content("Order ID: #{@order2.id}")
@@ -68,6 +60,14 @@ require 'rails_helper'
             expect(page).to have_link(@order2.user.name)
           end
         end
+
+        within ".pending-orders" do
+         within "#order-#{@order1.id}" do
+           expect(page).to have_content("Order ID: #{@order1.id}")
+           expect(page).to have_content(@order1.created_at)
+           expect(page).to have_link(@order1.user.name)
+         end
+       end
 
         within ".shipped-orders" do
           within "#order-#{@order3.id}" do
