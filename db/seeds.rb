@@ -59,3 +59,30 @@ default_user = User.create!(name: "Johnny",
                             password: "hamburger03",
                             role: 0
                           )
+
+merchant = create(:random_merchant)
+
+merchant2 = create(:random_merchant)
+
+@item1 = create(:random_item, merchant: @merchant)
+@item2 = create(:random_item, merchant: @merchant)
+@item3 = create(:random_item, merchant: @merchant)
+@item4 = create(:random_item, merchant: @merchant)
+@item5 = create(:random_item, merchant: @merchant)
+@item6 = create(:random_item, merchant: @merchant)
+@item7 = create(:random_item, merchant: @merchant)
+@item8 = create(:random_item, merchant: @merchant)
+@item9 = create(:random_item, merchant: @merchant)
+
+@item10 = create(:random_item, merchant: @merchant2)
+@item11 = create(:random_item, merchant: @merchant2)
+@item12 = create(:random_item, merchant: @merchant2)
+@item13 = create(:random_item, merchant: @merchant2)
+@item14 = create(:random_item, merchant: @merchant2)
+@item15 = create(:random_item, merchant: @merchant2)
+@item16 = create(:random_item, merchant: @merchant2)
+@item17 = create(:random_item, merchant: @merchant2)
+@item18 = create(:random_item, merchant: @merchant2)
+@item19 = create(:random_item, merchant: @merchant2)
+
+
