@@ -1,5 +1,6 @@
 <h1>All Items</h1>
 
+<p><%= link_to "Add New Item", "/merchant/items/new" %></p>
 <section class="grid-container">
   <% @merchant.items.each do |item| %>
   <section class = "grid-item" id= 'item-<%=item.id%>'>
@@ -9,7 +10,11 @@
     <% end %>
 
     <p>Sold by: <%=link_to item.merchant.name, "/merchants/#{item.merchant.id}" %></p>
-    <%= link_to image_tag(item.image), "items/#{item.id}" %>
+    <% if !item.image.blank? %>
+      <%= link_to image_tag(item.image), "items/#{item.id}" %>
+    <% else %>
+      <%= link_to image_tag("https://t3.ftcdn.net/jpg/02/48/42/64/240_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg"), "items/#{item.id}" %>
+    <% end %>  
     <p> <%= item.description unless @merchant%> </p>
     <p>Price: <%=number_to_currency(item.price) %> </p>
     <p>Inventory: <%= item.inventory %> </p>

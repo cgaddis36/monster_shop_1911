@@ -12,4 +12,27 @@ class Merchant::ItemsController < Merchant::BaseController
     redirect_to "/merchant/items"
   end
 
+  def new 
+    @item = Item.new
+  end
+
+  def create
+    merchant = Merchant.where("id = #{current_user.merchant.id}").first
+    item = merchant.items.create(item_params)
+    if item.save
+      flash[:notice] = 'Your new item was saved'
+      redirect_to "/merchant/items"
+    else
+      flash[:error] = item.errors.full_messages.to_sentence
+      redirect_to "/merchant/items"
+    end
+  end
+
+  private 
+
+  def item_params
+    params.require("/merchant/items").permit(:name, :price, :age, :description, :image, :inventory)
+  end
+
+
 end
