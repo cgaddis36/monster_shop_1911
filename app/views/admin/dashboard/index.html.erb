@@ -3,41 +3,47 @@
 </center>
 
   <section class= "packaged-orders">
+    <h2>Packaged Orders</h2>
     <% Order.packaged_status.each do |order| %>
       <section id= "order-<%= order.id %>">
         <p>Order ID: <%= order.id %></p>
-        <p>User Name: <%=link_to order.user.name, "admin/users/#{order.user.id}" %></p>
+        <p>User Name: <%=link_to order.user.name, "/admin/users/#{order.user.id}" %></p>
         <p>Order Creation Date: <%= order.created_at %></p>
+        <p><%= button_to "Ship Order", "/admin/orders/#{order.id}", params: {status_change: "ship"}, method: :patch %></p>
+
       </section>
-    <% end %>
+    <% end %><br>
   </section>
 
   <section class= "pending-orders">
+    <h2>Pending Orders</h2>
     <% Order.pending_status.each do |order| %>
       <section id= "order-<%= order.id %>">
         <p>Order ID: <%= order.id %></p>
-        <p>User Name: <%=link_to order.user.name, "admin/users/#{order.user.id}" %></p>
+        <p>User Name: <%=link_to order.user.name, "/admin/users/#{order.user.id}" %></p>
         <p>Order Creation Date: <%= order.created_at %></p>
       </section>
-    <% end %>
+    <% end %><br>
   </section>
 
   <section class= "shipped-orders">
+    <h2>Shipped Orders</h2>
     <% Order.shipped_status.each do |order| %>
       <section id= "order-<%= order.id %>">
         <p>Order ID: <%= order.id %></p>
-        <p>User Name: <%=link_to order.user.name, "admin/users/#{order.user.id}" %></p>
+        <p>User Name: <%=link_to order.user.name, "/admin/users/#{order.user.id}" %></p>
         <p>Order Creation Date: <%= order.created_at %></p>
       </section>
-    <% end %>
+    <% end %><br>
   </section>
 
   <section class= "cancelled-orders">
+    <h2>Cancelled Orders</h2>
     <% Order.cancelled_status.each do |order| %>
       <section id= "order-<%= order.id %>">
         <p>Order ID: <%= order.id %></p>
-        <p>User Name: <%=link_to order.user.name, "admin/users/#{order.user.id}" %></p>
+        <p>User Name: <%=link_to order.user.name, "/admin/users/#{order.user.id}" %></p>
         <p>Order Creation Date: <%= order.created_at %></p>
       </section>
-    <% end %>
+    <% end %><br>
   </section>

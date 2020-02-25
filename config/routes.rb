@@ -39,6 +39,8 @@ Rails.application.routes.draw do
   namespace :merchant do
     get '/', to: 'dashboard#index'
     get '/items', to: 'items#index'
+    post '/items/new', to: 'items#create'
+    get '/items/new', to: 'items#new'
     delete '/items/:id', to: 'items#destroy'
   end
 
@@ -48,6 +50,9 @@ Rails.application.routes.draw do
     get '/users/:user_id', to: 'users#show'
     get '/merchants', to: 'merchants#index'
     get '/merchants/:id', to: 'merchants#show'
+    patch '/merchants/:id', to: 'merchants#update'
+    patch '/orders/:order_id', to: 'orders#update'
+
   end
 
   get "/register", to: "users#new"
