@@ -79,11 +79,9 @@ RSpec.describe 'Merchant add items', type: :feature do
 
         click_link("Add New Item")
   
-        save_and_open_page
-  
         latest_item_created = Item.last
 
-        name = ""
+        name = "bob"
         price = 0
         description = ""
         image_url = ""
@@ -97,12 +95,17 @@ RSpec.describe 'Merchant add items', type: :feature do
         click_button "Create Item"
 
         expect(current_path).to eq("/merchant/items/new")
-        expect(page).to have_content("Name can't be blank")
+        expect(page).to_not have_content("Name can't be blank")
         expect(page).to have_content("Description can't be blank")
         expect(page).to have_content("Price must be greater than 0")
         expect(page).to have_content("Inventory must be greater than or equal to 0")
         expect(page).to_not have_content("Image can't be blank")
 
+        expect(find_field('Name').value).to eq 'bob'
+        expect(find_field('Price').value).to eq '0'
+        expect(find_field('Description').value).to eq ''
+        expect(find_field('Image').value).to eq ''
+        expect(find_field('Inventory').value).to eq '-5'
 
         expect(Item.last).to eq(latest_item_created)
       end
