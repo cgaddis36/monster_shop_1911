@@ -79,8 +79,6 @@ RSpec.describe 'Merchant add items', type: :feature do
 
         click_link("Add New Item")
   
-        save_and_open_page
-  
         latest_item_created = Item.last
 
         name = ""
