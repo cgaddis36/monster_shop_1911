@@ -4,8 +4,8 @@
   <% @merchant.items.each do |item| %>
   <section class = "grid-item" id= 'item-<%=item.id%>'>
     <h2> <%=link_to item.name, "/items/#{item.id}" %> </h2>
-    <% if !@merchant.item_ordered?(item) %> 
-      <%=link_to "Delete", "/merchant/items/#{item.id}", method: :delete %> 
+    <% if !@merchant.item_ordered?(item) %>
+      <%=link_to "Delete", "/merchant/items/#{item.id}", method: :delete %>
     <% end %>
 
     <p>Sold by: <%=link_to item.merchant.name, "/merchants/#{item.merchant.id}" %></p>
@@ -17,8 +17,10 @@
     <% end %>
     <% if item.active? %>
     <p>Active</p>
+    <%= button_to "Deactivate", "/merchant/items/#{item.id}", method: :patch %>
     <% else %>
     <p>Inactive</p>
+    <%= button_to "Activate", "/merchant/items/#{item.id}", method: :patch %>
     <% end %>
   </section>
   <% end %>
