@@ -36,10 +36,10 @@ Rails.application.routes.draw do
   get "/profile/orders/:id", to: "orders#show"
   patch "/item_orders/:order_id", to: "item_orders#update"
 
-
   namespace :merchant do
     get '/', to: 'dashboard#index'
     get '/items', to: 'items#index'
+    delete '/items/:id', to: 'items#destroy'
   end
 
   namespace :admin do
