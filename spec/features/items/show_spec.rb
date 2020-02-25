@@ -48,4 +48,11 @@ RSpec.describe 'item show page', type: :feature do
       expect(page).to_not have_content("All Reviews")
     end
   end
+  it 'does not allow to add to cart if item is disabled' do
+    item = create(:random_item, merchant_id: @bike_shop.id, active?: false)
+    user = create(:random_user)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    visit "/items/#{item.id}"
+    expect(page).to_not have_link("Add To Cart")
+  end
 end
