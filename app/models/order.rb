@@ -47,5 +47,4 @@ class Order < ApplicationRecord
   def self.cancelled_status
     self.all.where(status: "cancelled")
   end
-
 end
