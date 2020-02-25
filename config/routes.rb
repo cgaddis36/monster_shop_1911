@@ -47,6 +47,7 @@ Rails.application.routes.draw do
     get '/users/:user_id', to: 'users#show'
     get '/merchants', to: 'merchants#index'
     get '/merchants/:id', to: 'merchants#show'
+    patch '/merchants/:id', to: 'merchants#update'
   end
 
   get "/register", to: "users#new"
