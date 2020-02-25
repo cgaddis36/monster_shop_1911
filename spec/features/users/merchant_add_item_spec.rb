@@ -71,13 +71,15 @@ RSpec.describe 'Merchant add items', type: :feature do
         end
 
       end
-    end
 
-    describe 'When I visit the item new page' do
 
       it 'I can only create a new item if the required fields are entered' do
 
-        visit '/merchant/items/new'
+        visit '/merchant/items'
+
+        click_link("Add New Item")
+  
+        save_and_open_page
   
         latest_item_created = Item.last
 
@@ -94,19 +96,23 @@ RSpec.describe 'Merchant add items', type: :feature do
 
         click_button "Create Item"
 
-        expect(current_path).to eq("/merchant/items")
+        expect(current_path).to eq("/merchant/items/new")
         expect(page).to have_content("Name can't be blank")
         expect(page).to have_content("Description can't be blank")
         expect(page).to have_content("Price must be greater than 0")
         expect(page).to have_content("Inventory must be greater than or equal to 0")
         expect(page).to_not have_content("Image can't be blank")
 
+
         expect(Item.last).to eq(latest_item_created)
       end
 
       it 'I can see a default image if no image was entered' do
 
-        visit '/merchant/items/new'
+        visit '/merchant/items'
+
+        click_link("Add New Item")
+  
 
         name = "Pair of boots"
         price = 65
@@ -134,6 +140,6 @@ RSpec.describe 'Merchant add items', type: :feature do
         
       end
 
-    end
   end
+end
 end
