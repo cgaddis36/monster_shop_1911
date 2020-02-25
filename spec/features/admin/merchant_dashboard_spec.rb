@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe "As a merchant employee", type: :feature do 
+RSpec.describe "As a merchant employee", type: :feature do
 
-  describe 'when I visit my merchant dashboard' do 
+  describe 'when I visit my merchant dashboard' do
 
-    before(:each) do 
+    before(:each) do
       @admin_user = User.create!(name: "Johnny",
                                   street_address: "123 Jonny Way",
                                   city: "Johnsonville",
@@ -14,8 +14,8 @@ RSpec.describe "As a merchant employee", type: :feature do
                                   password: "hamburger01",
                                   role: 2
                                 )
-      @merchant1 = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
-      @merchant2 = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Alberta', state: 'GA', zip: 56239)
+      @merchant1 = Merchant.create(name: "Meg's Bike Shop!", address: '1234 Bike Rd.', city: 'Dallas', state: 'AL', zip: 54321)
+      @merchant2 = Merchant.create(name: "Mike's Print Shop!", address: '1234 Paper Rd.', city: 'Allen', state: 'PA', zip: 12345)
 
       @item1 = create(:random_item, merchant: @merchant2)
       @item2 = create(:random_item, merchant: @merchant2)
@@ -54,7 +54,7 @@ RSpec.describe "As a merchant employee", type: :feature do
 
       @order1 = @default_user.orders.create!(order_info1)
       @order2 = @default_user.orders.create!(order_info2)
-      
+
       item_order1_info = { order_id: @order1.id, item_id: @item1.id, price: @item1.price, quantity: 10 }
       item_order1 = ItemOrder.create!(item_order1_info)
 
@@ -63,7 +63,7 @@ RSpec.describe "As a merchant employee", type: :feature do
 
     end
 
-    it 'has a link to view the merchant items' do 
+    it 'has a link to view the merchant items' do
 
       visit "/login"
 
@@ -73,22 +73,24 @@ RSpec.describe "As a merchant employee", type: :feature do
 
       visit "/admin/merchants"
 
-      click_link(@merchant2.name)
+      within "#merchant-#{@merchant2.id}" do
+        click_link(@merchant2.name)
+      end
 
       expect(current_path).to eq("/admin/merchants/#{@merchant2.id}")
 
       expect(page).to have_content("Mike's Print Shop")
-      expect(page).to have_content('123 Paper Rd.')
-      expect(page).to have_content("Alberta")
-      expect(page).to have_content("GA")
-      expect(page).to have_content(56239)
+      expect(page).to have_content('1234 Paper Rd.')
+      expect(page).to have_content("Allen")
+      expect(page).to have_content("PA")
+      expect(page).to have_content(12345)
       expect(page).to have_content("Number of Items: #{@merchant2.item_count}")
       expect(page).to have_content("Average Price of Items: #{ActiveSupport::NumberHelper.number_to_currency(@merchant2.average_item_price)}")
       expect(page).to have_link("All #{@merchant2.name} Items")
       expect(page).to have_link("Update Merchant")
 
       @merchant2.orders.each do |order|
-        within("section#pending-#{order.id}") do 
+        within("section#pending-#{order.id}") do
           expect(page).to have_content("ID: #{order.id}")
           expect(page).to have_content("Order Created: #{order.created_at}")
           expect(page).to have_content("Quantity of my items in this order: #{order.item_quantity_merchant(@merchant2)}")
