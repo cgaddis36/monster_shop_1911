@@ -147,5 +147,6 @@ RSpec.describe "Merchant order fulfillment page", type: :feature do
     expect(order.item_orders[2].status).to eq("unfulfilled")
     expect(order.item_orders.last.status).to eq("unfulfilled")
 
+    expect(page).to_not have_link("Cancel Order")
   end
 end
