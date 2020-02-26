@@ -34,4 +34,8 @@ class Item <ApplicationRecord
     Item.joins(:item_orders).group("items.id").order("sum(item_orders.quantity)").limit(5).pluck(:name)
   end
 
+  def switch_active_status
+    toggle!(:active?)
+  end
+
 end

@@ -1,20 +1,14 @@
 <h1>All Items</h1>
-
-<p><%= link_to "Add New Item", "/merchant/items/new" %></p>
 <section class="grid-container">
   <% @merchant.items.each do |item| %>
   <section class = "grid-item" id= 'item-<%=item.id%>'>
     <h2> <%=link_to item.name, "/items/#{item.id}" %> </h2>
     <% if !@merchant.item_ordered?(item) %>
-      <%=link_to "Delete", "/merchant/items/#{item.id}", method: :delete %>
+      <%=link_to "Delete", "/admin/merchants/items/#{item.id}", params: {merchant_id: @merchant.id}, method: :delete %>
     <% end %>
-    <%=link_to "Edit Item", merchant_edit_items_path(item.id) %> 
+
     <p>Sold by: <%=link_to item.merchant.name, "/merchants/#{item.merchant.id}" %></p>
-    <% if !item.image.blank? %>
-      <%= link_to image_tag(item.image), "items/#{item.id}" %>
-    <% else %>
-      <%= link_to image_tag("https://t3.ftcdn.net/jpg/02/48/42/64/240_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg"), "items/#{item.id}" %>
-    <% end %>  
+    <%= link_to image_tag(item.image), "items/#{item.id}" %>
     <p> <%= item.description unless @merchant%> </p>
     <p>Price: <%=number_to_currency(item.price) %> </p>
     <p>Inventory: <%= item.inventory %> </p>
@@ -22,10 +16,10 @@
     <% end %>
     <% if item.active? %>
     <p>Active</p>
-    <%= button_to "Deactivate", "/merchant/items/#{item.id}", method: :patch %>
+    <%= button_to "Deactivate", "/admin/merchants/items/#{item.id}", params: {merchant_id: @merchant.id}, method: :patch %>
     <% else %>
     <p>Inactive</p>
-    <%= button_to "Activate", "/merchant/items/#{item.id}", method: :patch %>
+    <%= button_to "Activate", "/admin/merchants/items/#{item.id}", params: {merchant_id: @merchant.id}, method: :patch %>
     <% end %>
   </section>
   <% end %>
