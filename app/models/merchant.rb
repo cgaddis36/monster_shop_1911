@@ -24,6 +24,10 @@ class Merchant <ApplicationRecord
     end
   end
 
+  def distinct_orders
+    orders.distinct
+  end
+
   def change_status
     if enabled?
       self.update(status: 1)
@@ -53,5 +57,4 @@ class Merchant <ApplicationRecord
   def item_ordered?(item)
     !item_orders.where("item_id = #{item.id}").empty?
   end
-
 end
