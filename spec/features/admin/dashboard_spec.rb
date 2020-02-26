@@ -116,6 +116,12 @@ describe "As an admin_user" do
           expect(page).to have_link(@order2.user.name)
         end
       end
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user2)
+
+      visit "/profile/orders/#{@order2.id}"
+      expect(page).to_not have_link("Cancel Order")
+
     end
   end
 end
