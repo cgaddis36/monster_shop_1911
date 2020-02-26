@@ -1,7 +1,6 @@
 class ItemOrdersController < ApplicationController
 
   def update
-    # require "pry"; binding.pry
     if params[:fulfill]
       fulfill
     else
@@ -13,7 +12,7 @@ class ItemOrdersController < ApplicationController
   private
 
     def fulfill
-      item_order = ItemOrder.find(params[:order_id])
+      item_order = ItemOrder.find(params[:item_order_id])
       item_order.update(status: "fulfilled")
       Item.find(item_order.item_id).decrement(:inventory, item_order.quantity).save
       flash[:notice] = "#{item_order.item.name} has been fulfilled!"
@@ -21,7 +20,7 @@ class ItemOrdersController < ApplicationController
     end
 
     def cancel
-      order = Order.find(params[:order_id])
+      order = Order.find(params[:item_order_id])
       item_orders = order.item_orders.all
       item_orders.each do |itemorder|
         if itemorder.status == "fulfilled"
