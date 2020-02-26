@@ -1,6 +1,6 @@
 class Merchant::DashboardController < Merchant::BaseController
   def index
-    @orders = current_user.merchant.orders.distinct
+    @merchant = current_user.merchant
   end
 
 end

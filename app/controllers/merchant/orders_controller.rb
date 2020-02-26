@@ -1,6 +1,6 @@
 class Merchant::OrdersController < Merchant::BaseController
 
   def show
-    @orders = Order.all
+    @order = Order.find(params[:id])
   end
 end
