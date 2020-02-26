@@ -94,7 +94,11 @@ RSpec.describe "Merchant order show page", type: :feature do
 
     order = Order.last
 
+    expect(current_path).to eq('/merchant')
+
     click_on(order.id)
+
+    expect(current_path).to eq("/merchant/orders/#{order.id}")
 
     expect(page).to have_content(order.name)
     expect(page).to have_content(order.address)
