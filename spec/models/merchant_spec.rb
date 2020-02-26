@@ -126,5 +126,39 @@ describe Merchant, type: :model do
       expect(@meg.item_ordered?(@tire)).to eq(false)
     end
 
+    it 'distinct_orders' do
+      user = create(:random_user, role: 0)
+
+      order = create(:random_order, user: user)
+      order.items.new(@tire.attributes)
+      order.items.new(@chain.attributes)
+      order.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
+      order.item_orders.create!(item: @chain, price: @chain.price, quantity: 3)
+
+      order2 = create(:random_order, user: user)
+      order2.items.new(@tire.attributes)
+      order2.items.new(@chain.attributes)
+      order2.item_orders.create!(item: @tire, price: @tire.price, quantity: 7)
+      order2.item_orders.create!(item: @chain, price: @chain.price, quantity: 4)
+
+      order3 = create(:random_order, user: user)
+      order3.items.new(@tire.attributes)
+      order3.items.new(@chain.attributes)
+      order3.item_orders.create!(item: @tire, price: @tire.price, quantity: 1)
+      order3.item_orders.create!(item: @chain, price: @chain.price, quantity: 5)
+
+      order4 = create(:random_order, user: user)
+      order4.items.new(@tire.attributes)
+      order4.items.new(@chain.attributes)
+      order4.item_orders.create!(item: @tire, price: @tire.price, quantity: 14)
+      order4.item_orders.create!(item: @chain, price: @chain.price, quantity: 3)
+
+      order.reload
+      order2.reload
+      order3.reload
+      order4.reload
+
+      expect(@meg.distinct_orders.count).to eq(4)
+    end
   end
 end
