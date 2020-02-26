@@ -26,7 +26,7 @@ RSpec.describe "Merchant order show page", type: :feature do
 
     @user = create(:random_user, role: 0)
   end
-  it "I see order usr attributes and items from my store in the order" do
+    it "I see order user attributes and items from my store in the order" do
 
     visit '/login'
 
@@ -40,10 +40,16 @@ RSpec.describe "Merchant order show page", type: :feature do
     click_on(@item_1.name)
     click_on("Add To Cart")
 
+    click_on(@item_1.name)
+    click_on("Add To Cart")
+
     click_on(@item_2.name)
     click_on("Add To Cart")
 
     click_on(@item_3.name)
+    click_on("Add To Cart")
+
+    click_on(@item_4.name)
     click_on("Add To Cart")
 
     click_on(@item_4.name)
@@ -83,20 +89,59 @@ RSpec.describe "Merchant order show page", type: :feature do
 
     click_on(order.id)
 
-    require "pry"; binding.pry
+    expect(page).to have_content(order.name)
+    expect(page).to have_content(order.address)
+    expect(page).to have_content(order.city)
+    expect(page).to have_content(order.state)
+    expect(page).to have_content(order.zip)
 
+    within "#item-#{@item_1.id}" do
+      expect(page).to have_content(@item_1.name)
+      expect(page).to have_content(@item_1.image)
+      expect(page).to have_content(@item_1.price)
+      expect(page).to have_content("Number of Items: 2")
+    end
 
-    save_and_open_page
-    # require "pry"; binding.pry
- end
+    within "#item-#{@item_2.id}" do
+      expect(page).to have_content(@item_2.name)
+      expect(page).to have_content(@item_2.image)
+      expect(page).to have_content(@item_2.price)
+      expect(page).to have_content("Number of Items: 1")
+    end
+
+    within "#item-#{@item_3.id}" do
+      expect(page).to have_content(@item_3.name)
+      expect(page).to have_content(@item_3.image)
+      expect(page).to have_content(@item_3.price)
+      expect(page).to have_content("Number of Items: 1")
+    end
+
+    within "#item-#{@item_4.id}" do
+      expect(page).to have_content(@item_4.name)
+      expect(page).to have_content(@item_4.image)
+      expect(page).to have_content(@item_4.price)
+      expect(page).to have_content("Number of Items: 2")
+    end
+
+    within "#item-#{@item_5.id}" do
+      expect(page).to have_content(@item_5.name)
+      expect(page).to have_content(@item_5.image)
+      expect(page).to have_content(@item_5.price)
+      expect(page).to have_content("Number of Items: 1")
+    end
+
+    within "#item-#{@item_6.id}" do
+      expect(page).to_not have_content(@item_6.name)
+      expect(page).to_not have_content(@item_6.image)
+      expect(page).to_not have_content(@item_6.price)
+      expect(page).to_not have_content("Number of Items: 1")
+    end
+
+    within "#item-#{@item_7.id}" do
+      expect(page).to_not have_content(@item_7.name)
+      expect(page).to_not have_content(@item_7.image)
+      expect(page).to_not have_content(@item_7.price)
+      expect(page).to_not have_content("Number of Items: 1")
+    end
+  end
 end
-# As a merchant employee
-# When I visit an order show page from my dashboard
-# I see the recipients name and address that was used to create this order
-# I only see the items in the order that are being purchased from my merchant
-# I do not see any items in the order being purchased from other merchants
-# For each item, I see the following information:
-# - the name of the item, which is a link to my item's show page
-# - an image of the item
-# - my price for the item
-# - the quantity the user wants to purchase
