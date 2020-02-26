@@ -1,7 +1,11 @@
 class Admin::Merchants::ItemsController < Admin::BaseController
   def index
-    binding.pry
-    @merchant = Merchant.find(params[:merchant_id])
+    if cookies[:merchant_id]
+      @merchant = Merchant.find(cookies[:merchant_id])
+    else
+      @merchant = Merchant.find(params[:merchant_id])
+      cookies[:merchant_id] = @merchant.id
+    end
   end
 
   def update
@@ -22,11 +26,12 @@ class Admin::Merchants::ItemsController < Admin::BaseController
 
   def switch_active_with_flash(item, merchant)
     if item.active?
-      flash[:success] = "#{item.name} is activated"
+      flash[:success] = "#{item.name} is activated for #{merchant.name}"
+      redirect_to "/admin/merchants/items"
     else
-      flash[:success] = "#{item.name} is deactivated"
+      flash.keep[:success] = "#{item.name} is deactivated for #{merchant.name}"
+      redirect_to "/admin/merchants/items"
     end
-    redirect_to :action => 'index', :parameter => @form.merchant.id
   end
 
 end

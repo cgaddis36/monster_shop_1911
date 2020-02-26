@@ -24,7 +24,7 @@ require 'rails_helper'
      end
 
      expect(current_path).to eq("/admin/merchants/items")
-     
+
      within "#item-#{item_1.id}" do
        expect(page).to have_button("Deactivate")
      end
@@ -55,7 +55,16 @@ require 'rails_helper'
 
      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin_user)
 
-     visit "/admin/merchants/items"
+     visit "/admin/merchants"
+     click_link(@bike_shop.name)
+     expect(current_path).to eq("/admin/merchants/#{@bike_shop.id}")
+
+     within "#merchant-#{@bike_shop.id}" do
+       click_on("Merchant Items")
+     end
+
+     expect(current_path).to eq("/admin/merchants/items")
+
 
      within "#item-#{item_1.id}" do
        expect(page).not_to have_button("Activate")
@@ -69,7 +78,7 @@ require 'rails_helper'
        click_button("Activate")
      end
 
-     expect(current_path).to eq("/admin/merchant/items")
+     expect(current_path).to eq("/admin/merchants/items")
      expect(page).to have_content("#{item_3.name} is activated")
      item_1.reload
      item_2.reload
