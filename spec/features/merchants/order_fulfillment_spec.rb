@@ -8,7 +8,7 @@ RSpec.describe "Merchant order fulfillment page", type: :feature do
     @tire = @bike_shop.items.create(name: "GatorSkins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
 
     @pull_toy = @dog_shop.items.create(name: "Pully Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
-    @dog_bone = @dog_shop.items.create(name: "Doggy Bone", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:false, inventory: 21)
+    @dog_bone = @dog_shop.items.create(name: "Doggy Bone", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", inventory: 21)
 
     @merchant_user1 = @bike_shop.users.create!(name: "Johnny",
                                 street_address: "123 Jonny Way",
