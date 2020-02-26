@@ -1,19 +1,14 @@
-class Admin::ItemsController < Admin::BaseController
+class Admin::Merchants::ItemsController < Admin::BaseController
   def index
+    binding.pry
     @merchant = Merchant.find(params[:merchant_id])
   end
 
   def update
-    @merchant.find(params[:merchant_id])
+    @merchant = Merchant.find(params[:merchant_id])
     @item = Item.find(params[:id])
-    if params[:commit]
-      @item.update(item_params)
-      give_default_image_if_needed(@item)
-      edit_item_info(@item, @merchant)
-    else
-      @item.switch_active_status
-      switch_active_with_flash(@item, @merchant)
-    end
+    @item.switch_active_status
+    switch_active_with_flash(@item, @merchant)
   end
 
   def destroy
@@ -31,7 +26,7 @@ class Admin::ItemsController < Admin::BaseController
     else
       flash[:success] = "#{item.name} is deactivated"
     end
-    redirect_to "/admin/merchants/items"
+    redirect_to :action => 'index', :parameter => @form.merchant.id
   end
 
 end

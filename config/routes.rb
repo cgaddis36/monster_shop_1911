@@ -46,10 +46,10 @@ Rails.application.routes.draw do
   namespace :admin do
     get '/', to: 'dashboard#index'
     get '/users/:user_id', to: 'users#show'
-    get '/merchants', to: 'merchants#index'
+    get '/merchants', to: 'merchants/merchants#index'
     get '/merchants/items', to: 'merchants/items#index'
-    get '/merchants/:id', to: 'merchants#show'
-    patch '/merchants/:id', to: 'merchants#update'
+    get '/merchants/:id', to: 'merchants/merchants#show'
+    patch '/merchants/:id', to: 'merchants/merchants#update'
     delete '/merchants/items/:id', to: 'merchants/items#destroy'
     patch '/merchants/items/:id', to: 'merchants/items#update'
   end

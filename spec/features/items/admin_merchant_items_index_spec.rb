@@ -24,6 +24,7 @@ require 'rails_helper'
      end
 
      expect(current_path).to eq("/admin/merchants/items")
+     
      within "#item-#{item_1.id}" do
        expect(page).to have_button("Deactivate")
      end

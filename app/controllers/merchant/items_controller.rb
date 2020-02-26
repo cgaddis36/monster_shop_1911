@@ -6,14 +6,8 @@ class Merchant::ItemsController < Merchant::BaseController
 
   def update
     @item = Item.find(params[:id])
-    if params[:commit]
-      @item.update(item_params)
-      give_default_image_if_needed(@item)
-      edit_item_info(@item)
-    else
-      @item.switch_active_status
-      switch_active_with_flash(@item)
-    end
+    @item.switch_active_status
+    switch_active_with_flash(@item)
   end
 
   def destroy
