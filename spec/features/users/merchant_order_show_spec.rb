@@ -13,6 +13,7 @@ RSpec.describe "Merchant order show page", type: :feature do
     @item_5 = create(:random_item, merchant_id: @merchant.id)
     @item_6 = create(:random_item, merchant_id: @merchant_2.id)
     @item_7 = create(:random_item, merchant_id: @merchant_2.id)
+    @item_8 = @merchant.items.create(name: "Caramel", description: "It'll break your teeth!", price: 5, image: "https://www.theflavorbender.com/wp-content/uploads/2019/11/Salted-Caramel-Sauce-Social-Media-5252.jpg", inventory: 1)
 
     @bill = @merchant.users.create(name: "Billy",
                                    street_address: "123 Bilbo Baggins Ave",
@@ -62,6 +63,12 @@ RSpec.describe "Merchant order show page", type: :feature do
     click_on("Add To Cart")
 
     click_on(@item_7.name)
+    click_on("Add To Cart")
+
+    click_on(@item_8.name)
+    click_on("Add To Cart")
+
+    click_on(@item_8.name)
     click_on("Add To Cart")
 
     click_on("Cart")
@@ -148,21 +155,22 @@ RSpec.describe "Merchant order show page", type: :feature do
       expect(page).to have_button("Fulfill")
     end
 
-    within "#item-#{@item_6.id}" do
-      expect(page).to_not have_content(@item_6.name)
-      expect(page).to_not have_content(@item_6.image)
-      expect(page).to_not have_content(@item_6.price)
-      expect(page).to_not have_content("Number of Items: 1")
-    end
+    expect(page).to_not have_content(@item_6.name)
+    expect(page).to_not have_content(@item_6.image)
 
-    within "#item-#{@item_7.id}" do
-      expect(page).to_not have_content(@item_7.name)
-      expect(page).to_not have_content(@item_7.image)
-      expect(page).to_not have_content(@item_7.price)
-      expect(page).to_not have_content("Number of Items: 1")
-    end
+    expect(page).to_not have_content(@item_7.name)
+    expect(page).to_not have_content(@item_7.image)
 
     within "#item-#{@item_1.id}" do
+      expect(page).to have_content("This item is fulfilled.")
+    end
+
+    within "#item-#{@item_8.id}" do
+      expect(page).to have_content(@item_8.name)
+      expect(page).to have_content(@item_8.image)
+      expect(page).to have_content(@item_8.price)
+      expect(page).to have_content("Number of Items: 2")
+      expect(page).to_not have_button("Fulfill")
       expect(page).to have_content("Can not fulfill this item")
     end
   end
