@@ -53,7 +53,7 @@ describe Order, type: :model do
       expect(@order1.grandtotal).to eq(230)
     end
 
-    it '#total_quantity' do
+    it 'total_quantity' do
       expect(@order1.total_quantity).to eq(4)
     end
 

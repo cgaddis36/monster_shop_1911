@@ -1,0 +1,28 @@
+<h1>User Orders</h1>
+
+<p>
+  <h2><%= @order.name %><h3/><br>
+    <%= @order.address %><br>
+    <%= @order.city %><br>
+    <%= @order.state %><br>
+    <%= @order.zip %><br>
+    <% @order.items.each do |item| %>
+      <section id= <%= "item-#{item.id}" %>>
+      <% if item.merchant_id == self.current_user.merchant_id %>
+        <%= item.name %><br>
+        <%= item.image %><br>
+        <%= item.price %><br>
+        <%= "Number of Items: #{item.item_orders[0].quantity}" %><br>
+        <%= item.item_orders[0].status.capitalize %><br>
+        <% if item.item_orders[0].quantity <= item.inventory && item.item_orders[0].unfulfilled? %>
+          <%= button_to "Fulfill", "/item_orders/#{item.item_orders[0].id}", params: {fulfill: "fulfill"}, method: :patch %>
+        <% elsif %>
+          <% item.item_orders[0].fulfilled? %>
+          <%= "This item is fulfilled." %>
+        <% else %>
+          <%= "Can not fulfill this item" %>
+        <% end %>
+      </section>
+      <% end %>
+    <% end %>
+</p>
