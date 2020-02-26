@@ -11,7 +11,7 @@ RSpec.describe "Merchant Items Index Page" do
 
     it 'shows me a list of that merchants items' do
       visit "merchants/#{@meg.id}/items"
-      save_and_open_page
+
       within "#item-#{@tire.id}" do
         expect(page).to have_content(@tire.name)
         expect(page).to have_content("Price: $#{@tire.price}")
@@ -29,9 +29,14 @@ RSpec.describe "Merchant Items Index Page" do
         expect(page).to_not have_content(@chain.description)
         expect(page).to have_content("Inventory: #{@chain.inventory}")
       end
-
-      expect(page).to have_content(@shifter.name)
-      expect(page).to have_content("Inactive item(s)")
+      within "#item-#{@shifter.id}" do
+        expect(page).to have_content(@shifter.name)
+        expect(page).to have_content("Price: $#{@shifter.price}")
+        expect(page).to have_css("img[src*='#{@shifter.image}']")
+        expect(page).to have_content("Inactive")
+        expect(page).to_not have_content(@shifter.description)
+        expect(page).to have_content("Inventory: #{@shifter.inventory}")
+      end
     end
   end
 end
