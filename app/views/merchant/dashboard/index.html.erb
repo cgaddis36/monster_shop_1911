@@ -1,14 +1,14 @@
 <h1 align = "center">Merchant</h1>
 
-<%= current_user.merchant.name %></br></br>
-<%= current_user.merchant.address %>
-<p><%= current_user.merchant.city %>
-<%= current_user.merchant.state %>
-<%= current_user.merchant.zip %></p>
+<%= @merchant.name %></br></br>
+<%= @merchant.address %>
+<p><%= @merchant.city %>
+<%= @merchant.state %>
+<%= @merchant.zip %></p>
 
 <section class="grid-container">
 
-<% @orders.each do |order| %>
+<% @merchant.distinct_orders.each do |order| %>
 <% if order.status == "pending" %>
 <section class="grid-item" id = "pending-<%= order.id %>">
   <p>ID: <%= link_to "#{order.id}", "/merchant/orders/#{order.id}" %></p>
