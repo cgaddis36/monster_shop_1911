@@ -6,7 +6,7 @@ RSpec.describe "Merchant order show page", type: :feature do
     @merchant_2 = create(:random_merchant)
 
 
-    @item_1 = create(:random_item, merchant_id: @merchant.id)
+    @item_1 = @merchant.items.create(name: "Chain", description: "It'll never break!", price: 50, image: "https://www.rei.com/media/b61d1379-ec0e-4760-9247-57ef971af0ad?size=784x588", inventory: 5)
     @item_2 = create(:random_item, merchant_id: @merchant.id)
     @item_3 = create(:random_item, merchant_id: @merchant.id)
     @item_4 = create(:random_item, merchant_id: @merchant.id)
@@ -100,6 +100,20 @@ RSpec.describe "Merchant order show page", type: :feature do
       expect(page).to have_content(@item_1.image)
       expect(page).to have_content(@item_1.price)
       expect(page).to have_content("Number of Items: 2")
+      expect(page).to have_button("Fulfill")
+      expect(@item_1.inventory).to eq(5)
+      click_on("Fulfill")
+    end
+
+    @item_1.reload
+    expect(@item_1.inventory).to eq(3)
+
+    expect(current_path).to eq("/merchant/orders/#{order.id}")
+
+    expect(page).to have_content("#{@item_1.name} has been fulfilled!")
+
+    within "#item-#{@item_1.id}" do
+      expect(page).to have_content("Fulfilled")
     end
 
     within "#item-#{@item_2.id}" do
@@ -107,6 +121,7 @@ RSpec.describe "Merchant order show page", type: :feature do
       expect(page).to have_content(@item_2.image)
       expect(page).to have_content(@item_2.price)
       expect(page).to have_content("Number of Items: 1")
+      expect(page).to have_button("Fulfill")
     end
 
     within "#item-#{@item_3.id}" do
@@ -114,6 +129,7 @@ RSpec.describe "Merchant order show page", type: :feature do
       expect(page).to have_content(@item_3.image)
       expect(page).to have_content(@item_3.price)
       expect(page).to have_content("Number of Items: 1")
+      expect(page).to have_button("Fulfill")
     end
 
     within "#item-#{@item_4.id}" do
@@ -121,6 +137,7 @@ RSpec.describe "Merchant order show page", type: :feature do
       expect(page).to have_content(@item_4.image)
       expect(page).to have_content(@item_4.price)
       expect(page).to have_content("Number of Items: 2")
+      expect(page).to have_button("Fulfill")
     end
 
     within "#item-#{@item_5.id}" do
@@ -128,6 +145,7 @@ RSpec.describe "Merchant order show page", type: :feature do
       expect(page).to have_content(@item_5.image)
       expect(page).to have_content(@item_5.price)
       expect(page).to have_content("Number of Items: 1")
+      expect(page).to have_button("Fulfill")
     end
 
     within "#item-#{@item_6.id}" do
@@ -142,6 +160,10 @@ RSpec.describe "Merchant order show page", type: :feature do
       expect(page).to_not have_content(@item_7.image)
       expect(page).to_not have_content(@item_7.price)
       expect(page).to_not have_content("Number of Items: 1")
+    end
+
+    within "#item-#{@item_1.id}" do
+      expect(page).to have_content("Can not fulfill this item")
     end
   end
 end
