@@ -57,4 +57,6 @@
 <section id="datecreated">
   <p> <%= @order.created_at%></p>
 </section>
-<%= link_to "Cancel Order", "/item_orders/#{@order.id}", method: :patch %>
+  <% if (@order.status == "pending") || (@order.status == "packaged") %>
+    <%= link_to "Cancel Order", "/item_orders/#{@order.id}", method: :patch %>
+  <% end %>

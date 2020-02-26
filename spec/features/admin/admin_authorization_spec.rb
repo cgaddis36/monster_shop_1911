@@ -68,6 +68,7 @@ RSpec.describe 'As an admin' do
 
     within "#merchant-#{@merchant_1.id}" do
       @merchant_1.reload
+      expect(page).to have_button("Enable")
       expect(page).to_not have_button("Disable")
     end
   end

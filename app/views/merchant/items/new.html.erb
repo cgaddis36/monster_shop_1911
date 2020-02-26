@@ -1,0 +1,23 @@
+<center>
+  <%= form_for merchant_items_path(@item) do |f| %>
+
+    <%= f.label :name %>
+    <%= f.text_field :name, :value => @item[:name] %>
+
+    <%= f.label :description %>
+    <%= f.text_field :description, :value => @item[:description] %>
+
+    <%= f.label :price %>
+    <%= f.text_field :price, :value => @item[:price] %>
+
+    <%= f.label :image %>
+    <%= f.text_field :image, :value => @item[:image] %>
+
+    <%= f.label :inventory %>
+    <%= f.text_field :inventory, :value => @item[:inventory] %>
+
+    <%= f.submit("Create Item") %>
+
+  <% end %>
+
+</center>

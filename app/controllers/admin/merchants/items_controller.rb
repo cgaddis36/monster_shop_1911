@@ -1,18 +1,18 @@
 class Admin::Merchants::ItemsController < Admin::BaseController
   def index
-    if cookies[:merchant_id]
-      @merchant = Merchant.find(cookies[:merchant_id])
+    if session[:merchant_id]
+      @merchant = Merchant.find(session[:merchant_id])
     else
       @merchant = Merchant.find(params[:merchant_id])
-      cookies[:merchant_id] = @merchant.id
+      session[:merchant_id] = @merchant.id
     end
   end
 
   def update
-    @merchant = Merchant.find(params[:merchant_id])
-    @item = Item.find(params[:id])
-    @item.switch_active_status
-    switch_active_with_flash(@item, @merchant)
+    merchant = Merchant.find(params[:merchant_id])
+    item = Item.find(params[:id])
+    item.switch_active_status
+    switch_active_with_flash(item, merchant)
   end
 
   def destroy
@@ -27,11 +27,10 @@ class Admin::Merchants::ItemsController < Admin::BaseController
   def switch_active_with_flash(item, merchant)
     if item.active?
       flash[:success] = "#{item.name} is activated for #{merchant.name}"
-      redirect_to "/admin/merchants/items"
     else
       flash.keep[:success] = "#{item.name} is deactivated for #{merchant.name}"
-      redirect_to "/admin/merchants/items"
     end
+    redirect_to "/admin/merchants/items"
   end
 
 end
