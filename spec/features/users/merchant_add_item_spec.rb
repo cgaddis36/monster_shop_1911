@@ -41,11 +41,11 @@ RSpec.describe 'Merchant add items', type: :feature do
         description = "Don't fear the rain!"
         image_url = "https://images-na.ssl-images-amazon.com/images/I/51HMpDXItgL._SX569_.jpg"
         inventory = 25
-        fill_in :_merchant_items_name, with: name
-        fill_in :_merchant_items_price, with: price
-        fill_in :_merchant_items_description, with: description
-        fill_in :_merchant_items_image, with: image_url
-        fill_in :_merchant_items_inventory, with: inventory
+        fill_in :item_name, with: name
+        fill_in :item_price, with: price
+        fill_in :item_description, with: description
+        fill_in :item_image, with: image_url
+        fill_in :item_inventory, with: inventory
 
         click_button "Create Item"
         expect(current_path).to eq("/merchant/items")
@@ -86,15 +86,16 @@ RSpec.describe 'Merchant add items', type: :feature do
         description = ""
         image_url = ""
         inventory = -5
-        fill_in :_merchant_items_name, with: name
-        fill_in :_merchant_items_price, with: price
-        fill_in :_merchant_items_description, with: description
-        fill_in :_merchant_items_image, with: image_url
-        fill_in :_merchant_items_inventory, with: inventory
+        fill_in :item_name, with: name
+        fill_in :item_price, with: price
+        fill_in :item_description, with: description
+        fill_in :item_image, with: image_url
+        fill_in :item_inventory, with: inventory
 
         click_button "Create Item"
 
         expect(current_path).to eq("/merchant/items/new")
+
         expect(page).to_not have_content("Name can't be blank")
         expect(page).to have_content("Description can't be blank")
         expect(page).to have_content("Price must be greater than 0")
@@ -122,11 +123,11 @@ RSpec.describe 'Merchant add items', type: :feature do
         description = "Don't fear the rain!"
         image_url = ""
         inventory = 25
-        fill_in :_merchant_items_name, with: name
-        fill_in :_merchant_items_price, with: price
-        fill_in :_merchant_items_description, with: description
-        fill_in :_merchant_items_image, with: image_url
-        fill_in :_merchant_items_inventory, with: inventory
+        fill_in :item_name, with: name
+        fill_in :item_price, with: price
+        fill_in :item_description, with: description
+        fill_in :item_image, with: image_url
+        fill_in :item_inventory, with: inventory
 
         click_button "Create Item"
 
