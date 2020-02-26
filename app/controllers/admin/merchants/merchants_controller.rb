@@ -1,7 +1,7 @@
-class Admin::MerchantsController < Admin::BaseController
+class Admin::Merchants::MerchantsController < Admin::BaseController
 
   def index
-     @merchants = Merchant.all
+    @merchants = Merchant.all
   end
 
   def show
