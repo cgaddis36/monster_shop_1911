@@ -16,6 +16,7 @@ class Admin::Merchants::ItemsController < Admin::BaseController
   end
 
   def destroy
+    require 'pry'; binding.pry
     merchant = Merchant.find(params[:merchant_id])
     item = Item.find(params[:id])
     Review.where(item_id: item.id).destroy_all

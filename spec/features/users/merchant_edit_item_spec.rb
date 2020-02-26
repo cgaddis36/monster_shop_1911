@@ -163,6 +163,9 @@ RSpec.describe "As a merchant employee", type: :feature do
       expect(find_field('Description').value).to eq @item3.description
       expect(find_field('Image').value).to eq @item3.image
       expect(find_field('Inventory').value).to eq @item3.inventory.to_s  
+
+      expect(page).to have_content("Price can't be blank")
+      expect(page).to have_content("Price can't be blank and Price must be greater than 0")
     
     end
 
