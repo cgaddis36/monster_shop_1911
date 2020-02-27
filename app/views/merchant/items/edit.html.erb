@@ -1,5 +1,5 @@
 <center>
-  <%= form_for @item, url: merchant_create_items_path, html: { method: :post } do |f| %>
+  <%= form_for @item, url: merchant_post_items_path(@item), html: { method: :patch } do |f| %>
 
     <%= f.label :name %>
     <%= f.text_field :name, :value => @item[:name] %>
@@ -16,7 +16,7 @@
     <%= f.label :inventory %>
     <%= f.text_field :inventory, :value => @item[:inventory] %>
 
-    <%= f.submit("Create Item") %>
+    <%= f.submit("Update Item") %>
 
   <% end %>
 
