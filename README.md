@@ -29,7 +29,7 @@ Deploy Monster Shop from heroku.
 
 ## Schema Design
 
-![Image description](/app/assets/images/Screen Shot 2020-02-27 at 1.54.30 PM.png)
+![Image description](/Users/travisborgsmiller/turing/22_mod/monster_shop_1911/app/assets/images/Screen Shot 2020-02-27 at 1.54.30 PM.png)
 
 
 ## Contributors
