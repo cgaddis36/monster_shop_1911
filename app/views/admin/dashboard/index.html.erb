@@ -6,7 +6,7 @@
     <h2>Packaged Orders</h2>
     <% Order.packaged_status.each do |order| %>
       <section id= "order-<%= order.id %>">
-        <p>Order ID: <%= order.id %></p>
+        <p>Order ID: <%=link_to order.id, "/admin/users/#{order.id}" %></p>
         <p>User Name: <%=link_to order.user.name, "/admin/users/#{order.user.id}" %></p>
         <p>Order Creation Date: <%= order.created_at %></p>
         <p><%= button_to "Ship Order", "/admin/orders/#{order.id}", params: {status_change: "ship"}, method: :patch %></p>
