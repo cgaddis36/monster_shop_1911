@@ -15,7 +15,6 @@ music_shop = Merchant.create(name: "Chase's Tasty Jams", address: '4435 Les Paul
 fly_shop = Merchant.create(name: "Franks's Fly's & Ties", address: '6678 Fly St.', city: 'Durango', state: 'CO', zip: 80010)
 bee_shop = Merchant.create(name: "Alex's Bee Gardens", address: '6678 Bzzz Rd.', city: 'Paris', state: 'TX', zip: 60700)
 ski_shop = Merchant.create(name: "Travis's Sleds & Shreds", address: '5467 Pow St.', city: 'Jackson', state: 'WY', zip: 34567)
-chop_shop = Merchant.create(name: "Edward's Scissor Hands", address: '8280 Sharp St.', city: 'Edgewater', state: 'WY', zip: 86753, status: 1)
 
 #plant_shop items
 azaleas = plant_shop.items.create(name: "Azaleas", description: "Gorgeous plants, dogs love them.", price: 15, image: "https://www.directgardening.com/1718-thickbox_default/pink-azalea.jpg", inventory: 1)
@@ -50,11 +49,6 @@ helmet = ski_shop.items.create(name: "Helmet", description: "Gotta protect that 
 hand_warmers = ski_shop.items.create(name: "Hand Warmers", description: "Hotter than hockey sticks!", price: 1, image: "https://images-na.ssl-images-amazon.com/images/I/91RmQzKenOL._SL1500_.jpg", inventory: 12)
 boots = ski_shop.items.create(name: "Dalbello Boots", description: "These babies will protect your feet", price: 350, image: "https://images.evo.com/imgp/700/158018/695132/clone.jpg", inventory: 25)
 beanies = ski_shop.items.create(name: "Beanies", description: "Nice warm wool hat", price: 35, image: "https://images-na.ssl-images-amazon.com/images/I/614eeyR-UWL._AC_UX385_.jpg", inventory: 10)
-
-#chop_shop_items
-scissors = chop_shop.items.create(name: "Sharp Scissors", description: "Fine cutting tool. Perfect for barbers.", price: 45, image: "https://images-na.ssl-images-amazon.com/images/I/61lcHQD95IL._AC_UL160_.jpg", inventory: 12, status: 1)
-
-
 
 merchant_user1 = ski_shop.users.create!(name: "Johnny",
                             street_address: "123 Jonny Way",
