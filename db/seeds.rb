@@ -55,8 +55,8 @@ merchant_user1 = ski_shop.users.create!(name: "Johnny",
                             city: "Johnsonville",
                             state: 'TN',
                             zip_code: 12345,
-                            email: "roman4@example.com",
-                            password: "hamburger042",
+                            email: "merchant1@example.com",
+                            password: "merchant1",
                             role: 1
                           )
 
@@ -65,27 +65,27 @@ merchant_user2 = ski_shop.users.create!(name: "Jeremiah",
                             city: "Jamaica",
                             state: 'FL',
                             zip_code: 46766,
-                            email: "bobbymarley@example.com",
-                            password: "irie333",
+                            email: "merchant2@example.com",
+                            password: "merchant2",
                             role: 1
                           )
 
-admin_user = User.create!(name: "Johnny",
+admin_user = User.create!(name: "admin_user",
                             street_address: "123 Jonny Way",
                             city: "Johnsonville",
                             state: 'TN',
                             zip_code: 12345,
-                            email: "roman3@example.com",
-                            password: "hamburger043",
+                            email: "admin@example.com",
+                            password: "admin",
                             role: 2
                           )
 
-default_user = User.create!(name: "Johnny",
+default_user = User.create!(name: "default_user",
                             street_address: "123 Jonny Way",
                             city: "Johnsonville",
                             state: 'TN',
                             zip_code: 12345,
-                            email: "roman5@example.com",
-                            password: "hamburger03",
+                            email: "default@example.com",
+                            password: "default",
                             role: 0
                           )
