@@ -67,8 +67,8 @@ merchant_user2 = bee_shop.users.create!(name: "Jeremiah",
   city: "Jamaica",
   state: 'FL',
   zip_code: 46766,
-  email: "bobbymarley@example.com",
-  password: "irie333",
+  email: "merchant2@example.com",
+  password: "merchant2",
   role: 1
 )
 
