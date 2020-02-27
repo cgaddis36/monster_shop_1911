@@ -20,6 +20,7 @@
       end
 
       it "can see all the merchant's in the system and their information with a link to merchant dashboard" do
+        
         visit '/admin/merchants'
 
       within "#merchant-#{@merchant1.id}" do
@@ -49,6 +50,36 @@
       end
 
       expect(current_path).to eq("/admin/merchants/#{@merchant3.id}")
+    end
+
+    it "can see all the merchant's in the system and their information with a link to merchant dashboard" do
+        
+      visit '/merchants'
+
+      within "#merchant-#{@merchant1.id}" do
+        expect(page).to have_content(@merchant1.city)
+        expect(page).to have_content(@merchant1.state)
+        click_on "#{@merchant1.name}"
+      end
+
+      expect(current_path).to eq("/admin/merchants/#{@merchant1.id}")
+
+      visit '/merchants'
+
+      within "#merchant-#{@merchant2.id}" do
+        expect(page).to have_content(@merchant2.city)
+        expect(page).to have_content(@merchant2.state)
+        click_on "#{@merchant2.name}"
+      end
+
+      expect(current_path).to eq("/admin/merchants/#{@merchant2.id}")
+
+      visit '/merchants'
+
+      expect(page).to_not have_content(@merchant3.name)
+      expect(page).to_not have_content(@merchant3.city)
+      expect(page).to_not have_content(@merchant3.state)
+
     end
 
     it "can see a disable button for enabled merchants and enable button for disabled merchants" do

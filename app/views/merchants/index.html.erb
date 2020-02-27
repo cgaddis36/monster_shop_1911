@@ -1,9 +1,16 @@
 <h1 align = "center">Merchants</h1>
-
 <section class = "grid-container">
   <% @merchants.each do |merchant|%>
-    <section class = "grid-item">
-      <h2><%=link_to merchant.name, "/merchants/#{merchant.id}"%></h2>
-    </section>
+      <% if merchant.enabled? %>
+        <section class = "grid-item">
+          <section id="merchant-<%= merchant.id %>">
+            <h2><%=link_to merchant.name, "/merchants/#{merchant.id}"%></h2>
+            <%= merchant.city %> <br>
+            <%= merchant.address %> <br>
+            <%= merchant.state %> <br>
+            <%= merchant.zip %><br>
+          </section>
+        </section>
+      <% end %><br><br>
   <% end %>
 </section>
