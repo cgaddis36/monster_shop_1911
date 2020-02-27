@@ -49,7 +49,7 @@ RSpec.describe 'merchant show page', type: :feature do
        end
 
        expect(current_path).to eq("/merchant/items")
-       expect(page).to have_content("#{item_2.name} is deactivated")
+       expect(page).to have_content("#{item_2.name} is no longer for sale")
        item_1.reload
        item_2.reload
        item_3.reload
@@ -82,7 +82,7 @@ RSpec.describe 'merchant show page', type: :feature do
        end
 
        expect(current_path).to eq("/merchant/items")
-       expect(page).to have_content("#{item_3.name} is activated")
+       expect(page).to have_content("#{item_3.name} is now available for sale")
        item_1.reload
        item_2.reload
        item_3.reload
