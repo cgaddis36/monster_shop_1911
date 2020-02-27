@@ -66,7 +66,7 @@ RSpec.describe 'Merchant add items', type: :feature do
           expect(page).to have_content("Price: $#{new_item.price}")
           expect(page).to have_css("img[src*='#{new_item.image}']")
           expect(page).to have_content("Active")
-          expect(page).to_not have_content(new_item.description)
+          expect(page).to have_content(new_item.description)
           expect(page).to have_content("Inventory: #{new_item.inventory}")
         end
 
@@ -138,7 +138,7 @@ RSpec.describe 'Merchant add items', type: :feature do
           expect(page).to have_content("Price: $#{new_item.price}")
           expect(page).to have_css("img[src*='#{"https://t3.ftcdn.net/jpg/02/48/42/64/240_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg"}']")
           expect(page).to have_content("Active")
-          expect(page).to_not have_content(new_item.description)
+          expect(page).to have_content(new_item.description)
           expect(page).to have_content("Inventory: #{new_item.inventory}")
         end
         
