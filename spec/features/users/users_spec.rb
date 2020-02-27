@@ -117,6 +117,16 @@ RSpec.describe "User registration" do
     expect(find_field(:password).value.blank?).to eq(true)
     expect(find_field(:password_confirmation).value.blank?).to eq(true)
 
+    expect(User.last.name).to eq(@default_user.name)
+    expect(User.last.name).to_not eq(username)
+    expect(User.last.street_address).to eq(@default_user.street_address)
+    expect(User.last.street_address).to_not eq(street_address)
+    expect(User.last.city).to eq(@default_user.city)
+    expect(User.last.city).to_not eq(city)
+    expect(User.last.state).to eq(@default_user.state)
+    expect(User.last.state).to_not eq(state)
+    expect(User.last.zip_code).to eq(@default_user.zip_code)
+    expect(User.last.zip_code).to_not eq(zip_code)
+    expect(User.last.email).to eq(@default_user.email)
   end
-
 end
