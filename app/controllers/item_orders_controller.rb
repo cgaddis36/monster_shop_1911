@@ -16,6 +16,7 @@ class ItemOrdersController < ApplicationController
       item_order.update(status: "fulfilled")
       Item.find(item_order.item_id).decrement(:inventory, item_order.quantity).save
       flash[:notice] = "#{item_order.item.name} has been fulfilled!"
+      item_order.order.status_changer
       redirect_to "/merchant/orders/#{item_order.order_id}"
     end
 
