@@ -15,7 +15,9 @@
     <% else %>
       <%= link_to image_tag("https://t3.ftcdn.net/jpg/02/48/42/64/240_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg"), "items/#{item.id}" %>
     <% end %>  
-    <p> <%= item.description unless @merchant%> </p>
+    <% if @merchant %> 
+      <p> <%= item.description %> </p>
+    <% end %> 
     <p>Price: <%=number_to_currency(item.price) %> </p>
     <p>Inventory: <%= item.inventory %> </p>
     <% if !@merchant %>

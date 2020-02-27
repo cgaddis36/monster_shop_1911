@@ -67,7 +67,7 @@ RSpec.describe 'As a merchant employee', type: :feature do
         expect(page).to have_content("Price: $#{price}")
         expect(page).to have_css("img[src*='#{image_url}']")
         expect(page).to have_content('Active')
-        expect(page).to_not have_content(description)
+        expect(page).to have_content(description)
         expect(page).to have_content("Inventory: #{inventory}")
       end
 
@@ -114,7 +114,7 @@ RSpec.describe 'As a merchant employee', type: :feature do
         expect(page).to have_content("Price: $#{price}")
         expect(page).to have_css("img[src*='https://t3.ftcdn.net/jpg/02/48/42/64/240_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg']")
         expect(page).to have_content('Active')
-        expect(page).to_not have_content(description)
+        expect(page).to have_content(description)
         expect(page).to have_content("Inventory: #{inventory}")
       end
     end
