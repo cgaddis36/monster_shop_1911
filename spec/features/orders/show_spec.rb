@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe "As a registered user", type: :feature do 
+RSpec.describe "As a registered user", type: :feature do
 
-  describe 'When I visit my Profile Orders page' do 
+  describe 'When I visit my Profile Orders page' do
 
     before(:each) do
       @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
@@ -50,7 +50,7 @@ RSpec.describe "As a registered user", type: :feature do
       click_on "Add To Cart"
     end
 
-    it "the order's show page show all the order's information" do 
+    it "the order's show page show all the order's information" do
 
       visit "/cart"
 
@@ -84,12 +84,12 @@ RSpec.describe "As a registered user", type: :feature do
       fill_in :zip, with: @zip_code.to_i
 
       click_button "Create Order"
-      
+
       order2 = Order.last
-      
+
       visit "/profile/orders"
 
-      click_on order1.id 
+      click_on order1.id
 
       expect(current_path).to eq("/profile/orders/#{order1.id }")
 
@@ -104,18 +104,20 @@ RSpec.describe "As a registered user", type: :feature do
       expect(page).to have_content(order1.state)
       expect(page).to have_content(order1.zip)
 
-      within("section#item-#{@item1.id}") do 
+      within("section#item-#{@item1.id}") do
         expect(page).to have_content(@item1.name)
         expect(page).to have_content(@item1.description)
         expect(page).to have_content(2)
+        expect(page).to have_css("img[src*='#{@item1.image}']")
         expect(page).to have_content("#{ActiveSupport::NumberHelper.number_to_currency(@item1.price)}")
         expect(page).to have_content("#{ActiveSupport::NumberHelper.number_to_currency(@item1.price * 2)}")
       end
 
-      within("section#item-#{@item2.id}") do 
+      within("section#item-#{@item2.id}") do
         expect(page).to have_content(@item2.name)
         expect(page).to have_content(@item2.description)
         expect(page).to have_content(1)
+        expect(page).to have_css("img[src*='#{@item2.image}']")
         expect(page).to have_content("#{ActiveSupport::NumberHelper.number_to_currency(@item2.price)}")
         expect(page).to have_content("#{ActiveSupport::NumberHelper.number_to_currency(@item2.price)}")
       end
@@ -127,9 +129,6 @@ RSpec.describe "As a registered user", type: :feature do
 
       expect(page).to_not have_content(@item4.name)
       expect(page).to_not have_content(@item4.description)
-
     end
-
   end
-
 end
