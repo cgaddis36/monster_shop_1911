@@ -3,9 +3,13 @@ class MerchantsController <ApplicationController
   def index
     @merchants = Merchant.all
   end
-
+  
   def show
-    @merchant = Merchant.find(params[:id])
+    if current_user && current_user.admin?
+      redirect_to "/admin/merchants/#{params[:id]}"
+    else
+      @merchant = Merchant.find(params[:id])
+    end
   end
 
   def new
