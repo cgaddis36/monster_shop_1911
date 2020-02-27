@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Monster Shop is a basic, Rails e-commerce application. Assigned as a group project during Mod 2 of 4 to our group of five, we worked across a period of ten days to implement a slew of e-commerce basics including CRUD functionality, log in and authentication, authorization (for four different user types), cart functionality, and statistics for multiple aspects of the site (most popular, least popular, etc.)
+Monster Shop is a basic, Rails e-commerce application. Assigned as a group project during Mod 2 of 4 to our group of four, we worked across a period of ten days to implement a slew of e-commerce basics including CRUD functionality, log in and authentication, authorization (for four different user types), cart functionality, and statistics for multiple aspects of the site (most popular, least popular, etc.)
 
 View Monster Shop from heroku [here](https://boiling-lowlands-04052.herokuapp.com/).
 
