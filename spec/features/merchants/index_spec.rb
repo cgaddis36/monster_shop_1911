@@ -14,8 +14,25 @@ RSpec.describe 'merchant index page', type: :feature do
                                   password: "hamburger01",
                                   role: 2
                                 )
+      @merchant_user = User.create!(name: "Joseph",
+                                  street_address: "123 Joey Way",
+                                  city: "Joey",
+                                  state: 'TX',
+                                  zip_code: 12345,
+                                  email: "records@example.com",
+                                  password: "hamburger01",
+                                  role: 1
+                                )
 
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin_user)
+      @default_user = User.create!(name: "Jerri",
+                                  street_address: "123 Jerry Way",
+                                  city: "Jees",
+                                  state: 'TN',
+                                  zip_code: 33333,
+                                  email: "record@example.com",
+                                  password: "hamburger01",
+                                  role: 0
+                                )
     end
 
     it 'I can see a list of merchants in the system' do
@@ -26,13 +43,31 @@ RSpec.describe 'merchant index page', type: :feature do
     end
 
     it 'I can see a link to create a new merchant' do
-      visit '/merchants'
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin_user)
+
+      visit '/'
+
+      click_on("All Merchants")
 
       expect(page).to have_link("New Merchant")
 
       click_on "New Merchant"
 
       expect(current_path).to eq("/merchants/new")
+    end
+    it 'I can cot see see a link to create a new merchant as a regular user' do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@default_user)
+
+      visit '/merchants'
+
+      expect(page).to_not have_link("New Merchant")
+    end
+    it 'I can cot see see a link to create a new merchant as a merchant_employee user' do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_user)
+
+      visit '/merchants'
+
+      expect(page).to_not have_link("New Merchant")
     end
   end
 end
