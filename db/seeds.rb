@@ -9,46 +9,6 @@ User.destroy_all
 Merchant.destroy_all
 Item.destroy_all
 
-# Users
-merchant_user1 = ski_shop.users.create!(name: "Johnny",
-  street_address: "123 Jonny Way",
-  city: "Johnsonville",
-  state: 'TN',
-  zip_code: 12345,
-  email: "merchant@example.com",
-  password: "merchant",
-  role: 1
-)
-
-merchant_user2 = bee_shop.users.create!(name: "Jeremiah",
-  street_address: "7777 Rastafari Way",
-  city: "Jamaica",
-  state: 'FL',
-  zip_code: 46766,
-  email: "bobbymarley@example.com",
-  password: "irie333",
-  role: 1
-)
-
-admin_user = User.create!(name: "Johnny",
-  street_address: "123 Jonny Way",
-  city: "Johnsonville",
-  state: 'TN',
-  zip_code: 12345,
-  email: "admin@example.com",
-  password: "admin",
-  role: 2
-)
-
-default_user = User.create!(name: "Johnny",
-  street_address: "123 Jonny Way",
-  city: "Johnsonville",
-  state: 'TN',
-  zip_code: 12345,
-  email: "default@example.com",
-  password: "default",
-  role: 0
-)
 
 #merchants
 plant_shop = Merchant.create(name: "Kelly's Gardens", address: '4456 Flower Ave.', city: 'Gardenia', state: 'NY', zip: 77890)
@@ -90,3 +50,44 @@ helmet = ski_shop.items.create(name: "Helmet", description: "Gotta protect that 
 hand_warmers = ski_shop.items.create(name: "Hand Warmers", description: "Hotter than hockey sticks!", price: 1, image: "https://images-na.ssl-images-amazon.com/images/I/91RmQzKenOL._SL1500_.jpg", inventory: 12)
 boots = ski_shop.items.create(name: "Dalbello Boots", description: "These babies will protect your feet", price: 350, image: "https://images.evo.com/imgp/700/158018/695132/clone.jpg", inventory: 25)
 beanies = ski_shop.items.create(name: "Beanies", description: "Nice warm wool hat", price: 35, image: "https://images-na.ssl-images-amazon.com/images/I/614eeyR-UWL._AC_UX385_.jpg", inventory: 10)
+
+# Users
+merchant_user1 = ski_shop.users.create!(name: "Johnny",
+  street_address: "123 Jonny Way",
+  city: "Johnsonville",
+  state: 'TN',
+  zip_code: 12345,
+  email: "merchant@example.com",
+  password: "merchant",
+  role: 1
+)
+
+merchant_user2 = bee_shop.users.create!(name: "Jeremiah",
+  street_address: "7777 Rastafari Way",
+  city: "Jamaica",
+  state: 'FL',
+  zip_code: 46766,
+  email: "bobbymarley@example.com",
+  password: "irie333",
+  role: 1
+)
+
+admin_user = User.create!(name: "Johnny",
+  street_address: "123 Jonny Way",
+  city: "Johnsonville",
+  state: 'TN',
+  zip_code: 12345,
+  email: "admin@example.com",
+  password: "admin",
+  role: 2
+)
+
+default_user = User.create!(name: "Johnny",
+  street_address: "123 Jonny Way",
+  city: "Johnsonville",
+  state: 'TN',
+  zip_code: 12345,
+  email: "default@example.com",
+  password: "default",
+  role: 0
+)
