@@ -41,14 +41,25 @@ keys = music_shop.items.create(name: "Keys", description: "Electrify the crowd",
 #fly_shop items
 rod = fly_shop.items.create(name: "Fly Rod", description: "Sage x240", price: 310, image: "https://lh3.googleusercontent.com/proxy/AMtWz71cFKLIGhrCZ5kKiF1MxCcW4crJn6Ar-26ytb757EzIW8WHUvjpO4jYhyitP2LXxDvunuWn1y6d2WWXdOFrQFE5AKMF5OcaEsuK7nUdsJ631ewlMfsx8jfydKqRENStm58GCS8", inventory: 14)
 reel = fly_shop.items.create(name: "Fly Reel", description: "Abel Super 5wt", price: 600, image: "https://www.rossreels.com/rr-news/abel-reels/wp-content/uploads/sites/7/2017/01/ss-wt-1.png", inventory: 20)
-dog_bone = fly_shop.items.create(name: "Dog Bone", description: "Fish can't see or break it!", price: 60, image: "https://cdn11.bigcommerce.com/s-h8h1haj1/images/stencil/1280x1280/products/425/1800/20190117_191540__27881.1547775957.jpg?c=2&imbypass=on", inventory: 100)
+fly_line = fly_shop.items.create(name: "Fly Line", description: "Fish can't see or break it!", price: 60, image: "https://cdn11.bigcommerce.com/s-h8h1haj1/images/stencil/1280x1280/products/425/1800/20190117_191540__27881.1547775957.jpg?c=2&imbypass=on", inventory: 100)
 
 #bee_shop items
-colony = bee_shop.items.create(name: "Colony", description: "Buzz Buzz", price: 150, image: "https://cdn.shopify.com/s/files/1/0123/6556/1915/products/Bees_at_bee_friends_fram_2.jpeg?v=1567775402", inventory: 150)
-mask = bee_shop.items.create(name: "Mask", description: "Face protection", price: 50, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", inventory: 175)
-gloves = bee_shop.items.create(name: "Roses", description: "Smells like teen spirit", price: 30, image: "https://richmedia.channeladvisor.com/ImageDelivery/imageService?profileId=12026540&id=1127763&recipeId=728", inventory: 404)
-suit = bee_shop.items.create(name: "Sod", description: "Don't sod, ya cry baby", price: 20, image: "https://www.centralsodil.com/media/catalog/product/cache/5/image/650x/040ec09b1e35df139433887a97daa66f/s/o/sod_1.jpg", inventory: 20)
-hive = bee_shop.items.create(name: "Soil", description: "Manure....", price: 8, image: "https://images.homedepot-static.com/productImages/8d51618a-abef-4199-9eb8-c8030f7fd37c/svn/miracle-gro-garden-soil-75030430-64_1000.jpg", inventory: 122)
+colony = bee_shop.items.create(name: "Colony", description: "Buzz Buzz", price: 155, image: "https://cdn.shopify.com/s/files/1/0123/6556/1915/products/Bees_at_bee_friends_fram_2.jpeg?v=1567775402", inventory: 150)
+mask = bee_shop.items.create(name: "Mask", description: "Face protection", price: 48, image: "https://www.maykool.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/y/e/yellow-bee-cute-halloween-costume-mask-071478.jpg", inventory: 550)
+gloves = bee_shop.items.create(name: "Gloves", description: "No stings", price: 35, image: "https://www.humblebee.us/cdn11.bigcommerce.com/s-6jze3ivpew/images/stencil/1536x2048/products/120/385/112_1__24434.1542757067.jpg", inventory: 404)
+suit = bee_shop.items.create(name: "Suit", description: "Look like an astronaut, no bee stings!", price: 120, image: "https://smhttp-ssl-60515.nexcesscdn.net/media/catalog/product/cache/1/thumbnail/600x600/9df78eab33525d08d6e5fb8d27136e95/p/r/professionalbeesuit.jpg", inventory: 20)
+hive = bee_shop.items.create(name: "Hive", description: "mmmmmm.... Honey", price: 80, image: "https://www.honeyflow.com/media/images/content/thumb/a7rii_FH2_WRC_HERO_20180413_35-Edit_blue_sky_replace_72dpi-text2071.jpg", inventory: 122)
+
+#ski_shop items
+skis = ski_shop.items.create(name: "Skis", description: "Faction Cadide 2.0", price: 500, image: "https://images.evo.com/imgp/700/139334/589343/faction-candide-2-0-skis-2019-.jpg", inventory: 10)
+snowboard = ski_shop.items.create(name: "Snowboard", description: "Never Summer", price: 700, image: "https://content.backcountry.com/images/items/900/NVS/NVS008S/ONECOL.jpg", inventory: 8)
+gloves = ski_shop.items.create(name: "Gloves", description: "Warmer than the sun", price: 60, image: "https://www.rei.com/media/0376a43a-2e9f-4fee-b7e3-471a46e68d08?size=512x682", inventory:86 )
+helmet = ski_shop.items.create(name: "Helmet", description: "Gotta protect that noggin!", price: , image: "", inventory:77 )
+skis = ski_shop.items.create(name: "Colony", description: " ", price: , image: "", inventory: )
+skis = ski_shop.items.create(name: "Colony", description: " ", price: , image: "", inventory: )
+skis = ski_shop.items.create(name: "Colony", description: " ", price: , image: "", inventory: 150)
+
+
 
 
 merchant_user1 = bike_shop.users.create!(name: "Johnny",
