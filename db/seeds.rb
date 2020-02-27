@@ -10,24 +10,15 @@ Merchant.destroy_all
 Item.destroy_all
 
 #merchants
-bike_shop = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
-dog_shop = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
 plant_shop = Merchant.create(name: "Kelly's Gardens", address: '4456 Flower Ave.', city: 'Gardenia', state: 'NY', zip: 77890)
 music_shop = Merchant.create(name: "Chase's Tasty Jams", address: '4435 Les Paul Ave', city: 'Telluride', state: 'CO', zip: 90879)
 fly_shop = Merchant.create(name: "Franks's Fly's & Ties", address: '6678 Fly St.', city: 'Durango', state: 'CO', zip: 80010)
 bee_shop = Merchant.create(name: "Alex's Bee Gardens", address: '6678 Bzzz Rd.', city: 'Paris', state: 'TX', zip: 60700)
 ski_shop = Merchant.create(name: "Travis's Sleds & Shreds", address: '5467 Pow St.', city: 'Jackson', state: 'WY', zip: 34567)
 
-#bike_shop items
-tire = bike_shop.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
-
-#dog_shop items
-pull_toy = dog_shop.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
-dog_bone = dog_shop.items.create(name: "Dog Bone", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", inventory: 21)
-
 #plant_shop items
 azaleas = plant_shop.items.create(name: "Azaleas", description: "Gorgeous plants, dogs love them.", price: 15, image: "https://www.directgardening.com/1718-thickbox_default/pink-azalea.jpg", inventory: 100)
-palm = plant_shop.items.create(name: "Palm Tree", description: "I like coconuts!", price: 50, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", inventory: 50)
+palm = plant_shop.items.create(name: "Palm Tree", description: "I like coconuts!", price: 50, image: "https://upload.wikimedia.org/wikipedia/commons/7/7a/1859-Martinique.web.jpg", inventory: 50)
 roses = plant_shop.items.create(name: "Roses", description: "Smells like teen spirit", price: 30, image: "https://richmedia.channeladvisor.com/ImageDelivery/imageService?profileId=12026540&id=1127763&recipeId=728", inventory: 44)
 sod = plant_shop.items.create(name: "Sod", description: "Don't sod, ya cry baby", price: 20, image: "https://www.centralsodil.com/media/catalog/product/cache/5/image/650x/040ec09b1e35df139433887a97daa66f/s/o/sod_1.jpg", inventory: 67)
 soil = plant_shop.items.create(name: "Soil", description: "Manure....", price: 8, image: "https://images.homedepot-static.com/productImages/8d51618a-abef-4199-9eb8-c8030f7fd37c/svn/miracle-gro-garden-soil-75030430-64_1000.jpg", inventory: 300)
@@ -54,15 +45,12 @@ hive = bee_shop.items.create(name: "Hive", description: "mmmmmm.... Honey", pric
 skis = ski_shop.items.create(name: "Skis", description: "Faction Cadide 2.0", price: 500, image: "https://images.evo.com/imgp/700/139334/589343/faction-candide-2-0-skis-2019-.jpg", inventory: 10)
 snowboard = ski_shop.items.create(name: "Snowboard", description: "Never Summer", price: 700, image: "https://content.backcountry.com/images/items/900/NVS/NVS008S/ONECOL.jpg", inventory: 8)
 gloves = ski_shop.items.create(name: "Gloves", description: "Warmer than the sun", price: 60, image: "https://www.rei.com/media/0376a43a-2e9f-4fee-b7e3-471a46e68d08?size=512x682", inventory:86 )
-helmet = ski_shop.items.create(name: "Helmet", description: "Gotta protect that noggin!", price: , image: "", inventory:77 )
-skis = ski_shop.items.create(name: "Colony", description: " ", price: , image: "", inventory: )
-skis = ski_shop.items.create(name: "Colony", description: " ", price: , image: "", inventory: )
-skis = ski_shop.items.create(name: "Colony", description: " ", price: , image: "", inventory: 150)
+helmet = ski_shop.items.create(name: "Helmet", description: "Gotta protect that noggin!", price: 130 , image: "https://www.rei.com/media/9cd10ca0-81b6-49d0-b5b2-f5bf0859f628?size=784x588", inventory: 77 )
+hand_warmers = ski_shop.items.create(name: "Hand Warmers", description: "Hotter than hockey sticks!", price: 1, image: "https://images-na.ssl-images-amazon.com/images/I/91RmQzKenOL._SL1500_.jpg", inventory: 1200)
+boots = ski_shop.items.create(name: "Dalbello Boots", description: "These babies will protect your feet", price: 350, image: "https://images.evo.com/imgp/700/158018/695132/clone.jpg", inventory: 25)
+beanies = ski_shop.items.create(name: "Beanies", description: "Nice warm wool hat", price: 35, image: "https://images-na.ssl-images-amazon.com/images/I/614eeyR-UWL._AC_UX385_.jpg", inventory: 222)
 
-
-
-
-merchant_user1 = bike_shop.users.create!(name: "Johnny",
+merchant_user1 = ski_shop.users.create!(name: "Johnny",
                             street_address: "123 Jonny Way",
                             city: "Johnsonville",
                             state: 'TN',
@@ -72,7 +60,7 @@ merchant_user1 = bike_shop.users.create!(name: "Johnny",
                             role: 1
                           )
 
-merchant_user2 = bike_shop.users.create!(name: "Jeremiah",
+merchant_user2 = ski_shop.users.create!(name: "Jeremiah",
                             street_address: "7777 Rastafari Way",
                             city: "Jamaica",
                             state: 'FL',
