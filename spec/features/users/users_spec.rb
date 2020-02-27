@@ -44,7 +44,7 @@ RSpec.describe "User registration" do
     expect(current_path).to eq("/profile")
 
     expect(page).to have_content("Welcome, #{username}!")
-    expect(page).to have_content("You have registered successfully")
+    expect(page).to have_content("You have registered successfully and are now logged in.")
   end
 
   it "returns a flash message if some fields are missing in the registration form" do
