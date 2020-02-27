@@ -55,7 +55,7 @@ RSpec.describe 'merchant index page', type: :feature do
 
       expect(current_path).to eq("/merchants/new")
     end
-    it 'I can cot see see a link to create a new merchant as a regular user' do
+    it 'I can not see see a link to create a new merchant as a regular user' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@default_user)
 
       visit '/merchants'
