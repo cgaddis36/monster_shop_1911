@@ -69,9 +69,9 @@ class Merchant::ItemsController < Merchant::BaseController
 
   def switch_active_with_flash(item)
     flash[:success] = if item.active?
-                        "#{item.name} is activated"
+                        "#{item.name} is now available for sale"
                       else
-                        "#{item.name} is deactivated"
+                        "#{item.name} is no longer for sale"
                       end
     redirect_to '/merchant/items'
   end

@@ -9,7 +9,6 @@ class Admin::OrdersController < Admin::BaseController
     redirect_to "/admin"
   end
 
-
   def show
     @order = Order.find(params[:order_id])
   end
