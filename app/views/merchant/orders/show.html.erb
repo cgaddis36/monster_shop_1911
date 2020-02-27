@@ -10,7 +10,7 @@
       <section id= <%= "item-#{item.id}" %>>
       <% if item.merchant_id == self.current_user.merchant_id %>
         <%= item.name %><br>
-        <%= item.image %><br>
+        <img src=<%= item.image %>><br>
         <%= item.price %><br>
         <%= "Number of Items: #{item.item_orders[0].quantity}" %><br>
         <%= item.item_orders[0].status.capitalize %><br>

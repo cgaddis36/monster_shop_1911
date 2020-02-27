@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     @user = User.create(user_params)
     if @user.valid?
       flash[:welcome] = "Welcome, #{@user.name}!"
-      flash[:registered] = "You have registered successfully"
+      flash[:registered] = "You have registered successfully and are now logged in."
       session[:user] = @user.id
       redirect_to "/profile"
     else
