@@ -9,7 +9,6 @@ User.destroy_all
 Merchant.destroy_all
 Item.destroy_all
 
-
 #merchants
 plant_shop = Merchant.create(name: "Kelly's Gardens", address: '4456 Flower Ave.', city: 'Gardenia', state: 'NY', zip: 77890)
 music_shop = Merchant.create(name: "Chase's Tasty Jams", address: '4435 Les Paul Ave', city: 'Telluride', state: 'CO', zip: 90879)
