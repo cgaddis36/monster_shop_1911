@@ -1,6 +1,6 @@
-<h1 align = "center">Merchants</h1>
+<h1 align = "center">Merchants</h1> <br>
+    <p align="center"><%= link_to "New Merchant", "/merchants/new" %></p>  <br>
 <section class = "grid-container">
-    <p align="center"><%= link_to "New Merchant", "/merchants/new" %></p>
   <% @merchants.each do |merchant|%>
     <section class = "grid-item">
       <section id="merchant-<%= merchant.id %>">
@@ -10,10 +10,10 @@
       <% else%>
         <%= button_to 'Enable', "/admin/merchants/#{merchant.id}", method: :patch %>
       <% end %><br><br>
-      <%= merchant.city %>
-      <%= merchant.address %>
-      <%= merchant.state %>
-      <%= merchant.zip %>
+      <%= merchant.city %> <br>
+      <%= merchant.address %> <br>
+      <%= merchant.state %> <br>
+      <%= merchant.zip %> 
       </section>
     </section>
   <% end %>
