@@ -1,5 +1,46 @@
 # Monster Shop
-BE Mod 2 Week 4/5 Group Project
+
+## Introduction
+
+Monster Shop is a basic, Rails e-commerce application. Assigned as a group project during Mod 2 of 4 to our group of five, we worked across a period of ten days to implement a slew of e-commerce basics including CRUD functionality, log in and authentication, authorization (for four different user types), cart functionality, and statistics for multiple aspects of the site (most popular, least popular, etc.)
+
+View Monster Shop from heroku [here](https://boiling-lowlands-04052.herokuapp.com/).
+
+
+## Implementation Instructions
+
+To implement Monster Shop locally, run the following commands:
+
+<code>git clone git@github.com:TravisBorgsmiller/monster_shop_1911.git</code>
+
+<code>cd monster_shop_1911</code>
+
+<code>bundle install</code>
+
+<code>bundle update</code>
+
+<code>rails db:{drop,create,migrate,seed}</code>
+
+Create a new [heroku](https://id.heroku.com/login) app and connect to your local monster shop repository with:
+
+<code>heroku git:remote -a your_heroku_app_name</code>
+
+Deploy Monster Shop from heroku.
+
+## Schema Design
+
+![alt text](/app/assets/images/Screen Shot 2020-02-27 at 1.54.30 PM.png)
+
+
+## Contributors
+
+[Travis Borgsmiller](https://github.com/TravisBorgsmiller)
+
+[Chase Gaddis](https://github.com/cgaddis36)
+
+[Kelly Bard](https://github.com/KellyIB)
+
+[Alexis Dumortier](https://github.com/adumortier)
 
 ## Background and Description
 
@@ -439,7 +480,7 @@ And I see a flash message telling me that email address is already in use
 This is what this app is all about: how a user can put things in a shopping cart and check out, creating an order in the process. We want to add functionality to the cart to increment and decrement the quantity within the cart.
 
 ### Visitors, Regular Users, and Merchant Employees only
-Merchant Employees can order items in addition to regular users. Admin can not order items. This should already be taken care of through the navigation restrictions you set in User Stories 5 & 9. 
+Merchant Employees can order items in addition to regular users. Admin can not order items. This should already be taken care of through the navigation restrictions you set in User Stories 5 & 9.
 
 ```
 [ ] done
@@ -570,7 +611,7 @@ User Story 30, User cancels an order
 
 As a registered user
 When I visit an order's show page
-I see a button or link to cancel the order 
+I see a button or link to cancel the order
 When I click the cancel button for an order, the following happens:
 - Each row in the "order items" table is given a status of "unfulfilled"
 - The order itself is given a status of "cancelled"
@@ -1100,4 +1141,3 @@ Instead I see a big red notice next to the item indicating I cannot fulfill this
 | **3: Passing** | Students complete all User Stories. No more than 2 Stories fail to correctly implement sad path and edge case functionality. | Students use the principles of MVC to effectively organize code. Students can defend any of their design decisions. Students limit access to authorized users. | ActiveRecord is used in a clear and effective way to read/write data using no Ruby to process data. | 100% coverage for models. 98% coverage for features. Tests are well written and meaningful. | Students have a README with thorough implementation instructions and description of content. |
 | **2: Passing with Concerns** | Students complete all but 1 - 3 User Stories | Students utilize MVC to organize code, but cannot defend some of their design decisions. Or some functionality is not limited to the appropriately authorized users. | Ruby is used to process data that could use ActiveRecord instead. | Feature test coverage between 90% and 98%, or model test coverage below 100%, or tests are not meaningfully written or have an unclear objective. | Students have a README but it is not thorough in describing the implementation or content of the project. |
 | **1: Failing** | Students fail to complete 4 or more User Stories | Students do not effectively organize code using MVC. Or students do not authorize users. | Ruby is used to process data more often than ActiveRecord | Below 90% coverage for either features or models. | Students did not create their own README. |
-
