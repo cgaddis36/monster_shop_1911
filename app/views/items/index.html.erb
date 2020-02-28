@@ -15,5 +15,11 @@
   <% end %>
 </section>
 
-<p> the most popular items are : <%= Item.most_popular_items.join(", ") %> </p>
-<p> the least popular items are : <%= Item.least_popular_items.join(", ") %> </p>
+<h1> the most popular items are : <% Item.most_popular_items.each do |item| %> </h1>
+                                 <p><%= item.name %>, <%= item.qty %> </p><br>
+                                 <% end %>
+
+
+<h1> the least popular items are : <% Item.least_popular_items.each do |item|%> </h1>
+                                  <p><%= item.name %>, <%= item.qty %> </p><br>
+                                  <% end %>
