@@ -3,9 +3,14 @@ class CartController < ApplicationController
 
   def add_item
     item = Item.find(params[:item_id])
-    cart.add_item(item.id.to_s)
-    flash[:success] = "#{item.name} was successfully added to your cart"
-    redirect_to "/items"
+    if (cart.contents[item.id.to_s].nil? && (item.inventory != 0)) 
+      cart.add_item(item.id.to_s)
+      flash[:success] = "#{item.name} was successfully added to your cart"
+    elsif (cart.contents[item.id.to_s] < item.inventory) 
+      cart.add_item(item.id.to_s)
+      flash[:success] = "#{item.name} was successfully added to your cart"
+    end
+    redirect_to "/items" 
   end
 
   def show

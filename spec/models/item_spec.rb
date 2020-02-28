@@ -35,6 +35,7 @@ describe Item, type: :model do
       @review_3 = @chain.reviews.create(title: "Meh place", content: "They have meh bike stuff and I probably won't come back", rating: 1)
       @review_4 = @chain.reviews.create(title: "Not too impressed", content: "v basic bike shop", rating: 2)
       @review_5 = @chain.reviews.create(title: "Okay place :/", content: "Brian's cool and all but just an okay selection of items", rating: 3)
+
     end
 
     it "calculate average review" do
@@ -102,9 +103,10 @@ describe Item, type: :model do
       item_order8_info = {order_id: order_2.id, item_id: item_1.id, price: item_1.price, quantity: 35 }
       ItemOrder.create!(item_order8_info)
 
-      expect(Item.most_popular_items).to eq([item_3.name, item_1.name, item_5.name, item_7.name, item_4.name])
+      expect([Item.most_popular_items[0].name, Item.most_popular_items[1].name, Item.most_popular_items[2].name, Item.most_popular_items[3].name, Item.most_popular_items[4].name]).to eq([item_3.name, item_1.name, item_5.name, item_7.name, item_4.name])
 
-      expect(Item.least_popular_items).to eq([item_2.name, item_6.name, item_4.name, item_7.name, item_5.name])
+      expect([Item.least_popular_items[0].name, Item.least_popular_items[1].name, Item.least_popular_items[2].name, Item.least_popular_items[3].name, Item.least_popular_items[4].name]).to eq([item_2.name, item_6.name, item_4.name, item_7.name, item_5.name])
+
     end
   end
 end

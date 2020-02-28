@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
 class Merchant::ItemsController < Merchant::BaseController
-  def new
-    @item = Item.new
-  end
-
   def index
     @merchant = Merchant.where("id = #{current_user.merchant.id}").first
   end
@@ -57,6 +53,7 @@ class Merchant::ItemsController < Merchant::BaseController
     @item.update(item_params)
     if @item.save
       flash[:notice] = 'Your item was updated successfully'
+      session[:failed_update] = nil
       redirect_to '/merchant/items'
     else
       session[:failed_update] = params[:id]
@@ -67,9 +64,9 @@ class Merchant::ItemsController < Merchant::BaseController
 
   def switch_active_with_flash(item)
     flash[:success] = if item.active?
-                        "#{item.name} is activated"
+                        "#{item.name} is now available for sale"
                       else
-                        "#{item.name} is deactivated"
+                        "#{item.name} is no longer for sale"
                       end
     redirect_to '/merchant/items'
   end
@@ -85,6 +82,7 @@ class Merchant::ItemsController < Merchant::BaseController
     @item = item
     if @item.save
       flash[:notice] = 'Your new item was saved'
+      session[:failed_save] = nil
       redirect_to '/merchant/items'
     else
       session[:failed_save] = item_params

@@ -54,17 +54,6 @@ RSpec.describe 'As any user', type: :feature do
       zip: '02139'
     }
 
-    # order1 has items : item1, item3, item5, item7
-    # order2 has items : item2, item4, item6, item1
-    # total quantities ordered :
-    # item3 = 100
-    # item1 = 69
-    # item5 = 56
-    # item7 = 54
-    # item4 = 27
-    # item6 = 23
-    # item2 = 20
-
     @order1 = @default_user.orders.create!(order_info1)
     @order2 = @default_user.orders.create!(order_info2)
 
@@ -92,9 +81,6 @@ RSpec.describe 'As any user', type: :feature do
     item_order8_info = {order_id: @order2.id, item_id: @item_1.id, price: @item_1.price, quantity: 35 }
     item_order8 = ItemOrder.create!(item_order8_info)
 
-    # most_popular = Item.joins(:item_orders).group("items.id").order("sum(item_orders.quantity) desc").limit(5).pluck(:name)
-    # least_popular = Item.joins(:item_orders).group("items.id").order("sum(item_orders.quantity)").limit(5).pluck(:name)
-
   end
 
   it 'the items index page shows all the statistics for a default user' do
@@ -103,9 +89,9 @@ RSpec.describe 'As any user', type: :feature do
 
     visit '/items'
 
-    most_popular_items = "the most popular items are : #{@item_3.name}, #{@item_1.name}, #{@item_5.name}, #{@item_7.name}, #{@item_4.name}"
+    most_popular_items = "the most popular items are :\nShimano Shifters, 100\nGatorskins, 69\nBike Lights, 56\nHelmet, 54\nBoots, 27"
     expect(page).to have_content(most_popular_items)
-    least_popular_items = "the least popular items are : #{@item_2.name}, #{@item_6.name}, #{@item_4.name}, #{@item_7.name}, #{@item_5.name}"
+    least_popular_items = "the least popular items are :\nChain, 20\nCamelback water bottle, 23\nBoots, 27\nHelmet, 54\nBike Lights, 56"
     expect(page).to have_content(least_popular_items)
   end
 
@@ -115,9 +101,9 @@ RSpec.describe 'As any user', type: :feature do
 
     visit '/items'
 
-    most_popular_items = "the most popular items are : #{@item_3.name}, #{@item_1.name}, #{@item_5.name}, #{@item_7.name}, #{@item_4.name}"
+    most_popular_items = "the most popular items are :\nShimano Shifters, 100\nGatorskins, 69\nBike Lights, 56\nHelmet, 54\nBoots, 27"
     expect(page).to have_content(most_popular_items)
-    least_popular_items = "the least popular items are : #{@item_2.name}, #{@item_6.name}, #{@item_4.name}, #{@item_7.name}, #{@item_5.name}"
+    least_popular_items = "the least popular items are :\nChain, 20\nCamelback water bottle, 23\nBoots, 27\nHelmet, 54\nBike Lights, 56"
     expect(page).to have_content(least_popular_items)
   end
 
@@ -126,10 +112,10 @@ RSpec.describe 'As any user', type: :feature do
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin_user)
 
     visit '/items'
-
-    most_popular_items = "the most popular items are : #{@item_3.name}, #{@item_1.name}, #{@item_5.name}, #{@item_7.name}, #{@item_4.name}"
+    most_popular_items = "the most popular items are :\nShimano Shifters, 100\nGatorskins, 69\nBike Lights, 56\nHelmet, 54\nBoots, 27"
     expect(page).to have_content(most_popular_items)
-    least_popular_items = "the least popular items are : #{@item_2.name}, #{@item_6.name}, #{@item_4.name}, #{@item_7.name}, #{@item_5.name}"
+    least_popular_items = "the least popular items are :\nChain, 20\nCamelback water bottle, 23\nBoots, 27\nHelmet, 54\nBike Lights, 56"
     expect(page).to have_content(least_popular_items)
+
   end
 end

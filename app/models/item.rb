@@ -27,11 +27,11 @@ class Item <ApplicationRecord
   end
 
   def self.most_popular_items
-    Item.joins(:item_orders).group("items.id").order("sum(item_orders.quantity) desc").limit(5).pluck(:name)
+    joins(:item_orders).select("items.*, sum(item_orders.quantity) as qty").group("items.id").order("qty desc").limit(5)
   end
 
   def self.least_popular_items
-    Item.joins(:item_orders).group("items.id").order("sum(item_orders.quantity)").limit(5).pluck(:name)
+     joins(:item_orders).select("items.*, sum(item_orders.quantity) as qty").group("items.id").order("qty asc").limit(5)
   end
 
   def switch_active_status
