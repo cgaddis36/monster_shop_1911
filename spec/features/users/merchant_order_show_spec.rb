@@ -163,7 +163,7 @@ RSpec.describe "Merchant order show page", type: :feature do
     expect(page).to_not have_css("img[src*='#{@item_6.image}']")
 
     expect(page).to_not have_content(@item_7.name)
-    expect(page).to_not have_content(@item_7.image)
+    expect(page).to_not have_css("img[src*='#{@item_7.image}']")
 
     within "#item-#{@item_1.id}" do
       expect(page).to have_content("This item is fulfilled.")

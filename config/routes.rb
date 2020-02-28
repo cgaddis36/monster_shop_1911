@@ -56,6 +56,7 @@ Rails.application.routes.draw do
     get '/', to: 'dashboard#index'
     get '/users', to: 'users#index'
     get '/users/:user_id', to: 'users#show'
+    get '/users/:user_id/orders/:order_id', to: 'orders#show'
     get '/merchants', to: 'merchants/merchants#index'
     get '/merchants/items', to: 'merchants/items#index'
     get '/merchants/:id', to: 'merchants/merchants#show'
