@@ -37,5 +37,4 @@ class Item <ApplicationRecord
   def switch_active_status
     toggle!(:active?)
   end
-
 end

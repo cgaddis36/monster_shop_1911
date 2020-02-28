@@ -6,23 +6,21 @@
     <%= @order.city %><br>
     <%= @order.state %><br>
     <%= @order.zip %><br>
-    <% @order.items.each do |item| %>
-      <section id= <%= "item-#{item.id}" %>>
-      <% if item.merchant_id == self.current_user.merchant_id %>
-        <%= item.name %><br>
-        <img src=<%= item.image %>><br>
-        <%= item.price %><br>
-        <%= "Number of Items: #{item.item_orders[0].quantity}" %><br>
-        <%= item.item_orders[0].status.capitalize %><br>
-        <% if item.item_orders[0].quantity <= item.inventory && item.item_orders[0].unfulfilled? %>
-          <%= button_to "Fulfill", "/item_orders/#{item.item_orders[0].id}", params: {fulfill: "fulfill"}, method: :patch %>
+    <% @order.item_orders.each do |item_order| %>
+      <section id= <%= "item-#{item_order.item.id}" %>>
+        <%= item_order.item.name %><br>
+        <img src=<%= item_order.item.image %>><br>
+        <%= item_order.item.price %><br>
+        <%= "Number of Items: #{item_order.quantity}" %><br>
+        <%= item_order.status.capitalize %><br>
+        <% if item_order.unfulfilled? && item_order.quantity <= item_order.item.inventory%>
+          <%= button_to "Fulfill", "/item_orders/#{item_order.id}", params: {fulfill: "fulfill"}, method: :patch %>
         <% elsif %>
-          <% item.item_orders[0].fulfilled? %>
+          <% item_order.fulfilled? %>
           <%= "This item is fulfilled." %>
         <% else %>
           <%= "Can not fulfill this item" %>
         <% end %>
       </section>
       <% end %>
-    <% end %>
 </p>
