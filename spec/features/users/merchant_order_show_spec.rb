@@ -7,13 +7,13 @@ RSpec.describe "Merchant order show page", type: :feature do
 
 
     @item_1 = @merchant.items.create(name: "Chain", description: "It'll never break!", price: 50, image: "https://www.rei.com/media/b61d1379-ec0e-4760-9247-57ef971af0ad?size=784x588", inventory: 5)
-    @item_2 = create(:random_item, merchant_id: @merchant.id)
-    @item_3 = create(:random_item, merchant_id: @merchant.id)
-    @item_4 = create(:random_item, merchant_id: @merchant.id)
-    @item_5 = create(:random_item, merchant_id: @merchant.id)
-    @item_6 = create(:random_item, merchant_id: @merchant_2.id)
-    @item_7 = create(:random_item, merchant_id: @merchant_2.id)
-    @item_8 = @merchant.items.create(name: "Caramel", description: "It'll break your teeth!", price: 5, image: "https://www.theflavorbender.com/wp-content/uploads/2019/11/Salted-Caramel-Sauce-Social-Media-5252.jpg", inventory: 1)
+    @item_2 = create(:random_item, merchant_id: @merchant.id, inventory: 3)
+    @item_3 = create(:random_item, merchant_id: @merchant.id, inventory: 3)
+    @item_4 = create(:random_item, merchant_id: @merchant.id, inventory: 3)
+    @item_5 = create(:random_item, merchant_id: @merchant.id, inventory: 3)
+    @item_6 = create(:random_item, merchant_id: @merchant_2.id, inventory: 3)
+    @item_7 = create(:random_item, merchant_id: @merchant_2.id, inventory: 3)
+    @item_8 = @merchant.items.create(name: "Caramel", description: "It'll break your teeth!", price: 5, image: "https://www.theflavorbender.com/wp-content/uploads/2019/11/Salted-Caramel-Sauce-Social-Media-5252.jpg", inventory: 2)
 
     @bill = @merchant.users.create(name: "Billy",
                                    street_address: "123 Bilbo Baggins Ave",
@@ -174,8 +174,8 @@ RSpec.describe "Merchant order show page", type: :feature do
       expect(page).to have_css("img[src*='#{@item_8.image}']")
       expect(page).to have_content(@item_8.price)
       expect(page).to have_content("Number of Items: 2")
-      expect(page).to_not have_button("Fulfill")
-      expect(page).to have_content("Can not fulfill this item")
+      expect(page).to have_button("Fulfill")
+      expect(page).to_not have_content("Can not fulfill this item")
     end
   end
 end
