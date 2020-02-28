@@ -1,21 +1,16 @@
 # frozen_string_literal: true
 
 class Merchant::ItemsController < Merchant::BaseController
-
-  # def new
-  #   @item = Item.new
-  # end
-
   def index
     @merchant = Merchant.where("id = #{current_user.merchant.id}").first
   end
 
   def edit
-    if session[:failed_update]
-      @item = Item.find(session[:failed_update])
-    else
-      @item = Item.find(params[:id])
-    end
+    @item = if session[:failed_update]
+              Item.find(session[:failed_update])
+            else
+              Item.find(params[:id])
+            end
   end
 
   def update
@@ -34,11 +29,11 @@ class Merchant::ItemsController < Merchant::BaseController
   end
 
   def new
-    if session[:failed_save]
-      @item = Item.new(session[:failed_save])
-    else
-      @item = Item.new
-    end
+    @item = if session[:failed_save]
+              Item.new(session[:failed_save])
+            else
+              Item.new
+            end
   end
 
   def create
