@@ -7,6 +7,7 @@
     <%= @order.state %><br>
     <%= @order.zip %><br>
     <% @order.item_orders.each do |item_order| %>
+      <% if item_order.item.merchant_id == self.current_user.merchant_id %>
       <section id= <%= "item-#{item_order.item.id}" %>>
         <%= item_order.item.name %><br>
         <img src=<%= item_order.item.image %>><br>
@@ -23,4 +24,5 @@
         <% end %>
       </section>
       <% end %>
+    <% end %>
 </p>

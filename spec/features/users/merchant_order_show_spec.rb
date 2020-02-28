@@ -160,21 +160,8 @@ RSpec.describe "Merchant order show page", type: :feature do
       expect(page).to have_button("Fulfill")
     end
 
-    within "#item-#{@item_6.id}" do
-      expect(page).to have_content(@item_6.name)
-      expect(page).to have_css("img[src*='#{@item_6.image}']")
-      expect(page).to have_content(@item_6.price)
-      expect(page).to have_content("Number of Items: 1")
-      expect(page).to have_button("Fulfill")
-    end
-
-    within "#item-#{@item_7.id}" do
-      expect(page).to have_content(@item_7.name)
-      expect(page).to have_css("img[src*='#{@item_7.image}']")
-      expect(page).to have_content(@item_7.price)
-      expect(page).to have_content("Number of Items: 1")
-      expect(page).to have_button("Fulfill")
-    end
+    expect(page).to_not have_content(@item_6.name)
+    expect(page).to_not have_content(@item_7.name)
 
     within "#item-#{@item_1.id}" do
       expect(page).to have_content("This item is fulfilled.")
