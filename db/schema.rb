@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20200229081915) do
   create_table "coupons", force: :cascade do |t|
     t.string "name"
     t.float "value"
+    t.integer "item_quantity"
     t.bigint "merchant_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
