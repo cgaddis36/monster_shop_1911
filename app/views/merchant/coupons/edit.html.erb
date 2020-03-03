@@ -1,0 +1,14 @@
+<h1>Edit Coupon</h1>
+<%= form_tag "/merchant/coupons/#{@coupon.id}", method: :patch do %>
+
+<%= label_tag :name %>
+<%= text_field_tag :name %>
+
+<%= label_tag :value %>
+<%= text_field_tag :value %>
+
+<%= label_tag :item_quantity %>
+<%= text_field_tag :item_quantity %>
+
+<%= submit_tag 'Submit' %>
+<% end %>

@@ -50,6 +50,7 @@ Rails.application.routes.draw do
     get '/items/new', to: 'items#new'
     delete '/items/:id', to: 'items#destroy'
     patch '/items/:id', to: 'items#update'
+    resources :coupons
   end
 
   namespace :admin do
