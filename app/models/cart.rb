@@ -57,11 +57,25 @@ class Cart
   end
 
   def total
-    @contents.sum do |item_id,quantity|
-      Item.find(item_id).price * quantity
+    total_cost = 0
+    @contents.each do |item_id,quantity|
+      item = Item.find(item_id)
+      merchant = Merchant.find(item.merchant_id)
+      number_ordered = @contents[item.id.to_s]
+      best_coupon = merchant.coupons.where("coupons.item_quantity <= ?", number_ordered).first
+      if best_coupon != nil
+        regular_price = item.price * @contents[item.id.to_s]
+        discount = (100 - best_coupon.value) / 100
+        new_cost = regular_price * discount
+        total_cost += new_cost
+      else
+        reg_cost = item.price * number_ordered
+        total_cost += reg_cost
+      end
     end
+    total_cost
   end
-  
+
   def find_coupon(item)
     merchant = Merchant.find(item.merchant_id)
     number_ordered = @contents[item.id.to_s]
