@@ -30,9 +30,20 @@ class Merchant::CouponsController < Merchant::BaseController
       redirect_to "/merchant/coupons/#{coupon.id}"
     else
       flash[:error] = coupon.errors.full_messages.to_sentence
-      render :edit
+      redirect_to "/merchant/coupons/#{coupon.id}/edit"
     end
-  end 
+  end
+  def destroy
+    coupon = Coupon.find(params[:id])
+    if Order.find_by(coupon_id: params[:id]) != nil
+      flash[:error] = "#{coupon.name} has been used in an order"
+      redirect_to "/merchant/coupons/#{coupon.id}"
+    else
+      flash[:success] = "Coupon has been deleted"
+      coupon.destroy
+      redirect_to "/merchant/coupons"
+    end
+  end
 
 private
   def coupon_params
