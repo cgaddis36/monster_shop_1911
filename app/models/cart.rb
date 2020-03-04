@@ -61,19 +61,10 @@ class Cart
       Item.find(item_id).price * quantity
     end
   end
+  
   def find_coupon(item)
     merchant = Merchant.find(item.merchant_id)
     number_ordered = @contents[item.id.to_s]
     best_coupon = merchant.coupons.where("coupons.item_quantity <= ?", number_ordered).first
-  end
-  def find_best_coupon
-    return_hash = Hash.new
-    @contents.each do |item_id, number_ordered|
-      item = Item.find(item_id)
-      merchant = Merchant.find(item.merchant_id)
-      best_coupon = merchant.coupons.where("coupons.item_quantity <= ?", number_ordered).first
-      return_hash[item.id.to_s] = best_coupon
-    end
-    return_hash
   end
 end

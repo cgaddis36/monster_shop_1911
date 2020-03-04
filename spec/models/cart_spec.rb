@@ -48,12 +48,6 @@ describe Cart, type: :model do
     it "can calculate regular subtotal" do
       expect(@cart.regular_subtotal(@paper)).to eq(80)
     end
-    it 'can find best coupon' do
-      coupon0 = @mike.coupons.create!(name: 'mike test coupon 0', value: 10, item_quantity: 4)
-      coupon1 = @mike.coupons.create!(name: 'mike test coupon', value: 20, item_quantity: 8)
-      coupon2 = @mike.coupons.create!(name: 'mike test coupon 2', value: 50, item_quantity: 6)
-      expect(@cart.find_best_coupon).to eq({"#{@paper.id.to_s}" => coupon0, "#{@pencil.id.to_s}" => nil, "#{@pen.id.to_s}" => nil})
-    end
     it 'can calculate subtotal of item if discount' do
       coupon0 = @mike.coupons.create!(name: 'mike test coupon 0', value: 25, item_quantity: 4)
       coupon1 = @mike.coupons.create!(name: 'mike test coupon', value: 20, item_quantity: 8)
