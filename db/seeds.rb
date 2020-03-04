@@ -5,6 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+Coupon.destroy_all
 User.destroy_all
 Merchant.destroy_all
 Item.destroy_all
@@ -90,3 +91,6 @@ default_user = User.create!(name: "Johnny",
   password: "default",
   role: 0
 )
+#coupons
+ski_shop.coupons.create(name: 'trav coupon1', value: 10, item_quantity: 1)
+ski_shop.coupons.create(name: 'trav coupon2', value: 20, item_quantity: 2)
