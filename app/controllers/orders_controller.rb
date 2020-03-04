@@ -1,7 +1,6 @@
 class OrdersController <ApplicationController
 
   def new
-
   end
 
   def show
@@ -14,6 +13,11 @@ class OrdersController <ApplicationController
 
   def create
     order = current_user.orders.create(order_params)
+    cart.items.each do |item, quantity|
+      if cart.find_coupon(item) != nil
+        order.update(coupon_id: cart.find_coupon(item).id)
+      end
+    end
     if order.save
       cart.items.each do |item,quantity|
         order.item_orders.create({
@@ -34,6 +38,6 @@ class OrdersController <ApplicationController
   private
 
   def order_params
-    params.permit(:name, :address, :city, :state, :zip)
+    params.permit(:name, :address, :city, :state, :zip, :coupon_id)
   end
 end
