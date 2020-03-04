@@ -39,13 +39,41 @@ class Cart
     @contents[item_id] == item.inventory
   end
 
-  def subtotal(item)
+  def regular_subtotal(item)
     item.price * @contents[item.id.to_s]
+  end
+
+  def subtotal(item)
+    merchant = Merchant.find(item.merchant_id)
+    number_ordered = @contents[item.id.to_s]
+    best_coupon = merchant.coupons.where("coupons.item_quantity <= ?", number_ordered).first
+    regular_price = item.price * @contents[item.id.to_s]
+    if best_coupon != nil
+      discount = (100 - best_coupon.value) / 100
+      regular_price * discount
+    else
+      regular_price
+    end
   end
 
   def total
     @contents.sum do |item_id,quantity|
       Item.find(item_id).price * quantity
     end
+  end
+  def find_coupon(item)
+    merchant = Merchant.find(item.merchant_id)
+    number_ordered = @contents[item.id.to_s]
+    best_coupon = merchant.coupons.where("coupons.item_quantity <= ?", number_ordered).first
+  end
+  def find_best_coupon
+    return_hash = Hash.new
+    @contents.each do |item_id, number_ordered|
+      item = Item.find(item_id)
+      merchant = Merchant.find(item.merchant_id)
+      best_coupon = merchant.coupons.where("coupons.item_quantity <= ?", number_ordered).first
+      return_hash[item.id.to_s] = best_coupon
+    end
+    return_hash
   end
 end
