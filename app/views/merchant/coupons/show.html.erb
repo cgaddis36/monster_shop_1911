@@ -1,0 +1,9 @@
+<h1><%= @coupon.name %> Info</h1>
+<section class="grid-container">
+  <section class = "grid-item">
+  <p>Coupon Value: <%= @coupon.value %></p>
+  <p>Coupon Item Quantity: <%= @coupon.item_quantity %></p>
+  </section>
+</section>
+<%= link_to 'Edit', "/merchant/coupons/#{@coupon.id}/edit" %>
+<%= link_to 'Delete', "/merchant/coupons/#{@coupon.id}", method: :delete%>

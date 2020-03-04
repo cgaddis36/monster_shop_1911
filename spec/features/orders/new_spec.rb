@@ -18,6 +18,30 @@ RSpec.describe("New Order Page") do
       visit "/items/#{@pencil.id}"
       click_on "Add To Cart"
     end
+    it "can calculate total with coupons and without" do
+      coupon0 = @mike.coupons.create!(name: 'mike test coupon 0', value: 25, item_quantity: 4)
+      coupon1 = @mike.coupons.create!(name: 'mike test coupon', value: 20, item_quantity: 8)
+      coupon2 = @mike.coupons.create!(name: 'mike test coupon 2', value: 50, item_quantity: 6)
+      @default_user = User.create!(name: "Bert",
+                                  street_address: "123 Sesame St.",
+                                  city: "NYC",
+                                  state: "New York",
+                                  zip_code: 10001,
+                                  email: "erniesroomie@example.com",
+                                  password: "paperclips800",
+                                  role: 0)
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@default_user)
+      visit "/items/#{@pencil.id}"
+      click_on "Add To Cart"
+      visit "/items/#{@pencil.id}"
+      click_on "Add To Cart"
+      visit "/items/#{@pencil.id}"
+      click_on "Add To Cart"
+      visit '/cart'
+      click_on "Checkout"
+      expect(page).to have_content("Total: $146.00")
+    end
     it "I see all the information about my current cart" do
 
       @default_user = User.create!(name: "Bert",

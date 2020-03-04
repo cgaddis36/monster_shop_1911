@@ -18,7 +18,27 @@ RSpec.describe 'Cart show' do
       click_on "Add To Cart"
       @items_in_cart = [@paper,@tire,@pencil]
     end
+    it 'shows regular and discount subtotal' do
+      coupon0 = @mike.coupons.create!(name: 'mike test coupon 0', value: 25, item_quantity: 2)
+      coupon1 = @mike.coupons.create!(name: 'mike test coupon', value: 20, item_quantity: 8)
+      coupon2 = @mike.coupons.create!(name: 'mike test coupon 2', value: 50, item_quantity: 6)
 
+      @default_user = User.create!(name: "Bert",
+                                  street_address: "123 Sesame St.",
+                                  city: "NYC",
+                                  state: "New York",
+                                  zip_code: 10001,
+                                  email: "erniesroomie@example.com",
+                                  password: "paperclips800",
+                                  role: 0)
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@default_user)
+      visit "/items/#{@paper.id}"
+      click_on "Add To Cart"
+      visit "/cart"
+      expect(page).to have_content("Discounted total: $30.00")
+      expect(page).to have_content("Regular total: $40.00")
+    end
     it 'Theres a link to checkout' do
 
       @default_user = User.create!(name: "Bert",
@@ -42,9 +62,9 @@ RSpec.describe 'Cart show' do
     end
 
     it "I need to log in or register to be able to checkout" do
-      
+
       visit "/cart"
-      
+
       expect(page).to have_content("You must register or log in to finish the checkout process")
 
       click_on "register"
@@ -110,8 +130,8 @@ RSpec.describe 'Cart show' do
 
       expect(current_path).to eq("/profile/orders")
       expect(page).to have_content("You order was created")
-      
-      within("div#order_#{Order.last.id}") do 
+
+      within("div#order_#{Order.last.id}") do
        expect(page).to have_content("Order id# = #{Order.last.id}")
       end
 
@@ -121,24 +141,6 @@ RSpec.describe 'Cart show' do
 
     end
   end
-  
-# User Story 26, Registered users can check out
-
-# As a registered user
-# When I add items to my cart
-# And I visit my cart
-# I see a button or link indicating that I can check out
-# And I click the button or link to check out and fill out order info and click create order
-# An order is created in the system, which has a status of "pending"
-# That order is associated with my user
-# I am taken to my orders page ("/profile/orders")
-# I see a flash message telling me my order was created
-# I see my new order listed on my profile orders page
-# My cart is now empty
-
-
-
-
   describe 'When I havent added items to my cart' do
     it 'There is not a link to checkout' do
       visit "/cart"
@@ -146,6 +148,4 @@ RSpec.describe 'Cart show' do
       expect(page).to_not have_link("Checkout")
     end
   end
-
-
 end

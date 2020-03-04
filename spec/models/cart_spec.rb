@@ -45,5 +45,17 @@ describe Cart, type: :model do
       expect(@cart.contents[@paper.id.to_s]).to eq(5)
       expect(@cart.limit_reached?(@paper.id.to_s)).to eq(true)
     end
+    it "can calculate regular subtotal" do
+      expect(@cart.regular_subtotal(@paper)).to eq(80)
+    end
+    it 'can calculate subtotal of item if discount' do
+      coupon0 = @mike.coupons.create!(name: 'mike test coupon 0', value: 25, item_quantity: 4)
+      coupon1 = @mike.coupons.create!(name: 'mike test coupon', value: 20, item_quantity: 8)
+      coupon2 = @mike.coupons.create!(name: 'mike test coupon 2', value: 50, item_quantity: 6)
+      string1 = @cart.subtotal(@paper).to_s
+      expect(string1.to_s).to eq('60.0')
+      string2 = @cart.subtotal(@pencil).to_s
+      expect(string2.to_s).to eq('4')
+    end
   end
 end
